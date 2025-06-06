@@ -4,9 +4,17 @@
 	<meta charset="utf-8">
 	<title>Mistyovo's Blog</title>
 	<link rel="icon" href="">
-	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
-    <script src="js/highlight/highlight.min.js"></script>
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
 	<script src="js/cursor.js"></script>
+	<script src="js/fadeIn.js"></script>
+	<script src="js/backToTop.js"></script>
+	<script src="js/avatar-rotate.js"></script>
+	<script src="js/snowfall.js"></script>
 	
 <link rel="stylesheet" href="/css/style.css">
 
@@ -22,12 +30,11 @@
         </div>
         <div class="navbar-right">
             <ul class="navbar-menu">
-                <li><a href="/">首页</a></li>
-                <li><a href="/categories">分类</a></li>
-                <li><a href="/archives">归档</a></li>
-                <li><a href="/friends">友链</a></li>
-                <li><a href="/resources">资源</a></li>
-                <li><a href="/guestbook">留言板</a></li>
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
             </ul>
         </div>
     </div>
@@ -35,25 +42,33 @@
             <div class="sidebar">
 	<div class="author-info">
 		<div class="avatar">
-			<img src="/images/avatar.jpg" alt="博主头像">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
 	</div>
-	<div class="sidebar-stats">
-		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span class="stat-value">1</span>
-				<span class="stat-label">文章</span>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">10</p>
+				<p class="stat-label">随笔</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">2</span>
-				<span class="stat-label">分类</span>
+			<li>
+				<p class="stat-value">0</p>
+				<p class="stat-label">分类</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">3</span>
-				<span class="stat-label">标签</span>
+			<li>
+				<p class="stat-value">7</p>
+				<p class="stat-label">标签</p>
 			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list"> 
+			<li><a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color:rgb(118, 184, 255)"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://github.com/Mistyovo"><i class="fa-brands fa-github-alt" style="color: #000"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-discord" style="color: #5865f2"></i></a></li> 	
+			<li><a href=""><i class="fa-brands fa-weixin" style="color: green"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-qq" style="color: #007bff"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"><i class="fa-solid fa-envelope" style="color: pink"></i></a></li>
 		</ul>
 	</div>
 </div>
@@ -63,9 +78,11 @@
 <div class="post">
 	<div style="text-align: center;">
 		<h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h2>
+		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Feb 11 2025 12:13:41 GMT+0800</p>
+		<br>
 	</div>
 	<p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
-<h1 id="GPG报错的解决方案"><a href="#GPG报错的解决方案" class="headerlink" title="GPG报错的解决方案"></a>GPG报错的解决方案</h1><p>最近不管在安装Kali的时候，不管装的是vmware、wsl、live boot，在使用apt update的时候都会出现如下错误：</p>
+<h2 id="GPG报错的解决方案"><a href="#GPG报错的解决方案" class="headerlink" title="GPG报错的解决方案"></a>GPG报错的解决方案</h2><p>最近不管在安装Kali的时候，不管装的是vmware、wsl、live boot，在使用apt update的时候都会出现如下错误：</p>
 <pre><code class="bash">apt update
 #Get:1 http://kali.download/kali kali-last-snapshot InRelease [41.5 kB]
 #Err:1 http://kali.download/kali kali-last-snapshot InRelease
@@ -77,23 +94,23 @@
 # 解决方法：
 sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg
 </code></pre>
-<h1 id="apt、git-clone、pip、gem下载速度慢的解决方案"><a href="#apt、git-clone、pip、gem下载速度慢的解决方案" class="headerlink" title="apt、git clone、pip、gem下载速度慢的解决方案"></a>apt、git clone、pip、gem下载速度慢的解决方案</h1><h2 id="apt换源"><a href="#apt换源" class="headerlink" title="apt换源"></a>apt换源</h2><pre><code class="bash">vim /etc/apt/sources.list
+<h2 id="apt、git-clone、pip、gem下载速度慢的解决方案"><a href="#apt、git-clone、pip、gem下载速度慢的解决方案" class="headerlink" title="apt、git clone、pip、gem下载速度慢的解决方案"></a>apt、git clone、pip、gem下载速度慢的解决方案</h2><h3 id="apt换源"><a href="#apt换源" class="headerlink" title="apt换源"></a>apt换源</h3><pre><code class="bash">vim /etc/apt/sources.list
 </code></pre>
 <p>把<code>http://http.kali.org/kali</code>换成<code>http://mirrors.ustc.edu.cn/kali</code></p>
 <p>然后输入<code>apt update</code>和<code>apt upgrade</code></p>
-<h2 id="git加速"><a href="#git加速" class="headerlink" title="git加速"></a>git加速</h2><p>在<code>git clone</code>的时候把<code>github.com</code>换成<code>bgithub.xyz</code>（校园网环境测试：换之前&lt;50KB/s，换之后&gt;2.5MB/s）</p>
-<h2 id="pip限制解除及换源"><a href="#pip限制解除及换源" class="headerlink" title="pip限制解除及换源"></a>pip限制解除及换源</h2><h3 id="临时换源"><a href="#临时换源" class="headerlink" title="临时换源"></a>临时换源</h3><pre><code class="bash">pip install 包名 -i https://pypi.tuna.tsinghua.edu.cn/simple
+<h3 id="git加速"><a href="#git加速" class="headerlink" title="git加速"></a>git加速</h3><p>在<code>git clone</code>的时候把<code>github.com</code>换成<code>bgithub.xyz</code>（校园网环境测试：换之前&lt;50KB/s，换之后&gt;2.5MB/s）</p>
+<h3 id="pip限制解除及换源"><a href="#pip限制解除及换源" class="headerlink" title="pip限制解除及换源"></a>pip限制解除及换源</h3><h4 id="临时换源"><a href="#临时换源" class="headerlink" title="临时换源"></a>临时换源</h4><pre><code class="bash">pip install 包名 -i https://pypi.tuna.tsinghua.edu.cn/simple
 </code></pre>
-<h3 id="永久换源"><a href="#永久换源" class="headerlink" title="永久换源"></a>永久换源</h3><pre><code class="bash">pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+<h4 id="永久换源"><a href="#永久换源" class="headerlink" title="永久换源"></a>永久换源</h4><pre><code class="bash">pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
 </code></pre>
 <p>（校园网环境测试：换之前根本连不上，换之后&gt;2.5MB/s）</p>
 <p>（有必要也可以把pip换成pip3再执行一次，感觉没什么区别）</p>
-<h2 id="gem换源"><a href="#gem换源" class="headerlink" title="gem换源"></a>gem换源</h2><pre><code class="bash"># 总体来说换源前还勉强能用，可以先跳过
+<h3 id="gem换源"><a href="#gem换源" class="headerlink" title="gem换源"></a>gem换源</h3><pre><code class="bash"># 总体来说换源前还勉强能用，可以先跳过
 gem sources --remove https://rubygems.org/  
 gem sources -a https://gems.ruby-china.com/   
 gem sources -l        
 </code></pre>
-<h1 id="动态调试工具——gdb-amp-pwndbg"><a href="#动态调试工具——gdb-amp-pwndbg" class="headerlink" title="动态调试工具——gdb &amp; pwndbg"></a>动态调试工具——gdb &amp; pwndbg</h1><pre><code class="bash">apt install gdb
+<h2 id="动态调试工具——gdb-amp-pwndbg"><a href="#动态调试工具——gdb-amp-pwndbg" class="headerlink" title="动态调试工具——gdb &amp; pwndbg"></a>动态调试工具——gdb &amp; pwndbg</h2><pre><code class="bash">apt install gdb
 apt install python3
 apt install python3-venv
 git clone https://github.com/pwndbg/pwndbg.git
@@ -101,7 +118,7 @@ cd pwndbg
 ./setup.sh # 执行时最好使用流量，而不是校园网，我在使用校园网安装时报错了
 </code></pre>
 <p>安装完成后一定不要删除、移动pwndbg的setup源码，可以专门找一个文件夹给他放起来。</p>
-<h1 id="gadget查找工具——ROPgadget-amp-one-gadget"><a href="#gadget查找工具——ROPgadget-amp-one-gadget" class="headerlink" title="gadget查找工具——ROPgadget &amp; one_gadget"></a>gadget查找工具——ROPgadget &amp; one_gadget</h1><pre><code class="bash"># ROPgadget
+<h2 id="gadget查找工具——ROPgadget-amp-one-gadget"><a href="#gadget查找工具——ROPgadget-amp-one-gadget" class="headerlink" title="gadget查找工具——ROPgadget &amp; one_gadget"></a>gadget查找工具——ROPgadget &amp; one_gadget</h2><pre><code class="bash"># ROPgadget
 git clone https://github.com/JonathanSalwan/ROPgadget.git
 cd ROPgadget
 python3 setup.py install
@@ -110,11 +127,11 @@ apt install ruby
 gem install one_gadget
 </code></pre>
 <p>安装完成后可以删除git源码</p>
-<h1 id="一些可以用apt快速安装的工具"><a href="#一些可以用apt快速安装的工具" class="headerlink" title="一些可以用apt快速安装的工具"></a>一些可以用apt快速安装的工具</h1><pre><code class="bash">apt install tmux
+<h2 id="一些可以用apt快速安装的工具"><a href="#一些可以用apt快速安装的工具" class="headerlink" title="一些可以用apt快速安装的工具"></a>一些可以用apt快速安装的工具</h2><pre><code class="bash">apt install tmux
 apt install python3-pwntools
 apt install checksec
 </code></pre>
-<h1 id="最后附上WSL快捷使用的查询"><a href="#最后附上WSL快捷使用的查询" class="headerlink" title="最后附上WSL快捷使用的查询"></a>最后附上WSL快捷使用的查询</h1><pre><code>版权所有 (c) Microsoft Corporation。保留所有权利。
+<h2 id="最后附上WSL快捷使用的查询"><a href="#最后附上WSL快捷使用的查询" class="headerlink" title="最后附上WSL快捷使用的查询"></a>最后附上WSL快捷使用的查询</h2><pre><code>版权所有 (c) Microsoft Corporation。保留所有权利。
 有关此产品的隐私信息，请访问 https://aka.ms/privacy。
 
 用法: wsl.exe [参数] [选项...][命令行]
@@ -215,31 +232,7 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 </div>
 
                 </section>
-            </div>
-			<footer class="footer">
-    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
-    ↑ Back to Top
-</div>
-
-<script>
-    // Show or hide the button based on scroll position
-    window.addEventListener('scroll', function () {
-        const backToTop = document.getElementById('back-to-top');
-        if (window.scrollY > 300) {
-            backToTop.style.display = 'block';
-        } else {
-            backToTop.style.display = 'none';
-        }
-    });
-
-    // Scroll to top when the button is clicked
-    document.getElementById('back-to-top').addEventListener('click', function () {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-</script>
+				<footer class="footer">
     <script src="js/highlight/highlight.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -249,11 +242,12 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
             });
         });
     </script>
-	<div class="container">
-		<p>博客访问次数：</p>
-		<p>备案号：</p>
+	<div class="footer-content">
+        <p>博客观点仅代表作者，与第三方无关</p>
+        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
 	</div>
 </footer>
+            </div>
 		</div>
 	</div>
 </body>

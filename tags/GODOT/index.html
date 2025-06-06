@@ -4,9 +4,17 @@
 	<meta charset="utf-8">
 	<title>Mistyovo's Blog</title>
 	<link rel="icon" href="">
-	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
-    <script src="js/highlight/highlight.min.js"></script>
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
 	<script src="js/cursor.js"></script>
+	<script src="js/fadeIn.js"></script>
+	<script src="js/backToTop.js"></script>
+	<script src="js/avatar-rotate.js"></script>
+	<script src="js/snowfall.js"></script>
 	
 <link rel="stylesheet" href="/css/style.css">
 
@@ -22,12 +30,11 @@
         </div>
         <div class="navbar-right">
             <ul class="navbar-menu">
-                <li><a href="/">首页</a></li>
-                <li><a href="/categories">分类</a></li>
-                <li><a href="/archives">归档</a></li>
-                <li><a href="/friends">友链</a></li>
-                <li><a href="/resources">资源</a></li>
-                <li><a href="/guestbook">留言板</a></li>
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
             </ul>
         </div>
     </div>
@@ -35,25 +42,33 @@
             <div class="sidebar">
 	<div class="author-info">
 		<div class="avatar">
-			<img src="/images/avatar.jpg" alt="博主头像">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
 	</div>
-	<div class="sidebar-stats">
-		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span class="stat-value">1</span>
-				<span class="stat-label">文章</span>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">10</p>
+				<p class="stat-label">随笔</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">2</span>
-				<span class="stat-label">分类</span>
+			<li>
+				<p class="stat-value">0</p>
+				<p class="stat-label">分类</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">3</span>
-				<span class="stat-label">标签</span>
+			<li>
+				<p class="stat-value">7</p>
+				<p class="stat-label">标签</p>
 			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list"> 
+			<li><a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color:rgb(118, 184, 255)"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://github.com/Mistyovo"><i class="fa-brands fa-github-alt" style="color: #000"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-discord" style="color: #5865f2"></i></a></li> 	
+			<li><a href=""><i class="fa-brands fa-weixin" style="color: green"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-qq" style="color: #007bff"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"><i class="fa-solid fa-envelope" style="color: pink"></i></a></li>
 		</ul>
 	</div>
 </div>
@@ -63,6 +78,8 @@
 <div class="post">
 	<div style="text-align: center;">
 		<h1><a href="2025/03/13/学习使用世界上最好的godot游戏引擎/">学习使用世界上最好的godot游戏引擎</a></h2>
+		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Mar 13 2025 20:03:03 GMT+0800</p>
+		<br>
 	</div>
 	<h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
 <thead>
@@ -149,31 +166,7 @@
 </div>
 
                 </section>
-            </div>
-			<footer class="footer">
-    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
-    ↑ Back to Top
-</div>
-
-<script>
-    // Show or hide the button based on scroll position
-    window.addEventListener('scroll', function () {
-        const backToTop = document.getElementById('back-to-top');
-        if (window.scrollY > 300) {
-            backToTop.style.display = 'block';
-        } else {
-            backToTop.style.display = 'none';
-        }
-    });
-
-    // Scroll to top when the button is clicked
-    document.getElementById('back-to-top').addEventListener('click', function () {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-</script>
+				<footer class="footer">
     <script src="js/highlight/highlight.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -183,11 +176,12 @@
             });
         });
     </script>
-	<div class="container">
-		<p>博客访问次数：</p>
-		<p>备案号：</p>
+	<div class="footer-content">
+        <p>博客观点仅代表作者，与第三方无关</p>
+        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
 	</div>
 </footer>
+            </div>
 		</div>
 	</div>
 </body>

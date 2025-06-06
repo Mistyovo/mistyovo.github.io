@@ -4,9 +4,17 @@
 	<meta charset="utf-8">
 	<title>Mistyovo's Blog</title>
 	<link rel="icon" href="">
-	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
-    <script src="js/highlight/highlight.min.js"></script>
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
 	<script src="js/cursor.js"></script>
+	<script src="js/fadeIn.js"></script>
+	<script src="js/backToTop.js"></script>
+	<script src="js/avatar-rotate.js"></script>
+	<script src="js/snowfall.js"></script>
 	
 <link rel="stylesheet" href="/css/style.css">
 
@@ -22,12 +30,11 @@
         </div>
         <div class="navbar-right">
             <ul class="navbar-menu">
-                <li><a href="/">首页</a></li>
-                <li><a href="/categories">分类</a></li>
-                <li><a href="/archives">归档</a></li>
-                <li><a href="/friends">友链</a></li>
-                <li><a href="/resources">资源</a></li>
-                <li><a href="/guestbook">留言板</a></li>
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
             </ul>
         </div>
     </div>
@@ -35,25 +42,33 @@
             <div class="sidebar">
 	<div class="author-info">
 		<div class="avatar">
-			<img src="/images/avatar.jpg" alt="博主头像">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
 	</div>
-	<div class="sidebar-stats">
-		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span class="stat-value">1</span>
-				<span class="stat-label">文章</span>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">10</p>
+				<p class="stat-label">随笔</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">2</span>
-				<span class="stat-label">分类</span>
+			<li>
+				<p class="stat-value">0</p>
+				<p class="stat-label">分类</p>
 			</li>
-			<li style="margin: 0 10px; display: flex; align-items: center;">
-				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
-				<span class="stat-value">3</span>
-				<span class="stat-label">标签</span>
+			<li>
+				<p class="stat-value">7</p>
+				<p class="stat-label">标签</p>
 			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list"> 
+			<li><a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color:rgb(118, 184, 255)"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://github.com/Mistyovo"><i class="fa-brands fa-github-alt" style="color: #000"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-discord" style="color: #5865f2"></i></a></li> 	
+			<li><a href=""><i class="fa-brands fa-weixin" style="color: green"></i></a></li>
+			<li><a href=""><i class="fa-brands fa-qq" style="color: #007bff"></i></a></li>
+			<li><a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"><i class="fa-solid fa-envelope" style="color: pink"></i></a></li>
 		</ul>
 	</div>
 </div>
@@ -63,10 +78,12 @@
 <div class="post">
 	<div style="text-align: center;">
 		<h1><a href="2025/05/05/借助svcudp进行栈迁移/">借助svcudp进行栈迁移</a></h2>
+		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
+		<br>
 	</div>
 	<p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
 <pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
-mov     rax, [rbp+18h]          ；确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
+mov     rax, [rbp+18h]          ; 确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
 lea     r13, [rbp+10h]
 mov     dword ptr [rbp+10h], 0  ; 确保rbp+0x10位置可写
 mov     rdi, r13
@@ -84,11 +101,13 @@ lea     r13, [rbp+10h]
 <div class="post">
 	<div style="text-align: center;">
 		<h1><a href="2025/05/01/堆漏洞利用方法整理/">堆漏洞利用方法整理</a></h2>
+		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
+		<br>
 	</div>
-	<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+	<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap/">【Github】shellphish/how2heap: A repository for learning various heap exploitation techniques.</a></li>
 </ul>
-<h1 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h1><table>
+<h2 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h2><table>
 <thead>
 <tr>
 <th align="left">名称</th>
@@ -104,7 +123,7 @@ lea     r13, [rbp+10h]
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h1 id="Tcache利用"><a href="#Tcache利用" class="headerlink" title="Tcache利用"></a>Tcache利用</h1><table>
+<h2 id="Tcache利用"><a href="#Tcache利用" class="headerlink" title="Tcache利用"></a>Tcache利用</h2><table>
 <thead>
 <tr>
 <th align="left">名称</th>
@@ -116,7 +135,7 @@ lea     r13, [rbp+10h]
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h1 id="Small-Large-Bin利用"><a href="#Small-Large-Bin利用" class="headerlink" title="Small/Large Bin利用"></a>Small/Large Bin利用</h1><table>
+<h2 id="Small-Large-Bin利用"><a href="#Small-Large-Bin利用" class="headerlink" title="Small/Large Bin利用"></a>Small/Large Bin利用</h2><table>
 <thead>
 <tr>
 <th align="left">名称</th>
@@ -128,7 +147,7 @@ lea     r13, [rbp+10h]
 <td align="left"></td>
 </tr>
 </tbody></table>
-<h1 id="House-of-系列"><a href="#House-of-系列" class="headerlink" title="House of 系列"></a>House of 系列</h1><table>
+<h2 id="House-of-系列"><a href="#House-of-系列" class="headerlink" title="House of 系列"></a>House of 系列</h2><table>
 <thead>
 <tr>
 <th align="left">名称</th>
@@ -196,31 +215,7 @@ lea     r13, [rbp+10h]
 </div>
 
                 </section>
-            </div>
-			<footer class="footer">
-    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
-    ↑ Back to Top
-</div>
-
-<script>
-    // Show or hide the button based on scroll position
-    window.addEventListener('scroll', function () {
-        const backToTop = document.getElementById('back-to-top');
-        if (window.scrollY > 300) {
-            backToTop.style.display = 'block';
-        } else {
-            backToTop.style.display = 'none';
-        }
-    });
-
-    // Scroll to top when the button is clicked
-    document.getElementById('back-to-top').addEventListener('click', function () {
-        window.scrollTo({
-            top: 0,
-            behavior: 'smooth'
-        });
-    });
-</script>
+				<footer class="footer">
     <script src="js/highlight/highlight.min.js"></script>
     <script>
         document.addEventListener('DOMContentLoaded', (event) => {
@@ -230,11 +225,12 @@ lea     r13, [rbp+10h]
             });
         });
     </script>
-	<div class="container">
-		<p>博客访问次数：</p>
-		<p>备案号：</p>
+	<div class="footer-content">
+        <p>博客观点仅代表作者，与第三方无关</p>
+        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
 	</div>
 </footer>
+            </div>
 		</div>
 	</div>
 </body>
