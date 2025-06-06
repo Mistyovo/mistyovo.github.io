@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="">
+	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
+    <script src="js/highlight/highlight.min.js"></script>
+	<script src="js/cursor.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/categories">分类</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/friends">友链</a></li>
+                <li><a href="/resources">资源</a></li>
+                <li><a href="/guestbook">留言板</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div class="sidebar-stats">
+		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span class="stat-value">1</span>
+				<span class="stat-label">文章</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">2</span>
+				<span class="stat-label">分类</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">3</span>
+				<span class="stat-label">标签</span>
+			</li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2024/02/08/日本麻将算符表/">日本麻将算符表</a></h2>
+	</div>
+	<blockquote>
+<p>符=20（基底符）+各牌组的符数+和牌方式<br>个位不为0的用进一法进到十位</p>
+</blockquote>
+<h2 id="牌组的符数"><a href="#牌组的符数" class="headerlink" title="牌组的符数"></a>牌组的符数</h2><table>
+<thead>
+<tr>
+<th align="center">刻子</th>
+<th align="center">暗</th>
+<th align="center">幺九</th>
+<th align="center">杠</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">(累乘)*2</td>
+<td align="center">(累乘)*2</td>
+<td align="center">(累乘)*4</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">雀头</th>
+<th align="center">顺子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2*番数</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<h2 id="和牌方式"><a href="#和牌方式" class="headerlink" title="和牌方式"></a>和牌方式</h2><table>
+<thead>
+<tr>
+<th align="center">门清前放铳</th>
+<th align="center">自摸</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">10</td>
+<td align="center">2</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">平和自摸</th>
+<th align="center">平和放铳</th>
+<th align="center">特殊牌型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">20（固定）</td>
+<td align="center">30（固定）</td>
+<td align="center">25（固定）</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th align="center">边张（单骑）</th>
+<th align="center">嵌张（单骑）</th>
+<th align="center">雀头（单骑）</th>
+<th align="center">双碰（非单骑）</th>
+<th align="center">两面（非单骑）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+</tbody></table>
+<h2 id="练习"><a href="#练习" class="headerlink" title="练习"></a>练习</h2><p><a target="_blank" rel="noopener" href="https://lietxia.github.io/fupractice.html">https://lietxia.github.io/fupractice.html</a></p>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2023/07/07/用C-读取鼠标在控制台上的操作/">用C++读取鼠标在控制台上的操作</a></h2>
+	</div>
+	<p>与读取键盘信息类似，读取鼠标信息也是通过 <code>ReadConsoleInput</code> 函数来实现</p>
+<p>咱先说一下需要用到的头文件：</p>
+<pre><code class="cpp">#include &lt;windows.h&gt;
+</code></pre>
+<p>响应鼠标点击事件的变量类型</p>
+<pre><code class="cpp">INPUT_RECORD
+</code></pre>
+<p>咱先介绍一下<code>ReadConsoleInput</code>这个函数</p>
+<pre><code class="cpp">typedef struct _MOUSE_EVENT_RECORD &#123; 
+        COORD dwMousePosition;        // 当前鼠标位置
+        DWORD dwButtonState;        // 鼠标按钮状态
+        DWORD dwControlKeyState;    // 键盘控制键状态
+        DWORD dwEventFlags;         // 事件状态
+&#125; MOUSE_EVENT_RECORD;
+//这个东西一般都在&quot;INPUT_RECORD的变量名.Event.MouseEvent.以上变量&quot;
+</code></pre>
+<p>1.第一个参数存放鼠标的位置信息，类型为 COORD 坐标类型；</p>
+<p>2.第二个参数（dwButtonState）为鼠标的按键状态，包含的值如下:</p>
+<table>
+<thead>
+<tr>
+<th align="left">鼠标按键状态码（dwButtonState）</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">FROM_LEFT_1ST_BUTTON_PRESSED</td>
+<td align="left">最左边按键</td>
+</tr>
+<tr>
+<td align="left">FROM_LEFT_2ND_BUTTON_PRESSED</td>
+<td align="left">左起第二个按键</td>
+</tr>
+<tr>
+<td align="left">FROM_LEFT_3RD_BUTTON_PRESSED</td>
+<td align="left">左起第三个按键</td>
+</tr>
+<tr>
+<td align="left">FROM_LEFT_4TH_BUTTON_PRESSED</td>
+<td align="left">左起第四个按键</td>
+</tr>
+<tr>
+<td align="left">RIGHTMOST_BUTTON_PRESSED</td>
+<td align="left">最右边按键</td>
+</tr>
+</tbody></table>
+<p>3.第三个参数是键盘控制键状态，这个和上一章的内容是一样的；</p>
+<p>4.最后一个参数（dwEventFlag）为事件状态：</p>
+<table>
+<thead>
+<tr>
+<th align="left">事件状态码（dwEventFlag）</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">DOUBLE_CLICK</td>
+<td align="left">双击</td>
+</tr>
+<tr>
+<td align="left">MOUSE_MOVED</td>
+<td align="left">移动</td>
+</tr>
+<tr>
+<td align="left">MOUSE_WHEELED</td>
+<td align="left">滚轮滚动（只适用于Windows 2000/XP）</td>
+</tr>
+</tbody></table>
+<p>在程序开头应加上</p>
+<pre><code class="cpp">HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
+//这是用来添加鼠标输入设备的
+</code></pre>
+<p>用法举例</p>
+<pre><code class="cpp">//我写的一个简单地例子
+#include&lt;iostream&gt;
+#include&lt;windows.h&gt;
+using namespace std;
+int main()
+&#123;
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);
+    HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE);
+
+    CONSOLE_SCREEN_BUFFER_INFO bInfo;
+    INPUT_RECORD mouseRec;
+    DWORD res;
+
+    while(1)
+    &#123;
+        ReadConsoleInput(hIn, &amp;mouseRec, 1, &amp;res);//读取一个鼠标操作
+        if(mouseRec.Event.MouseEvent.dwButtonState==FROM_LEFT_1ST_BUTTON_PRESSED)//如果点击了左键
+        &#123;
+            if (mouseRec.Event.MouseEvent.dwEventFlags == DOUBLE_CLICK)//如果是双击
+            &#123;
+                break;    //退出循环
+            &#125;
+            else//单击的情况
+            &#123;
+                cout&lt;&lt;mouseRec.Event.MouseEvent.dwMousePosition.X&lt;&lt;&quot; &quot;&lt;&lt;mouseRec.Event.MouseEvent.dwMousePosition.Y&lt;&lt;endl;//输出当前鼠标的位置
+            &#125;
+        &#125;
+    &#125;
+    CloseHandle(hOut);  // 关闭标准输出设备句柄  
+    CloseHandle(hIn);   // 关闭标准输入设备句柄  
+&#125;
+</code></pre>
+<p>摘自网络</p>
+<pre><code class="cpp">#include &lt;windows.h&gt;  
+#include &lt;stdio.h&gt;  
+ 
+int main(void)  
+&#123;  
+    // 获取标准输入输出设备句柄  
+    HANDLE hOut = GetStdHandle(STD_OUTPUT_HANDLE);        
+    HANDLE hIn = GetStdHandle(STD_INPUT_HANDLE); 
+    CONSOLE_SCREEN_BUFFER_INFO bInfo;
+    INPUT_RECORD    mouseRec;
+    DWORD            res;
+    COORD            crPos, crHome = &#123;0, 0&#125;;
+    printf(&quot;[Cursor Position] X: %2lu  Y: %2lu\n&quot;, 0, 0);    // 初始状态
+    while (1)
+    &#123;
+        ReadConsoleInput(hIn, &amp;mouseRec, 1, &amp;res);
+ 
+        if (mouseRec.EventType == MOUSE_EVENT)
+        &#123;
+            if (mouseRec.Event.MouseEvent.dwButtonState==FROM_LEFT_1ST_BUTTON_PRESSED)
+            &#123;
+                if (mouseRec.Event.MouseEvent.dwEventFlags == DOUBLE_CLICK)
+                &#123;
+                    break;    // 左键双击 退出循环
+                &#125;
+            &#125;            
+            crPos = mouseRec.Event.MouseEvent.dwMousePosition;
+            GetConsoleScreenBufferInfo(hOut, &amp;bInfo);
+            SetConsoleCursorPosition(hOut, crHome);
+            printf(&quot;[Cursor Position] X: %2lu  Y: %2lu&quot;, crPos.X, crPos.Y);
+            SetConsoleCursorPosition(hOut, bInfo.dwCursorPosition);
+            switch (mouseRec.Event.MouseEvent.dwButtonState)
+            &#123;
+                case FROM_LEFT_1ST_BUTTON_PRESSED:            // 左键 输出A
+                    FillConsoleOutputCharacter(hOut, &#39;A&#39;, 1, crPos, &amp;res);
+                    break;        // 如果使用printf输出，则之前需要先设置光标的位置
+     
+                case RIGHTMOST_BUTTON_PRESSED:                // 右键 输出a
+                    FillConsoleOutputCharacter(hOut, &#39;a&#39;, 1, crPos, &amp;res);
+                    break;
+     
+                default:
+                    break;
+            &#125;
+        &#125;        
+    &#125;
+    CloseHandle(hOut);  // 关闭标准输出设备句柄  
+    CloseHandle(hIn);   // 关闭标准输入设备句柄  
+    return 0;  
+&#125;
+</code></pre>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2023/07/06/日本麻将资料整理/">日本麻将资料整理</a></h2>
+	</div>
+	<p><strong>书名一览（若要保证浏览体验，请关闭翻译）</strong></p>
+<blockquote>
+<p>《ASAPIN 天才雀士に麻雀のことを聞いたらバカ勝ちできた》<br>《Guzaku 傑作「何切る」300選》<br>《Guzaku 定石「何切る」301選》<br>《owata 三人麻雀の極意》<br>《ZERO ゼロ秒思考の麻雀》<br>《ZERO 麻雀強者の0秒思考》<br>《かにマジン 日本一麻雀が強いサラリーマンの必勝法》<br>《きよ アマチュア地方最強位が作る新麻雀マニュアル》<br>《みーにん 「統計学」のマージャン戦術》<br>《みーにん 知るだけで強くなる麻雀の2択》<br>《ゆうせー 実戦でよく出る!麻雀講義》<br>《中島準也 理論的思考で勝つ麻雀》<br>《二階堂亜樹 勝てる麻雀の基本》<br>《土井泰昭 勝つ人は知っている現代麻雀30の新常識》<br>《土田浩翔 運を育てる》<br>《堀内正人 麻雀の麒麟児の一打》<br>《堀慎吾 麻雀だから君は負けるんです》<br>《多井隆晴 多井熱》<br>《小林剛 スーパーデジタル麻雀》<br>《川村晃裕 麻雀勝ち組の鳴きテクニック》<br>《平澤元気 よくわかる麻雀の勝ち方》<br>《平澤元気 現代麻雀の秘技相手に対応させる技術》<br>《平澤元気 絶対にラスを引かない麻雀ラス回避35の技術》<br>《日本プロ麻雀連盟 麻雀基本手筋コレクション》<br>《朝倉康心 麻雀の失敗学》<br>《比嘉秀仁 強者の最近手筋100》<br>《水上直紀 麻雀AI戦術》<br>《独歩 序盤の鉄戦略》<br>《独歩 鉄押しの条件》<br>《石橋伸洋 進化するデジタル麻雀》<br>《石橋伸洋 黒いデジタル麻雀》<br>《福地誠 これだけで勝てる!麻雀の基本形80》<br>《福地誠 手作りと押し引きの鉄戦術》<br>《福地誠 麻雀10倍勝てるテクニック》<br>《福地誠 麻雀の正解》<br>《福地誠 麻雀テクニック》<br>《福地誠 麻雀勝ち組の選択》<br>《福地誠 麻雀勝ち組の選択II》<br>《菊池翔 絶対に負けない最強麻雀戦術》<br>《藤田晋 仕事が麻雀で麻雀が仕事》<br>《近代麻雀 プロに挑戦!!麻雀検定》<br>《近代麻雀 麻雀プロMリーグ選手名鑑》<br>《近藤誠一 大きく打ち大きく勝つ麻雀》<br>《鈴木たろう ゼウスの選択》<br>《馬場裕一 バビーのメンチン何切る》<br>《鳳南研究所 現代麻雀の神ワザ》</p>
+</blockquote>
+<h2 id="下载链接"><a href="#下载链接" class="headerlink" title="下载链接"></a>下载链接</h2><p><strong>资料来源于网络</strong></p>
+<p><strong>仅供交流学习使用，不得用于任何商业用途</strong></p>
+<p><a target="_blank" rel="noopener" href="https://cowtransfer.com/s/cc797d6a256440">https://cowtransfer.com/s/cc797d6a256440</a> 点击链接查看 【 PDF.zip 】 ，或访问奶牛快传 cowtransfer.com 输入传输口令 f4jzju 查看；</p>
+
+</div>
+
+                </section>
+            </div>
+			<footer class="footer">
+    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
+    ↑ Back to Top
+</div>
+
+<script>
+    // Show or hide the button based on scroll position
+    window.addEventListener('scroll', function () {
+        const backToTop = document.getElementById('back-to-top');
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    // Scroll to top when the button is clicked
+    document.getElementById('back-to-top').addEventListener('click', function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+    <script src="js/highlight/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+                // hljs.initLineNumberOnLoad(block);
+            });
+        });
+    </script>
+	<div class="container">
+		<p>博客访问次数：</p>
+		<p>备案号：</p>
+	</div>
+</footer>
+		</div>
+	</div>
+</body>
+</html>

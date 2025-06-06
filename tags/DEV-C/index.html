@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="">
+	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
+    <script src="js/highlight/highlight.min.js"></script>
+	<script src="js/cursor.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/categories">分类</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/friends">友链</a></li>
+                <li><a href="/resources">资源</a></li>
+                <li><a href="/guestbook">留言板</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div class="sidebar-stats">
+		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span class="stat-value">1</span>
+				<span class="stat-label">文章</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">2</span>
+				<span class="stat-label">分类</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">3</span>
+				<span class="stat-label">标签</span>
+			</li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2024/10/31/将DEV-C-编辑器打造成神级IDE及美化/">带你玩转DEV-C++</a></h2>
+	</div>
+	<h1 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h1><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
+<h1 id="样式美化"><a href="#样式美化" class="headerlink" title="样式美化"></a>样式美化</h1><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/vttuwku5.png" alt="预览"></p>
+<ol>
+<li><p>点击顶部菜单栏<code>工具</code></p>
+</li>
+<li><p>点击下拉列表中的<code>编译器选项</code></p>
+</li>
+<li><p>点击新弹出的窗口中的<code>基本</code></p>
+</li>
+<li><p>取消勾选<code>高亮显示当前行</code>，或者后面你再选择你喜欢的颜色。</p>
+</li>
+<li><p>点击还是这个窗口中的<code>语法</code>（和“基本”在同一排）</p>
+</li>
+<li><p>选择<code>预设</code>为 Obsidian，保存一下再进行以下修改</p>
+</li>
+<li><p>修改以下几个地方：（都只改前景和样式，背景不改，改完记得点确定）</p>
+</li>
+</ol>
+<blockquote>
+<p>Preprocessor: （自定义）红136+绿99+蓝173+下划线</p>
+<p>Reserved Word： （自定义）红106+绿185+蓝255+下划线</p>
+<p>Identifier： Silver</p>
+<p>String：（自定义）红255+绿128+蓝128</p>
+<p>Symbol：（自定义）同上String</p>
+</blockquote>
+<h1 id="取消完成符号（个人喜好）"><a href="#取消完成符号（个人喜好）" class="headerlink" title="取消完成符号（个人喜好）"></a>取消完成符号（个人喜好）</h1><ol>
+<li><p>点击顶部菜单栏<code>工具</code>-&gt;点击<code>编译器选项</code></p>
+</li>
+<li><p>点击新弹出的窗口中的<code>代码补全</code></p>
+</li>
+<li><p>点击<code>完成符号</code></p>
+</li>
+<li><p>取消勾选<code>启用符号配对</code></p>
+</li>
+</ol>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1ijwn1cy.png"></p>
+<h1 id="编译选项优化"><a href="#编译选项优化" class="headerlink" title="编译选项优化"></a>编译选项优化</h1><ol>
+<li><p>点击顶部菜单栏<code>工具</code></p>
+</li>
+<li><p>点击下拉列表中的<code>编译选项</code></p>
+</li>
+<li><p>点击新弹出的窗口中的<code>代码生成/优化</code></p>
+</li>
+<li><p>点击<code>代码警告</code></p>
+</li>
+<li><p>设<code>显示最多警告信息（-Wall）</code>为Yes</p>
+</li>
+<li><p>(有必要的可以设“显示所有警告为错误（-Werror）”为Yes)</p>
+</li>
+</ol>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mf2j4j60.png" alt="像这样"></p>
+<h1 id="使用自己的mingw-w64"><a href="#使用自己的mingw-w64" class="headerlink" title="使用自己的mingw-w64"></a>使用自己的mingw-w64</h1><p>（Dev-C++ 5.11自带的mingw-w64的版本才4.9.2，我们可以使用自己最新版的mingw-w64，目前是8.1.0）</p>
+<ol>
+<li><p>mingw-w64的下载安装教程,在<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/sky-fox/post-an-li-sublime-text-3-pei-zhi-cjava-kai-fa-huan-jing">这里</a>有</p>
+</li>
+<li><p>打开Dev-C++过程中一定不要关闭</p>
+</li>
+<li><p>打开你Dev-C++安装的位置（默认在C:\Program Files (x86)\Dev-Cpp）</p>
+</li>
+<li><p>用你的MinGW64覆盖掉自带的MinGW64的文件夹</p>
+</li>
+<li><p>然后点击Dev-C++菜单栏 <code>文件</code> -&gt; <code> 编译选项</code> -&gt; 点击 <code>目录</code></p>
+</li>
+<li><p>点击<code>C包含文件</code>和<code>C++包含文件</code></p>
+</li>
+<li><p>把里面路径所有的4.9.2换成8.1.0（即你所用的版本）</p>
+</li>
+<li><p>然后重新打开Dev-C++进行配置</p>
+</li>
+</ol>
+<p>修改样例（修改后点击替换）:</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/9ms6hwzz.png"></p>
+<p><strong>注</strong>：如果你过程中关闭了Dev-C++重新打开时他会提示你“<strong>路径无效，是否删除无效路径</strong>”请选择<strong>否</strong>，不然你的许多头文件会用不了</p>
+<p>接下来配置一下</p>
+<ul>
+<li><p>点击Dev-C++菜单栏 <code>文件</code> -&gt; <code>编译选项</code> 点击上方两个加号处</p>
+</li>
+<li><p>点击Yes或No，点击Yes就会清空原有列表，点击No就会保留原来列表，建议清空（建议点击Yes）</p>
+</li>
+<li><p>如果会生成一个新列表，说明配置成功了,像这样</p>
+</li>
+</ul>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/5eebhg9a.png"><br><img src="https://cdn.luogu.com.cn/upload/image_hosting/vdtluh48.png"></p>
+<h1 id="格式化修改"><a href="#格式化修改" class="headerlink" title="格式化修改"></a>格式化修改</h1><ol>
+<li><p>点击顶部菜单栏<code>AStyle</code></p>
+</li>
+<li><p>点击下拉列表中的<code>格式化选项</code></p>
+</li>
+<li><p>选择<code>选项——括号风格</code>为Allman（个人喜欢）（默认的Java也还行）</p>
+</li>
+<li><p>在编辑代码的时候按Ctrl+Shift+A就可以自动格式化啦</p>
+</li>
+</ol>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/o8x9q60g.png" alt="预览"></p>
+<h1 id="设置透明编辑器"><a href="#设置透明编辑器" class="headerlink" title="设置透明编辑器"></a>设置透明编辑器</h1><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/9ztt3tra.png" alt="预览"></p>
+<ol>
+<li><p>点击<a target="_blank" rel="noopener" href="https://files.cnblogs.com/files/fox-nest/Glass2k.rar">这里</a>下载<a target="_blank" rel="noopener" href="https://files.cnblogs.com/files/fox-nest/Glass2k.rar">Glass2k程序</a></p>
+</li>
+<li><p>解压并打开<code>Glass2k.exe</code>(怎么都是英文的？！别怕)</p>
+</li>
+<li><p>如果没有显示界面那就看看任务栏右下角有没有三个箱子堆起来的图标，右键点<code>Settings</code></p>
+</li>
+<li><p>有三个勾选框，简单翻译一下，第一个是开机启动，第二个是记住透明度设置，第三个是深度使用该软件（建议勾选第二和第三个）（下面那个蓝蓝的条是用来设置任务栏的透明度的）</p>
+</li>
+<li><p>接下来为了避免鼠标按键冲突，设置<code>Right Click</code>: <code>+ Ctrl + Shift</code></p>
+</li>
+<li><p>然后打开DEV-C++，按着<code>Ctrl + Shift + 右键</code>点击DEV-C++窗口的任意地方，就会出现一个列表，选择你想要的透明度就可以啦（建议设置80%）</p>
+</li>
+</ol>
+<ul>
+<li>可以按照下图修改</li>
+</ul>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/0gbn318e.png" alt="预览"></p>
+<p>（PS:这个软件也可以用在其他一些地方哦，如：浏览器，文件夹等）</p>
+<h1 id="一些快捷键"><a href="#一些快捷键" class="headerlink" title="一些快捷键"></a>一些快捷键</h1><ol>
+<li><p>f9编译，f10运行，f11编译运行（这个应该不用我多说）</p>
+</li>
+<li><p>f5调试（记得把设定编译器配置改为TDM-GCC 4.9.2 64-bit Debug），F7下一步，F8单步进入（这个应该也不用我多说）</p>
+</li>
+<li><p>Ctrl+f11全屏/取消全屏，样例：<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/xv7z3idp.png"></p>
+</li>
+<li><p>当你打开了两个文件时，让你的页面停留在一个文件，按Ctrl+M就可以把另一个文件在新的页面打开，样例:<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/klowtiln.png"></p>
+</li>
+</ol>
+<h1 id="最后的一些话"><a href="#最后的一些话" class="headerlink" title="最后的一些话"></a>最后的一些话</h1><p>Dev-C++跟目前的主流代码编辑器相比已被拉开巨大的差距，但</p>
+<p><strong>文章到此就结束了，还在持续更新，给个赞再走呗</strong></p>
+
+</div>
+
+                </section>
+            </div>
+			<footer class="footer">
+    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
+    ↑ Back to Top
+</div>
+
+<script>
+    // Show or hide the button based on scroll position
+    window.addEventListener('scroll', function () {
+        const backToTop = document.getElementById('back-to-top');
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    // Scroll to top when the button is clicked
+    document.getElementById('back-to-top').addEventListener('click', function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+    <script src="js/highlight/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+                // hljs.initLineNumberOnLoad(block);
+            });
+        });
+    </script>
+	<div class="container">
+		<p>博客访问次数：</p>
+		<p>备案号：</p>
+	</div>
+</footer>
+		</div>
+	</div>
+</body>
+</html>

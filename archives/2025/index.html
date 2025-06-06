@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="">
+	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
+    <script src="js/highlight/highlight.min.js"></script>
+	<script src="js/cursor.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/categories">分类</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/friends">友链</a></li>
+                <li><a href="/resources">资源</a></li>
+                <li><a href="/guestbook">留言板</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div class="sidebar-stats">
+		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span class="stat-value">1</span>
+				<span class="stat-label">文章</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">2</span>
+				<span class="stat-label">分类</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">3</span>
+				<span class="stat-label">标签</span>
+			</li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/05/05/借助svcudp进行栈迁移/">借助svcudp进行栈迁移</a></h2>
+	</div>
+	<p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
+<pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
+mov     rax, [rbp+18h]          ；确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
+lea     r13, [rbp+10h]
+mov     dword ptr [rbp+10h], 0  ; 确保rbp+0x10位置可写
+mov     rdi, r13
+call    qword ptr [rax+28h]     ; 调用leave ; ret
+</code></pre>
+<p>在IDA中可以通过搜索汇编指令搜索到，推荐搜索以下两条指令，它们的搜索结果是最少的：</p>
+<pre><code class="asm">mov     rbp, [rdi+48h]
+lea     r13, [rbp+10h]
+</code></pre>
+<p>在rdi可控且写入数据的地址可获得的情况下，可以借助此gadget栈迁移到任意位置。</p>
+<p>在只能执行一个函数的情况下，十分适合使用此方法，继续执行ROP调用更多函数。</p>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/05/01/堆漏洞利用方法整理/">堆漏洞利用方法整理</a></h2>
+	</div>
+	<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><ul>
+<li><a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap/">【Github】shellphish/how2heap: A repository for learning various heap exploitation techniques.</a></li>
+</ul>
+<h1 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h1><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Fastbin Dup</strong><br /># Glibc 2.39</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="Tcache利用"><a href="#Tcache利用" class="headerlink" title="Tcache利用"></a>Tcache利用</h1><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="Small-Large-Bin利用"><a href="#Small-Large-Bin利用" class="headerlink" title="Small/Large Bin利用"></a>Small/Large Bin利用</h1><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h1 id="House-of-系列"><a href="#House-of-系列" class="headerlink" title="House of 系列"></a>House of 系列</h1><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>House of Apple1</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Apple2</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Botcake</strong><br /># Glibc 2.39<br /></td>
+<td align="left">Step 1：分配出9个Size相同且大于0x80的 Chunk（可能需要多一个使其与Top Chunk分隔开）<br />Step 2：释放7个Chunk，填满对应的Tcache Bin<br />Step 3：释放第8个Chunk（Chunk A），进入Unosrted Bin<br />Step 4：释放第9个Chunk（Chunk B），将会引发Chunk A与Chunk B合并<br />Step 5：从该大小的Tcache Bin中分配出1个Chunk，给Double Chun B让位<br />Step 6：再次释放Chunk B，进入Tcache<br />Finish：此时Chunk B同时存在于Unsorted Bin与Tcache中</td>
+</tr>
+<tr>
+<td align="left"><strong>House of Einherjar</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Force</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Gods</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Lore</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Mind Fastbin</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Orange</strong><br /># Glibc 2.23<br /># 无free()函数</td>
+<td align="left">Step 1：堆溢出修改Top Chunk的Size为较小值<br />Step 2：创建一个Size大于Top Chunk的Size的空间，这样Top Chunk就会被Free进Unsorted Bin<br />Step 3：堆溢出修改这个Unsorted Bin的内容：<br />(1) 写入<code>/bin/sh\x00</code><br />(2) 修改 Unsorted Bin的大小为0x60（也可以为其他值，但是要找得到位置）<br />(3) Unsorted Bin的bk指针为<code>_IO_list_all-0x10</code>（？？）<br />(4) 构造合理的<code>IO_FILE</code>结构通过判断<br />(5) 构造vtable，写入想要执行的函数<br />Step 4：分配这个Unsorteed Bin</td>
+</tr>
+<tr>
+<td align="left"><strong>House of Roman</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Spirit</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Storm</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Tangerine</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Water</strong></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/04/11/树链剖分/">树链剖分</a></h2>
+	</div>
+	<h1 id="算法目的"><a href="#算法目的" class="headerlink" title="算法目的"></a>算法目的</h1><p>维护静态树上的路径信息</p>
+<h1 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h1><p>分两次DFS预处理出以下关键值：</p>
+<table>
+<thead>
+<tr>
+<th>DFS</th>
+<th>值</th>
+<th>含义</th>
+<th>获得方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>father[x]</td>
+<td>x在树中的父亲</td>
+<td>在dfs传参中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>dep[x]</td>
+<td>x在树中的深度</td>
+<td>在dfs传参中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>size[x]</td>
+<td>x为根的子树大小</td>
+<td>在dfs传递归中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>son[x]</td>
+<td>x的重儿子编号</td>
+<td>在dfs传递归中获得</td>
+</tr>
+<tr>
+<td>2</td>
+<td>top[x]</td>
+<td>x所在的重路径的顶部结点编号</td>
+<td>top[重儿子]=top[自己]<br>top[轻儿子]=轻儿子</td>
+</tr>
+<tr>
+<td>2</td>
+<td>seg[x]</td>
+<td>x在线段树中的位置</td>
+<td>按照先访问重儿子的顺序先序遍历树，使得每条重链上的节点在线段树上保持相邻</td>
+</tr>
+<tr>
+<td>2</td>
+<td>rev[y]</td>
+<td>y在树中的结点编号</td>
+<td>这个简单</td>
+</tr>
+</tbody></table>
+<p>线段树的建树和查询的实现就只需按一般的做法</p>
+<p>树链的查询</p>
+<pre><code class="cpp">void ask (int x, int y)
+&#123;
+    int fx = top[x],fy = top[y];
+    while(fx != fy)                            //直到两个点在同一条重链上
+    &#123;
+        if(dep[fx] &lt; dep[fy])                 //选择深度大的往上跳
+            swap(x, y),swap(fx, fy);
+        query(1, 1, seg[0], seg[fx], seg[x]);    
+        x = father[fx]; fx=top[x];
+    &#125;
+    if(dep[x] &gt; dep[y])                     //先序遍历导致：在同一棵子树上深度大的点在线段树中的位置靠后
+        swap(x, y);
+    query(1, 1, seg[0], seg[x], seg[y])        //而seg[x]&lt;=seg[y]故dep[x]&lt;=dep[y]
+&#125;
+</code></pre>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/25/理解C语言中的指针/">理解C语言中的指针</a></h2>
+	</div>
+	<p>指针变量的声明：</p>
+<pre><code>[type]* [variable]
+</code></pre>
+<p>无论<code>[type]</code>是什么东西，<code>[variable]</code>中储存的永远是一个地址，占用的内存大小是固定值，64位8字节，32位4字节</p>
+<p>当<code>[variable]</code>加上内存访问符*时，<code>*[variable]</code>就是一个大小不确定的东西，其大小由[type]决定</p>
+<p>为了控制*[variable]访问的内存空间大小，我们可以通过<code>*([type] *)[variable]</code>来控制</p>
+<p><code>void* [variable]</code>是合法的，<code>void [variable]</code>是非法的</p>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/23/Manim安装教程/">Manim安装教程</a></h2>
+	</div>
+	<ol>
+<li>进入官网安装页 <a target="_blank" rel="noopener" href="https://chocolatey.org/install">Chocolatey Software | Installing Chocolatey</a> （Windows支持的包管理器）</li>
+<li>把官网给出的安装命令复制下来</li>
+<li>打开windows powershell</li>
+<li>把复制下来的命令粘贴进去</li>
+<li>安装依赖：<code>choco install -y python ffmpeg latex miktex git</code></li>
+<li>安装Manim：<code>pip install manim</code></li>
+</ol>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/13/学习使用世界上最好的godot游戏引擎/">学习使用世界上最好的godot游戏引擎</a></h2>
+	</div>
+	<h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择模式</td>
+<td>Q</td>
+<td>Ctrl+拖动：围绕轴心旋转选中节点。<br />Alt+拖动：移动选中节点。<br />Ctrl+Alt+Drag：缩放选中节点V:设置选中节点的轴心位置。<br />Alt+右键：显示点击位置的所有节点列表，包含已锁定节点。<br />右键：在点击位置添加节点。</td>
+</tr>
+<tr>
+<td>移动模式</td>
+<td>W</td>
+<td></td>
+</tr>
+<tr>
+<td>旋转模式</td>
+<td>E</td>
+<td></td>
+</tr>
+<tr>
+<td>缩放模式</td>
+<td>R</td>
+<td>Shift：按比例缩放。</td>
+</tr>
+<tr>
+<td>节点选择</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>修改轴心</td>
+<td></td>
+<td>点击修改对象的旋转轴心。<br/>Shift:设置临时旋转轴心。<br/>按住 Shift 点击该按钮可以将旋转轴心放置到所选节点的中心。</td>
+</tr>
+<tr>
+<td>平移模式</td>
+<td>G</td>
+<td>你还可以使用平移视图快捷键(默认为空格)在任何模式下平移</td>
+</tr>
+<tr>
+<td>标尺模式</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>使用智能吸附</td>
+<td>Shift + S</td>
+<td>开关智能吸附。</td>
+</tr>
+<tr>
+<td>使用栅格吸附</td>
+<td>Shift + G</td>
+<td>开关栅格吸附。</td>
+</tr>
+<tr>
+<td>吸附选项</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>锁定所选节点</td>
+<td>Ctrl + L</td>
+<td>锁定选定的节点，防止选择和移动。</td>
+</tr>
+<tr>
+<td>编组所选节点</td>
+<td>Ctrl + G</td>
+<td>将所选节点与其子节点组合。这样在 2D 和 3D 视图中点击子节点就会选中父节点。</td>
+</tr>
+</tbody></table>
+<p>设置窗口大小：项目-&gt;项目设置-&gt;常规-&gt;显示-&gt;窗口-&gt;大小-&gt;视口宽/高度</p>
+<p>节点的渲染顺序为树的深度优先遍历，同级按从上到下的顺序，后渲染的覆盖之前渲染的。</p>
+<p>轴心点也叫中心点，用来给节点定位</p>
+<p>锚点用来描述节点相对于父节点的位置</p>
+<h3 id="3D"><a href="#3D" class="headerlink" title="3D"></a>3D</h3><p>还没学捏~</p>
+<h2 id="素材"><a href="#素材" class="headerlink" title="素材"></a>素材</h2><h3 id="图片素材"><a href="#图片素材" class="headerlink" title="图片素材"></a>图片素材</h3><p>图片的切割：在检查器中勾选Region-&gt;Enabled[]，然后点击下方“编辑区域”即可切割<br>图片的合并：在文件系统中选择多张图片，点击导入，导入为“TextureAtlas”</p>
+<h2 id="GDscript"><a href="#GDscript" class="headerlink" title="GDscript"></a>GDscript</h2><p>GDscript是一个非常类似于Python的脚本语言</p>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h2>
+	</div>
+	<p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
+<h1 id="GPG报错的解决方案"><a href="#GPG报错的解决方案" class="headerlink" title="GPG报错的解决方案"></a>GPG报错的解决方案</h1><p>最近不管在安装Kali的时候，不管装的是vmware、wsl、live boot，在使用apt update的时候都会出现如下错误：</p>
+<pre><code class="bash">apt update
+#Get:1 http://kali.download/kali kali-last-snapshot InRelease [41.5 kB]
+#Err:1 http://kali.download/kali kali-last-snapshot InRelease
+#  Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key 827C8569F2518CC677FECA1AED65462EC8D5E4C5, which is needed to verify signature.
+#Warning: GPG error: http://kali.download/kali kali-last-snapshot InRelease: Sub-process /usr/bin/sqv returned an error code (1), error message is: Missing key #827C8569F2518CC677FECA1AED65462EC8D5E4C5, which is needed to verify signature.
+#Error: The repository &#39;http://http.kali.org/kali kali-last-snapshot InRelease&#39; is not signed.
+#Notice: Updating from such a repository can&#39;t be done securely, and is therefore disabled by default.
+#Notice: See apt-secure(8) manpage for repository creation and user configuration details.
+# 解决方法：
+sudo wget https://archive.kali.org/archive-keyring.gpg -O /usr/share/keyrings/kali-archive-keyring.gpg
+</code></pre>
+<h1 id="apt、git-clone、pip、gem下载速度慢的解决方案"><a href="#apt、git-clone、pip、gem下载速度慢的解决方案" class="headerlink" title="apt、git clone、pip、gem下载速度慢的解决方案"></a>apt、git clone、pip、gem下载速度慢的解决方案</h1><h2 id="apt换源"><a href="#apt换源" class="headerlink" title="apt换源"></a>apt换源</h2><pre><code class="bash">vim /etc/apt/sources.list
+</code></pre>
+<p>把<code>http://http.kali.org/kali</code>换成<code>http://mirrors.ustc.edu.cn/kali</code></p>
+<p>然后输入<code>apt update</code>和<code>apt upgrade</code></p>
+<h2 id="git加速"><a href="#git加速" class="headerlink" title="git加速"></a>git加速</h2><p>在<code>git clone</code>的时候把<code>github.com</code>换成<code>bgithub.xyz</code>（校园网环境测试：换之前&lt;50KB/s，换之后&gt;2.5MB/s）</p>
+<h2 id="pip限制解除及换源"><a href="#pip限制解除及换源" class="headerlink" title="pip限制解除及换源"></a>pip限制解除及换源</h2><h3 id="临时换源"><a href="#临时换源" class="headerlink" title="临时换源"></a>临时换源</h3><pre><code class="bash">pip install 包名 -i https://pypi.tuna.tsinghua.edu.cn/simple
+</code></pre>
+<h3 id="永久换源"><a href="#永久换源" class="headerlink" title="永久换源"></a>永久换源</h3><pre><code class="bash">pip config set global.index-url https://mirrors.aliyun.com/pypi/simple
+</code></pre>
+<p>（校园网环境测试：换之前根本连不上，换之后&gt;2.5MB/s）</p>
+<p>（有必要也可以把pip换成pip3再执行一次，感觉没什么区别）</p>
+<h2 id="gem换源"><a href="#gem换源" class="headerlink" title="gem换源"></a>gem换源</h2><pre><code class="bash"># 总体来说换源前还勉强能用，可以先跳过
+gem sources --remove https://rubygems.org/  
+gem sources -a https://gems.ruby-china.com/   
+gem sources -l        
+</code></pre>
+<h1 id="动态调试工具——gdb-amp-pwndbg"><a href="#动态调试工具——gdb-amp-pwndbg" class="headerlink" title="动态调试工具——gdb &amp; pwndbg"></a>动态调试工具——gdb &amp; pwndbg</h1><pre><code class="bash">apt install gdb
+apt install python3
+apt install python3-venv
+git clone https://github.com/pwndbg/pwndbg.git
+cd pwndbg
+./setup.sh # 执行时最好使用流量，而不是校园网，我在使用校园网安装时报错了
+</code></pre>
+<p>安装完成后一定不要删除、移动pwndbg的setup源码，可以专门找一个文件夹给他放起来。</p>
+<h1 id="gadget查找工具——ROPgadget-amp-one-gadget"><a href="#gadget查找工具——ROPgadget-amp-one-gadget" class="headerlink" title="gadget查找工具——ROPgadget &amp; one_gadget"></a>gadget查找工具——ROPgadget &amp; one_gadget</h1><pre><code class="bash"># ROPgadget
+git clone https://github.com/JonathanSalwan/ROPgadget.git
+cd ROPgadget
+python3 setup.py install
+# one_gadget
+apt install ruby
+gem install one_gadget
+</code></pre>
+<p>安装完成后可以删除git源码</p>
+<h1 id="一些可以用apt快速安装的工具"><a href="#一些可以用apt快速安装的工具" class="headerlink" title="一些可以用apt快速安装的工具"></a>一些可以用apt快速安装的工具</h1><pre><code class="bash">apt install tmux
+apt install python3-pwntools
+apt install checksec
+</code></pre>
+<h1 id="最后附上WSL快捷使用的查询"><a href="#最后附上WSL快捷使用的查询" class="headerlink" title="最后附上WSL快捷使用的查询"></a>最后附上WSL快捷使用的查询</h1><pre><code>版权所有 (c) Microsoft Corporation。保留所有权利。
+有关此产品的隐私信息，请访问 https://aka.ms/privacy。
+
+用法: wsl.exe [参数] [选项...][命令行]
+
+运行 Linux 二进制文件的参数:
+
+    如果未提供命令行，wsl.exe 将启动默认 shell。
+
+    --exec, -e &lt;CommandLine&gt; 在不使用默认 Linux shell 的情况下执行指定的命令。
+    --shell-type &lt;standard|login|none&gt; 使用提供的 shell 类型执行指定的命令。
+    --  按原样传递剩余的命令行。
+选项:
+    --cd &lt;Directory&gt;
+        将指定目录设置为当前工作目录。
+        如果使用 ~，则将使用 Linux 用户的主路径。如果路径以
+        / 字符开始，它将解释为绝对 Linux 路径。
+        否则，该值必须是绝对 Windows 路径。
+    --distribution, -d &lt;Distro&gt; 运行指定的分发版。
+    --user, -u &lt;UserName&gt; 以指定用户身份运行。
+    --system 为系统分发版启动 shell。
+
+用于管理适用于 Linux 的 Windows 子系统的参数:
+
+    --help 显示使用情况信息。
+    --debug-shell 出于诊断目的打开 WSL2 调试 shell。
+    --install [发行版] [选项...]
+        安装适用于 Linux 的 Windows 子系统分发版。
+        有关有效分发版的列表，请使用 &#39;wsl.exe --list --online&#39;。
+        选项:
+            --no-launch, -n 安装后不要启动分发版。
+            --web-download 从 Internet 而不是 Microsoft Store 下载分发版。
+            --no-distribution 仅安装所需的可选组件，不安装分发版。
+            --enable-wsl1 启用 WSL1 支持。
+    --manage &lt;Distro&gt; &lt;Options...&gt; 更改发行版特定选项。
+        选项:
+            --move &lt;Location&gt; 将分发移到新位置。
+            --set-sparse, -s &lt;true|false&gt; 将发行版的 vhdx 设置为稀疏，从而允许自动回收磁盘空间。
+    --mount &lt;Disk&gt; 在所有 WSL 2 分发版中附加和装载物理磁盘或虚拟磁盘。
+        选项:
+            --vhd 指定 &lt;Disk&gt; 引用虚拟硬盘。
+            --bare 将磁盘附加到 WSL2，但不要装载它。
+            --name &lt;Name&gt; 使用装入点的自定义名称装载磁盘。
+            --type &lt;Type&gt; 装载磁盘时要使用的文件系统(如果未指定)默认为 ext4。
+            --options &lt;Options&gt;  其他装载选项。
+            --partition &lt;Index&gt; 要装载的分区的索引(如果未指定)默认为整个磁盘。
+    --set-default-version &lt;Version&gt; 更改新分发版的默认安装版本。 
+    --shutdown 立即终止所有正在运行的分发版和 WSL 2轻型实用工具虚拟机。
+    --status 显示适用于 Linux 的 Windows 子系统状态。
+    --unmount [磁盘] 从所有 WSL2 分发版中卸载和分离磁盘。
+        如果在没有参数的情况下调用，则卸载和分离所有磁盘。
+    --uninstall 从此计算机卸载适用于 Linux 的 Windows 子系统包。
+    --update 更新适用于 Linux 的 Windows 子系统包。
+        选项:
+            --pre-release
+                下载预发行版本(如果可用)。
+    --version, -v 显示版本信息。
+
+用于在适用于 Linux 的 Windows 子系统中管理分发版的参数:
+
+    --export &lt;Distro&gt; &lt;FileName&gt; [选项]
+        将分发版导出到 tar 文件。
+        文件名可以是 - for stdout。
+        选项:
+            --vhd
+                指定应将分发版导出为 .vhdx 文件。
+    --import &lt;Distro&gt; &lt;InstallLocation&gt; &lt;FileName&gt; [选项]
+        将指定的 tar 文件作为新分发版导入。
+        文件名可以是 - for stdin。
+        选项:
+            --version &lt;Version&gt;
+                指定要用于新分发的版本。
+            --vhd
+                指定所提供的文件是 .vhdx 文件，而不是 tar 文件。
+                此操作在指定的安装位置创建 .vhdx 文件的副本。
+    --import-in-place &lt;Distro&gt; &lt;FileName&gt;
+        将指定的 .vhdx 文件作为新分发版导入。
+        必须使用 ext4 文件系统类型设置此虚拟硬盘的格式。
+    --list, -l [选项] 列出分发版。
+        选项:
+            --all 列出所有分发版，包括当前正在安装或卸载的分发版。
+            --running 仅列出当前正在运行的分发版。
+            --quiet, -q 仅显示分发版名称。
+            --verbose, -v 显示有关所有分发版的详细信息。
+            --online, -o 显示适合通过 &#39;wsl --install&#39; 安装的可用分发版列表。
+    --set-default, -s &lt;Distro&gt; 将分布版设置为默认值。
+    --set-version &lt;Distro&gt; &lt;Version&gt;  更改指定分发版的版本。
+    --terminate, -t &lt;Distro&gt; 终止指定的分发版。
+    --unregister &lt;Distro&gt; 取消注册分发版并删除根文件系统。
+</code></pre>
+<p>命令很多，有用的就那几个：</p>
+<pre><code class="bash">wsl --list -v # 查看已安装的虚拟机的详细信息
+wsl --unregister &lt;Distro&gt; # 彻底删除一个wsl虚拟机
+wsl --export &lt;Distro&gt; &lt;FileName.vhdx&gt; --vhd #导出一个wsl虚拟机 （一般vhd比tar大）
+wsl --import &lt;Distro&gt; &lt;InstallLocation&gt; &lt;Filename.vhdx&gt; --vhd #导入一个wsl虚拟机
+wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
+</code></pre>
+
+</div>
+
+                </section>
+            </div>
+			<footer class="footer">
+    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
+    ↑ Back to Top
+</div>
+
+<script>
+    // Show or hide the button based on scroll position
+    window.addEventListener('scroll', function () {
+        const backToTop = document.getElementById('back-to-top');
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    // Scroll to top when the button is clicked
+    document.getElementById('back-to-top').addEventListener('click', function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+    <script src="js/highlight/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+                // hljs.initLineNumberOnLoad(block);
+            });
+        });
+    </script>
+	<div class="container">
+		<p>博客访问次数：</p>
+		<p>备案号：</p>
+	</div>
+</footer>
+		</div>
+	</div>
+</body>
+</html>

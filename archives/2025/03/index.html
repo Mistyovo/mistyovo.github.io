@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="">
+	<link rel="stylesheet" href="js/highlight/styles/atom-one-light.css">
+    <script src="js/highlight/highlight.min.js"></script>
+	<script src="js/cursor.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 5.4.2"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/">首页</a></li>
+                <li><a href="/categories">分类</a></li>
+                <li><a href="/archives">归档</a></li>
+                <li><a href="/friends">友链</a></li>
+                <li><a href="/resources">资源</a></li>
+                <li><a href="/guestbook">留言板</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div class="sidebar-stats">
+		<ul class="stats-list" style="display: flex; list-style: none; padding: 0; margin: 0;">
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span class="stat-value">1</span>
+				<span class="stat-label">文章</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">2</span>
+				<span class="stat-label">分类</span>
+			</li>
+			<li style="margin: 0 10px; display: flex; align-items: center;">
+				<span style="border-left: 1px solid #ccc; padding-left: 10px;"></span>
+				<span class="stat-value">3</span>
+				<span class="stat-label">标签</span>
+			</li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/25/理解C语言中的指针/">理解C语言中的指针</a></h2>
+	</div>
+	<p>指针变量的声明：</p>
+<pre><code>[type]* [variable]
+</code></pre>
+<p>无论<code>[type]</code>是什么东西，<code>[variable]</code>中储存的永远是一个地址，占用的内存大小是固定值，64位8字节，32位4字节</p>
+<p>当<code>[variable]</code>加上内存访问符*时，<code>*[variable]</code>就是一个大小不确定的东西，其大小由[type]决定</p>
+<p>为了控制*[variable]访问的内存空间大小，我们可以通过<code>*([type] *)[variable]</code>来控制</p>
+<p><code>void* [variable]</code>是合法的，<code>void [variable]</code>是非法的</p>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/23/Manim安装教程/">Manim安装教程</a></h2>
+	</div>
+	<ol>
+<li>进入官网安装页 <a target="_blank" rel="noopener" href="https://chocolatey.org/install">Chocolatey Software | Installing Chocolatey</a> （Windows支持的包管理器）</li>
+<li>把官网给出的安装命令复制下来</li>
+<li>打开windows powershell</li>
+<li>把复制下来的命令粘贴进去</li>
+<li>安装依赖：<code>choco install -y python ffmpeg latex miktex git</code></li>
+<li>安装Manim：<code>pip install manim</code></li>
+</ol>
+
+</div>
+
+<div class="post">
+	<div style="text-align: center;">
+		<h1><a href="2025/03/13/学习使用世界上最好的godot游戏引擎/">学习使用世界上最好的godot游戏引擎</a></h2>
+	</div>
+	<h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>快捷键</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>选择模式</td>
+<td>Q</td>
+<td>Ctrl+拖动：围绕轴心旋转选中节点。<br />Alt+拖动：移动选中节点。<br />Ctrl+Alt+Drag：缩放选中节点V:设置选中节点的轴心位置。<br />Alt+右键：显示点击位置的所有节点列表，包含已锁定节点。<br />右键：在点击位置添加节点。</td>
+</tr>
+<tr>
+<td>移动模式</td>
+<td>W</td>
+<td></td>
+</tr>
+<tr>
+<td>旋转模式</td>
+<td>E</td>
+<td></td>
+</tr>
+<tr>
+<td>缩放模式</td>
+<td>R</td>
+<td>Shift：按比例缩放。</td>
+</tr>
+<tr>
+<td>节点选择</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>修改轴心</td>
+<td></td>
+<td>点击修改对象的旋转轴心。<br/>Shift:设置临时旋转轴心。<br/>按住 Shift 点击该按钮可以将旋转轴心放置到所选节点的中心。</td>
+</tr>
+<tr>
+<td>平移模式</td>
+<td>G</td>
+<td>你还可以使用平移视图快捷键(默认为空格)在任何模式下平移</td>
+</tr>
+<tr>
+<td>标尺模式</td>
+<td>R</td>
+<td></td>
+</tr>
+<tr>
+<td>使用智能吸附</td>
+<td>Shift + S</td>
+<td>开关智能吸附。</td>
+</tr>
+<tr>
+<td>使用栅格吸附</td>
+<td>Shift + G</td>
+<td>开关栅格吸附。</td>
+</tr>
+<tr>
+<td>吸附选项</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>锁定所选节点</td>
+<td>Ctrl + L</td>
+<td>锁定选定的节点，防止选择和移动。</td>
+</tr>
+<tr>
+<td>编组所选节点</td>
+<td>Ctrl + G</td>
+<td>将所选节点与其子节点组合。这样在 2D 和 3D 视图中点击子节点就会选中父节点。</td>
+</tr>
+</tbody></table>
+<p>设置窗口大小：项目-&gt;项目设置-&gt;常规-&gt;显示-&gt;窗口-&gt;大小-&gt;视口宽/高度</p>
+<p>节点的渲染顺序为树的深度优先遍历，同级按从上到下的顺序，后渲染的覆盖之前渲染的。</p>
+<p>轴心点也叫中心点，用来给节点定位</p>
+<p>锚点用来描述节点相对于父节点的位置</p>
+<h3 id="3D"><a href="#3D" class="headerlink" title="3D"></a>3D</h3><p>还没学捏~</p>
+<h2 id="素材"><a href="#素材" class="headerlink" title="素材"></a>素材</h2><h3 id="图片素材"><a href="#图片素材" class="headerlink" title="图片素材"></a>图片素材</h3><p>图片的切割：在检查器中勾选Region-&gt;Enabled[]，然后点击下方“编辑区域”即可切割<br>图片的合并：在文件系统中选择多张图片，点击导入，导入为“TextureAtlas”</p>
+<h2 id="GDscript"><a href="#GDscript" class="headerlink" title="GDscript"></a>GDscript</h2><p>GDscript是一个非常类似于Python的脚本语言</p>
+
+</div>
+
+                </section>
+            </div>
+			<footer class="footer">
+    <div id="back-to-top" style="display: none; position: fixed; bottom: 20px; right: 20px; cursor: pointer; background: #007bff; color: #fff; padding: 10px; border-radius: 5px; text-align: center;">
+    ↑ Back to Top
+</div>
+
+<script>
+    // Show or hide the button based on scroll position
+    window.addEventListener('scroll', function () {
+        const backToTop = document.getElementById('back-to-top');
+        if (window.scrollY > 300) {
+            backToTop.style.display = 'block';
+        } else {
+            backToTop.style.display = 'none';
+        }
+    });
+
+    // Scroll to top when the button is clicked
+    document.getElementById('back-to-top').addEventListener('click', function () {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+    <script src="js/highlight/highlight.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            document.querySelectorAll('pre code').forEach((block) => {
+                hljs.highlightBlock(block);
+                // hljs.initLineNumberOnLoad(block);
+            });
+        });
+    </script>
+	<div class="container">
+		<p>博客访问次数：</p>
+		<p>备案号：</p>
+	</div>
+</footer>
+		</div>
+	</div>
+</body>
+</html>
