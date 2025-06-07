@@ -56,20 +56,21 @@
   margin: 10px;
   padding: 10px;
   height: 150px;
-  width: 420px;
+  width: 30%;
   background-color: #fff;
   border-radius: 8px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 .friend-item img {
   width: 120px;
   height: 120px;
   margin: 20px;
   border-radius: 50%;
-  box-shadow: 0 0 5px;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
 }
 .friend-item a {
   font-size: 20px;
-  weight: bold;
+  font-weight: bold;
 }
 .sidebar {
   position: fixed;
