@@ -2,6 +2,10 @@
   padding: 50px 10px;
   border-bottom: 1px solid #ddd;
 }
+.archive {
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
 #container {
   width: 100%;
   height: 100%;
@@ -185,6 +189,11 @@
   to {
     transform: translateY(0);
   }
+}
+.footer {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
 }
 .footer-content {
   width: 100%;
