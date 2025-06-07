@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
 	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
 
-	<script src="https://s4.zstatic.net/npm/twikoo@1.6.44/dist/twikoo.min.js"></script>
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
 	<script src="/js/cursor.js"></script>
@@ -188,17 +188,16 @@
 <h2 id="GDscript"><a href="#GDscript" class="headerlink" title="GDscript"></a>GDscript</h2><p>GDscript是一个非常类似于Python的脚本语言</p>
 
 
-	<div id="tcomment"></div>
-	<script>
-		twikoo.init({
-			envId: 'https://blog.mistyovo.xyz',
-			el: '#tcomment', // 容器元素
-			// region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
-			// path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
-			lang: 'zh-CN',
-		})
-	</script>
+    <div id="twikoo"></div>
+    <script>
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
 </div>
+
+<!-- mongodb+srv://admin:l45PtMtxUCAX0rTs@cluster0.bnjpc7g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 -->
                 </section>
 				<footer class="footer">
     <script>

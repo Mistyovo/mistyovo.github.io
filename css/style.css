@@ -32,6 +32,12 @@
   border-radius: 8px;
   box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
+.twikoo textarea {
+  height: 200px !important;
+}
+.twikoo .tk-admin-close {
+  z-index: 114514 !important;
+}
 .sidebar {
   position: fixed;
   display: flex;
@@ -63,7 +69,6 @@
 }
 .sidebar-stat {
   padding-bottom: 15px;
-  border-bottom: 1px solid #bbb;
 }
 .sidebar-stats li {
   border-right: 1px solid #ccc;
