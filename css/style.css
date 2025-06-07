@@ -431,6 +431,7 @@ code {
   color: #c70028;
   border: 1px solid #ddd;
   border-radius: 4px;
+  padding: 2px;
 }
 a {
   text-decoration: none;
@@ -447,6 +448,14 @@ ul li::marker {
 img {
   border-radius: 8px;
   box-shadow: 0 0 8px rgba(0,0,0,0.2);
+}
+blockquote {
+  padding: 5px 20px;
+  margin: 20px 0;
+  border-left: 5px solid #007bff;
+  background-color: #f9f9f9;
+  font-style: italic;
+  color: #555;
 }
 @font-face {
   font-family: 'Source Han Serif';

@@ -103,38 +103,16 @@
 
             <div class="outer">
                 <section id="main">
-			        <div class="post">
-    <div class="header-image"></div>
-    <div style="text-align: center;">
-        <h1>借助svcudp进行栈迁移</h1>
-        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
-        <br>
-    </div>
-    <p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
-<pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
-mov     rax, [rbp+18h]          ; 确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
-lea     r13, [rbp+10h]
-mov     dword ptr [rbp+10h], 0  ; 确保rbp+0x10位置可写
-mov     rdi, r13
-call    qword ptr [rax+28h]     ; 调用leave ; ret
-</code></pre>
-<p>在IDA中可以通过搜索汇编指令搜索到，推荐搜索以下两条指令，它们的搜索结果是最少的：</p>
-<pre><code class="asm">mov     rbp, [rdi+48h]
-lea     r13, [rbp+10h]
-</code></pre>
-<p>在rdi可控且写入数据的地址可获得的情况下，可以借助此gadget栈迁移到任意位置。</p>
-<p>在只能执行一个函数的情况下，十分适合使用此方法，继续执行ROP调用更多函数。</p>
-
-    <div id="twikoo"></div>
-    <script>
-        // Twikoo initialization
-        twikoo.init({
-            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
-            el: '#twikoo'
-        });
-    </script>
-	<script src="/js/contents.js"></script>
+			        
+<div class="archive">
+    <a href="/2025/06/07/v2ray学习笔记/">
+		<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
+			<h1>v2ray学习笔记</h1>
+			<p style="color: #888">创建于 1 天之前</p>
+		</div>
+	</a>
 </div>
+
                 </section>
 				<footer class="footer">
 	<script>
