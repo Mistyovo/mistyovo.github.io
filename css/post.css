@@ -12,5 +12,5 @@
   height: 200px !important;
 }
 .twikoo .tk-admin-close {
-  z-index: 114514 !important;
+  z-index: 999 !important;
 }

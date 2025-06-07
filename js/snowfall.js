@@ -8,7 +8,7 @@ document.addEventListener("DOMContentLoaded", () => {
         snowflake.style.setProperty("--size", `${size}px`);
 
         // 根据大小设置速度（越大越快）
-        const speed = `${Math.max(2, 10 - size / 2)}s`; // 大雪花速度更快
+        const speed = `${Math.max(2, 10 - size / 2)+5}s`; // 大雪花速度更快
         snowflake.style.setProperty("--speed", speed);
 
         // 根据大小设置振幅（越大振幅越小）
