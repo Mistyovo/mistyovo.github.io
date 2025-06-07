@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        <div class="post">
-	<div class="header-image"></div>
-	<div style="text-align: center;">
-		<h1>带你玩转DEV-C++</h2>
-			<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Oct 31 2024 15:04:15 GMT+0800</p>
-			<br>
-	</div>
-	<h2 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h2><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>带你玩转DEV-C++</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Oct 31 2024 15:04:15 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h2><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
 <h2 id="样式美化"><a href="#样式美化" class="headerlink" title="样式美化"></a>样式美化</h2><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/vttuwku5.png" alt="预览"></p>
 <ol>
 <li><p>点击顶部菜单栏<code>工具</code></p>
@@ -231,28 +237,35 @@
 <h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>Dev-C++跟目前的主流代码编辑器相比已被拉开巨大的差距，但</p>
 <p><strong>文章到此就结束了，还在持续更新，给个赞再走呗</strong></p>
 
-
     <div id="twikoo"></div>
     <script>
+        // Twikoo initialization
         twikoo.init({
             envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
             el: '#twikoo'
         });
     </script>
+	<script src="/js/contents.js"></script>
 </div>
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>

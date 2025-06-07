@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        <div class="post">
-	<div class="header-image"></div>
-	<div style="text-align: center;">
-		<h1>借助svcudp进行栈迁移</h2>
-			<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
-			<br>
-	</div>
-	<p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>借助svcudp进行栈迁移</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
+        <br>
+    </div>
+    <p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
 <pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
 mov     rax, [rbp+18h]          ; 确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
 lea     r13, [rbp+10h]
@@ -119,28 +125,35 @@ lea     r13, [rbp+10h]
 <p>在rdi可控且写入数据的地址可获得的情况下，可以借助此gadget栈迁移到任意位置。</p>
 <p>在只能执行一个函数的情况下，十分适合使用此方法，继续执行ROP调用更多函数。</p>
 
-
     <div id="twikoo"></div>
     <script>
+        // Twikoo initialization
         twikoo.init({
             envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
             el: '#twikoo'
         });
     </script>
+	<script src="/js/contents.js"></script>
 </div>
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>

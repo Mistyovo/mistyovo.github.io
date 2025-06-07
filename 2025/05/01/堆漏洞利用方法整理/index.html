@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        <div class="post">
-	<div class="header-image"></div>
-	<div style="text-align: center;">
-		<h1>堆漏洞利用方法整理</h2>
-			<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
-			<br>
-	</div>
-	<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>堆漏洞利用方法整理</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap/">【Github】shellphish/how2heap: A repository for learning various heap exploitation techniques.</a></li>
 </ul>
 <h2 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h2><table>
@@ -212,28 +218,35 @@
 </tr>
 </tbody></table>
 
-
     <div id="twikoo"></div>
     <script>
+        // Twikoo initialization
         twikoo.init({
             envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
             el: '#twikoo'
         });
     </script>
+	<script src="/js/contents.js"></script>
 </div>
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>

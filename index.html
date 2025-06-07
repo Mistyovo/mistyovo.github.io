@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/05/05/借助svcudp进行栈迁移/">借助svcudp进行栈迁移</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
-		<br>
-	</div>
-	<p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
+    <div style="text-align: center;">
+        <h1><a href="2025/05/05/借助svcudp进行栈迁移/">借助svcudp进行栈迁移</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
+        <br>
+    </div>
+    <p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
 <pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
 mov     rax, [rbp+18h]          ; 确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
 lea     r13, [rbp+10h]
@@ -122,12 +128,12 @@ lea     r13, [rbp+10h]
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/05/01/堆漏洞利用方法整理/">堆漏洞利用方法整理</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
-		<br>
-	</div>
-	<h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+    <div style="text-align: center;">
+        <h1><a href="2025/05/01/堆漏洞利用方法整理/">堆漏洞利用方法整理</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
 <li><a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap/">【Github】shellphish/how2heap: A repository for learning various heap exploitation techniques.</a></li>
 </ul>
 <h2 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h2><table>
@@ -238,12 +244,12 @@ lea     r13, [rbp+10h]
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/04/11/树链剖分/">树链剖分</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Apr 11 2025 09:15:58 GMT+0800</p>
-		<br>
-	</div>
-	<h2 id="算法目的"><a href="#算法目的" class="headerlink" title="算法目的"></a>算法目的</h2><p>维护静态树上的路径信息</p>
+    <div style="text-align: center;">
+        <h1><a href="2025/04/11/树链剖分/">树链剖分</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Apr 11 2025 09:15:58 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="算法目的"><a href="#算法目的" class="headerlink" title="算法目的"></a>算法目的</h2><p>维护静态树上的路径信息</p>
 <h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>分两次DFS预处理出以下关键值：</p>
 <table>
 <thead>
@@ -318,12 +324,12 @@ lea     r13, [rbp+10h]
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/03/13/学习使用世界上最好的godot游戏引擎/">学习使用世界上最好的godot游戏引擎</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Mar 13 2025 20:03:03 GMT+0800</p>
-		<br>
-	</div>
-	<h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
+    <div style="text-align: center;">
+        <h1><a href="2025/03/13/学习使用世界上最好的godot游戏引擎/">学习使用世界上最好的godot游戏引擎</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Mar 13 2025 20:03:03 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
 <thead>
 <tr>
 <th>模式</th>
@@ -408,12 +414,12 @@ lea     r13, [rbp+10h]
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Feb 11 2025 12:13:41 GMT+0800</p>
-		<br>
-	</div>
-	<p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
+    <div style="text-align: center;">
+        <h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Feb 11 2025 12:13:41 GMT+0800</p>
+        <br>
+    </div>
+    <p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
 <h2 id="GPG报错的解决方案"><a href="#GPG报错的解决方案" class="headerlink" title="GPG报错的解决方案"></a>GPG报错的解决方案</h2><p>最近不管在安装Kali的时候，不管装的是vmware、wsl、live boot，在使用apt update的时候都会出现如下错误：</p>
 <pre><code class="bash">apt update
 #Get:1 http://kali.download/kali kali-last-snapshot InRelease [41.5 kB]
@@ -564,12 +570,12 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2024/12/15/Linux系统调用号表/">Linux系统调用号表</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Sun Dec 15 2024 20:30:56 GMT+0800</p>
-		<br>
-	</div>
-	<h2 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h2><table>
+    <div style="text-align: center;">
+        <h1><a href="2024/12/15/Linux系统调用号表/">Linux系统调用号表</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Sun Dec 15 2024 20:30:56 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="32位"><a href="#32位" class="headerlink" title="32位"></a>32位</h2><table>
 <thead>
 <tr>
 <th>函数</th>
@@ -2289,12 +2295,12 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2024/10/31/将DEV-C-编辑器打造成神级IDE及美化/">带你玩转DEV-C++</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Oct 31 2024 15:04:15 GMT+0800</p>
-		<br>
-	</div>
-	<h2 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h2><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
+    <div style="text-align: center;">
+        <h1><a href="2024/10/31/将DEV-C-编辑器打造成神级IDE及美化/">带你玩转DEV-C++</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Oct 31 2024 15:04:15 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h2><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
 <h2 id="样式美化"><a href="#样式美化" class="headerlink" title="样式美化"></a>样式美化</h2><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/vttuwku5.png" alt="预览"></p>
 <ol>
 <li><p>点击顶部菜单栏<code>工具</code></p>
@@ -2424,12 +2430,12 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2024/07/26/kali+无线网卡破解wifi密码/">kali+无线网卡破解wifi密码</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jul 26 2024 17:39:06 GMT+0800</p>
-		<br>
-	</div>
-	<h1 id="虚拟机-无线网卡（推荐）"><a href="#虚拟机-无线网卡（推荐）" class="headerlink" title="虚拟机+无线网卡（推荐）"></a>虚拟机+无线网卡（推荐）</h1><h2 id="材料准备"><a href="#材料准备" class="headerlink" title="材料准备"></a>材料准备</h2><ol>
+    <div style="text-align: center;">
+        <h1><a href="2024/07/26/kali+无线网卡破解wifi密码/">kali+无线网卡破解wifi密码</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jul 26 2024 17:39:06 GMT+0800</p>
+        <br>
+    </div>
+    <h1 id="虚拟机-无线网卡（推荐）"><a href="#虚拟机-无线网卡（推荐）" class="headerlink" title="虚拟机+无线网卡（推荐）"></a>虚拟机+无线网卡（推荐）</h1><h2 id="材料准备"><a href="#材料准备" class="headerlink" title="材料准备"></a>材料准备</h2><ol>
 <li>安装有kali虚拟机的电脑，最好别用wsl（会有一些莫名其妙的错误）</li>
 <li>无线网卡一枚（最好免驱），网购约30元，我使用的是mt7601u</li>
 <li>字典（自己生成或者网上下载如Top100）</li>
@@ -2551,12 +2557,12 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2023/07/07/用C-读取鼠标在控制台上的操作/">用C++读取鼠标在控制台上的操作</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jul 07 2023 18:18:51 GMT+0800</p>
-		<br>
-	</div>
-	<p>与读取键盘信息类似，读取鼠标信息也是通过 <code>ReadConsoleInput</code> 函数来实现</p>
+    <div style="text-align: center;">
+        <h1><a href="2023/07/07/用C-读取鼠标在控制台上的操作/">用C++读取鼠标在控制台上的操作</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jul 07 2023 18:18:51 GMT+0800</p>
+        <br>
+    </div>
+    <p>与读取键盘信息类似，读取鼠标信息也是通过 <code>ReadConsoleInput</code> 函数来实现</p>
 <p>咱先说一下需要用到的头文件：</p>
 <pre><code class="cpp">#include &lt;windows.h&gt;
 </code></pre>
@@ -2718,12 +2724,12 @@ int main(void)
 </div>
 
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2023/07/06/日本麻将资料整理/">日本麻将资料整理</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Jul 06 2023 21:14:03 GMT+0800</p>
-		<br>
-	</div>
-	<p><strong>书名一览（若要保证浏览体验，请关闭翻译）</strong></p>
+    <div style="text-align: center;">
+        <h1><a href="2023/07/06/日本麻将资料整理/">日本麻将资料整理</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Jul 06 2023 21:14:03 GMT+0800</p>
+        <br>
+    </div>
+    <p><strong>书名一览（若要保证浏览体验，请关闭翻译）</strong></p>
 <blockquote>
 <p>《ASAPIN 天才雀士に麻雀のことを聞いたらバカ勝ちできた》<br>《Guzaku 傑作「何切る」300選》<br>《Guzaku 定石「何切る」301選》<br>《owata 三人麻雀の極意》<br>《ZERO ゼロ秒思考の麻雀》<br>《ZERO 麻雀強者の0秒思考》<br>《かにマジン 日本一麻雀が強いサラリーマンの必勝法》<br>《きよ アマチュア地方最強位が作る新麻雀マニュアル》<br>《みーにん 「統計学」のマージャン戦術》<br>《みーにん 知るだけで強くなる麻雀の2択》<br>《ゆうせー 実戦でよく出る!麻雀講義》<br>《中島準也 理論的思考で勝つ麻雀》<br>《二階堂亜樹 勝てる麻雀の基本》<br>《土井泰昭 勝つ人は知っている現代麻雀30の新常識》<br>《土田浩翔 運を育てる》<br>《堀内正人 麻雀の麒麟児の一打》<br>《堀慎吾 麻雀だから君は負けるんです》<br>《多井隆晴 多井熱》<br>《小林剛 スーパーデジタル麻雀》<br>《川村晃裕 麻雀勝ち組の鳴きテクニック》<br>《平澤元気 よくわかる麻雀の勝ち方》<br>《平澤元気 現代麻雀の秘技相手に対応させる技術》<br>《平澤元気 絶対にラスを引かない麻雀ラス回避35の技術》<br>《日本プロ麻雀連盟 麻雀基本手筋コレクション》<br>《朝倉康心 麻雀の失敗学》<br>《比嘉秀仁 強者の最近手筋100》<br>《水上直紀 麻雀AI戦術》<br>《独歩 序盤の鉄戦略》<br>《独歩 鉄押しの条件》<br>《石橋伸洋 進化するデジタル麻雀》<br>《石橋伸洋 黒いデジタル麻雀》<br>《福地誠 これだけで勝てる!麻雀の基本形80》<br>《福地誠 手作りと押し引きの鉄戦術》<br>《福地誠 麻雀10倍勝てるテクニック》<br>《福地誠 麻雀の正解》<br>《福地誠 麻雀テクニック》<br>《福地誠 麻雀勝ち組の選択》<br>《福地誠 麻雀勝ち組の選択II》<br>《菊池翔 絶対に負けない最強麻雀戦術》<br>《藤田晋 仕事が麻雀で麻雀が仕事》<br>《近代麻雀 プロに挑戦!!麻雀検定》<br>《近代麻雀 麻雀プロMリーグ選手名鑑》<br>《近藤誠一 大きく打ち大きく勝つ麻雀》<br>《鈴木たろう ゼウスの選択》<br>《馬場裕一 バビーのメンチン何切る》<br>《鳳南研究所 現代麻雀の神ワザ》</p>
 </blockquote>
@@ -2735,17 +2741,23 @@ int main(void)
 
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>

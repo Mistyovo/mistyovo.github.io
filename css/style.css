@@ -15,12 +15,12 @@
 .fade-in {
   opacity: 0;
   transform: translateY(10px);
-  transition: opacity 0.6s ease, transform 0.6s ease, color 0.3s ease;
+  transition: 0.5s ease;
 }
 .fade-in.visible {
   opacity: 1;
   transform: translateY(0);
-  transition: opacity 0.6s ease, transform 0.6s ease, color 0.3s ease;
+  transition: 0.5s ease;
 }
 .header-image {
   background-image: url("/images/header-img.png");
@@ -187,18 +187,14 @@
   }
 }
 .footer-content {
-  color: #aaa;
-  font-size: 12px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
 }
-.snowflake {
-  position: fixed;
-  top: -10px;
-  width: var(--size);
-  height: var(--size);
-  background-color: rgba(255,255,255,0.8);
-  border-radius: 50%;
-  pointer-events: none;
-  animation: fall var(--speed) linear infinite;
+.footer-content-left,
+.footer-content-right {
+  color: #aaa !important;
+  font-size: 12px;
 }
 .back-to-top {
   position: fixed;
@@ -224,6 +220,39 @@
 }
 .back-to-top:hover {
   transform: scale(1.1);
+}
+#cursor {
+  position: fixed;
+  width: 16px;
+  height: 16px;
+  background: #000;
+  border-radius: 8px;
+  opacity: 0.25;
+  z-index: 10086;
+  pointer-events: none;
+  transition: 0.2s ease-in-out;
+  transition-property: background, opacity, transform;
+}
+#cursor.hidden {
+  opacity: 0;
+}
+#cursor.hover {
+  opacity: 0.1;
+  transform: scale(2.5);
+}
+#cursor.active {
+  opacity: 0.5;
+  transform: scale(0.5);
+}
+.snowflake {
+  position: fixed;
+  top: -10px;
+  width: var(--size);
+  height: var(--size);
+  background-color: rgba(255,255,255,0.8);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: fall var(--speed) linear infinite;
 }
 @-moz-keyframes fall {
   0% {
@@ -269,31 +298,58 @@
     transform: translateY(100vh) translateX(calc(-1 * var(--amplitude))) rotate(360deg);
   }
 }
-#cursor {
+.draggable-toc {
   position: fixed;
-  width: 16px;
-  height: 16px;
-  background: #000;
+  top: 25px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 280px;
+  background-color: #fff;
   border-radius: 8px;
-  opacity: 0.25;
-  z-index: 10086;
-  pointer-events: none;
-  transition: 0.2s ease-in-out;
-  transition-property: background, opacity, transform;
+  box-shadow: 0 0px 8px rgba(0,0,0,0.2);
+  padding: 0px;
+  cursor: move;
+  z-index: 1000;
 }
-#cursor.hidden {
-  opacity: 0;
+.draggable-toc ul {
+  padding: 0px 20px;
+  margin: 0;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.3s ease;
 }
-#cursor.hover {
-  opacity: 0.1;
-  transform: scale(2.5);
+.draggable-toc li a {
+  display: block;
+  padding: 5px 0;
+  width: 100%;
 }
-#cursor.active {
-  opacity: 0.5;
-  transform: scale(0.5);
+.draggable-toc button {
+  width: 100%;
+  height: 50px;
+  background-color: #fff;
+  border: none;
+  border-bottom: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: 'Source Han Serif', serif;
+  font-size: 16px;
+  font-weight: bold;
 }
-* {
-  cursor: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 8' width='8px' height='8px'><circle cx='4' cy='4' r='4' opacity='.5'/></svg>") 4 4, auto;
+.header-level-2 {
+  margin-left: 10px;
+}
+.header-level-3 {
+  margin-left: 30px;
+}
+.header-level-4 {
+  margin-left: 50px;
+}
+.header-level-5 {
+  margin-left: 70px;
+}
+.header-level-6 {
+  margin-left: 90px;
 }
 table {
   width: 100%;
@@ -333,11 +389,11 @@ code {
 a {
   text-decoration: none;
   color: #000;
-  transition: color 0.3s ease;
+  transition: 0.3s ease;
 }
 a:hover {
+  text-decoration: none;
   color: #007bff;
-  transition: color 0.3s ease;
 }
 ul li::marker {
   color: #007bff;
@@ -354,4 +410,8 @@ img {
 }
 body {
   font-family: 'Source Han Serif', serif;
+}
+::selection {
+  background-color: #ffc0cb;
+  color: #fff;
 }

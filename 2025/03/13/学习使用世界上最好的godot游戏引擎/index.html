@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        <div class="post">
-	<div class="header-image"></div>
-	<div style="text-align: center;">
-		<h1>学习使用世界上最好的godot游戏引擎</h2>
-			<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Mar 13 2025 20:03:03 GMT+0800</p>
-			<br>
-	</div>
-	<h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>学习使用世界上最好的godot游戏引擎</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Mar 13 2025 20:03:03 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="图形编辑器"><a href="#图形编辑器" class="headerlink" title="图形编辑器"></a>图形编辑器</h2><h3 id="2D"><a href="#2D" class="headerlink" title="2D"></a>2D</h3><table>
 <thead>
 <tr>
 <th>模式</th>
@@ -186,28 +192,35 @@
 <h2 id="素材"><a href="#素材" class="headerlink" title="素材"></a>素材</h2><h3 id="图片素材"><a href="#图片素材" class="headerlink" title="图片素材"></a>图片素材</h3><p>图片的切割：在检查器中勾选Region-&gt;Enabled[]，然后点击下方“编辑区域”即可切割<br>图片的合并：在文件系统中选择多张图片，点击导入，导入为“TextureAtlas”</p>
 <h2 id="GDscript"><a href="#GDscript" class="headerlink" title="GDscript"></a>GDscript</h2><p>GDscript是一个非常类似于Python的脚本语言</p>
 
-
     <div id="twikoo"></div>
     <script>
+        // Twikoo initialization
         twikoo.init({
             envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
             el: '#twikoo'
         });
     </script>
+	<script src="/js/contents.js"></script>
 </div>
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>

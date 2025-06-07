@@ -11,6 +11,8 @@
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
@@ -44,6 +46,9 @@
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
 	</div>
 	<div class="sidebar-stat">
 		<ul class="sidebar-stats">
@@ -95,16 +100,17 @@
 		</ul>
 	</div>
 </div>
+
             <div class="outer">
                 <section id="main">
 			        
 <div class="post">
-	<div style="text-align: center;">
-		<h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Feb 11 2025 12:13:41 GMT+0800</p>
-		<br>
-	</div>
-	<p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
+    <div style="text-align: center;">
+        <h1><a href="2025/02/11/PWN环境搭建/">在wsl中搭建pwn环境</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Feb 11 2025 12:13:41 GMT+0800</p>
+        <br>
+    </div>
+    <p>玩linux的少不了系统重装，每次装系统都要配环境，故记录下环境配置的过程，方便再次查阅，也可以i在</p>
 <h2 id="GPG报错的解决方案"><a href="#GPG报错的解决方案" class="headerlink" title="GPG报错的解决方案"></a>GPG报错的解决方案</h2><p>最近不管在安装Kali的时候，不管装的是vmware、wsl、live boot，在使用apt update的时候都会出现如下错误：</p>
 <pre><code class="bash">apt update
 #Get:1 http://kali.download/kali kali-last-snapshot InRelease [41.5 kB]
@@ -256,17 +262,23 @@ wsl --set-default &lt;Distro&gt; # 设置默认启动的wsl虚拟机
 
                 </section>
 				<footer class="footer">
-    <script>
-        document.addEventListener('DOMContentLoaded', (event) => {
-            document.querySelectorAll('pre code').forEach((block) => {
-                hljs.highlightBlock(block);
-            });
-        });
-    </script>
+	<script>
+		document.addEventListener('DOMContentLoaded', (event) => {
+			document.querySelectorAll('pre code').forEach((block) => {
+				hljs.highlightBlock(block);
+			});
+		});
+	</script>
 	<div class="footer-content">
-        <p>博客观点仅代表作者，与第三方无关</p>
-        <p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
-	</div>
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+		</div>
 </footer>
             </div>
 		</div>
