@@ -98,11 +98,11 @@
             <div class="outer">
                 <section id="main">
 			        <div class="post">
-    <div class="header-image"></div>
+	<div class="header-image"></div>
 	<div style="text-align: center;">
 		<h1>借助svcudp进行栈迁移</h2>
-		<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
-		<br>
+			<p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon May 05 2025 08:57:32 GMT+0800</p>
+			<br>
 	</div>
 	<p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
 <pre><code class="asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
@@ -119,7 +119,21 @@ lea     r13, [rbp+10h]
 <p>在rdi可控且写入数据的地址可获得的情况下，可以借助此gadget栈迁移到任意位置。</p>
 <p>在只能执行一个函数的情况下，十分适合使用此方法，继续执行ROP调用更多函数。</p>
 
+
+	<div id="tcomment"></div>
+	<script src="https://s4.zstatic.net/npm/twikoo@1.6.44/dist/twikoo.min.js"></script>
+	<script>
+		twikoo.init({
+			envId: 'https://blog.mistyovo.xyz',
+			el: '#tcomment', // 容器元素
+			// region: 'ap-guangzhou', // 环境地域，默认为 ap-shanghai，腾讯云环境填 ap-shanghai 或 ap-guangzhou；Vercel 环境不填
+			// path: location.pathname, // 用于区分不同文章的自定义 js 路径，如果您的文章路径不是 location.pathname，需传此参数
+			lang: 'zh-CN',
+		})
+	</script>
 </div>
+
+<!-- mongodb+srv://admin:l45PtMtxUCAX0rTs@cluster0.bnjpc7g.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0 -->
                 </section>
 				<footer class="footer">
     <script>
