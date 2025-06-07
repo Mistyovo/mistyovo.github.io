@@ -69,6 +69,27 @@ document.addEventListener('DOMContentLoaded', function () {
         toc.appendChild(listItem);
     });
 
+    // Add IntersectionObserver to highlight visible headers
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            const targetId = entry.target.id;
+            const listItem = toc.querySelector(`a[href="#${targetId}"]`).parentElement;
+
+            if (entry.isIntersecting) {
+                listItem.style.color = '#00bbff'; // Highlight the marker
+            } else {
+                listItem.style.color = '#FFC0CB'; // Reset the marker
+            }
+        });
+    }, {
+        root: null,
+        threshold: 0.5 // Trigger when 50% of the header is visible
+    });
+
+    headers.forEach(header => {
+        observer.observe(header);
+    });
+
     // Add drag functionality
     let isDragging = false;
     let offsetX, offsetY;

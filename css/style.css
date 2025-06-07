@@ -318,10 +318,16 @@
   max-height: 0;
   transition: max-height 0.3s ease;
 }
+.draggable-toc li {
+  color: inherit;
+}
 .draggable-toc li a {
   display: block;
   padding: 5px 0;
   width: 100%;
+}
+.draggable-toc li::marker {
+  color: inherit;
 }
 .draggable-toc button {
   width: 100%;
