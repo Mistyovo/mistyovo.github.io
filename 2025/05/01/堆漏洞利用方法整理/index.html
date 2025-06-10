@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>堆漏洞利用方法整理</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu May 01 2025 14:56:19 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h2 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h2><p>- <a target="_blank" rel="noopener" href="https://github.com/shellphish/how2heap/">【Github】shellphish&#x2F;how2heap: A repository for learning various heap exploitation techniques.</a></p>
+<h2 id="Fastbin利用"><a href="#Fastbin利用" class="headerlink" title="Fastbin利用"></a>Fastbin利用</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>Fastbin Dup</strong><br /># Glibc 2.39</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Tcache利用"><a href="#Tcache利用" class="headerlink" title="Tcache利用"></a>Tcache利用</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="Small-Large-Bin利用"><a href="#Small-Large-Bin利用" class="headerlink" title="Small&#x2F;Large Bin利用"></a>Small&#x2F;Large Bin利用</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="House-of-系列"><a href="#House-of-系列" class="headerlink" title="House of 系列"></a>House of 系列</h2><table>
+<thead>
+<tr>
+<th align="left">名称</th>
+<th align="left">利用步骤</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"><strong>House of Apple1</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Apple2</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Botcake</strong><br /># Glibc 2.39<br /></td>
+<td align="left">Step 1：分配出9个Size相同且大于0x80的 Chunk（可能需要多一个使其与Top Chunk分隔开）<br />Step 2：释放7个Chunk，填满对应的Tcache Bin<br />Step 3：释放第8个Chunk（Chunk A），进入Unosrted Bin<br />Step 4：释放第9个Chunk（Chunk B），将会引发Chunk A与Chunk B合并<br />Step 5：从该大小的Tcache Bin中分配出1个Chunk，给Double Chun B让位<br />Step 6：再次释放Chunk B，进入Tcache<br />Finish：此时Chunk B同时存在于Unsorted Bin与Tcache中</td>
+</tr>
+<tr>
+<td align="left"><strong>House of Einherjar</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Force</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Gods</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Lore</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Mind Fastbin</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Orange</strong><br /># Glibc 2.23<br /># 无free()函数</td>
+<td align="left">Step 1：堆溢出修改Top Chunk的Size为较小值<br />Step 2：创建一个Size大于Top Chunk的Size的空间，这样Top Chunk就会被Free进Unsorted Bin<br />Step 3：堆溢出修改这个Unsorted Bin的内容：<br />(1) 写入<code>/bin/sh\x00</code><br />(2) 修改 Unsorted Bin的大小为0x60（也可以为其他值，但是要找得到位置）<br />(3) Unsorted Bin的bk指针为<code>_IO_list_all-0x10</code>（？？）<br />(4) 构造合理的<code>IO_FILE</code>结构通过判断<br />(5) 构造vtable，写入想要执行的函数<br />Step 4：分配这个Unsorteed Bin</td>
+</tr>
+<tr>
+<td align="left"><strong>House of Roman</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Spirit</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Storm</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Tangerine</strong></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><strong>House of Water</strong></td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

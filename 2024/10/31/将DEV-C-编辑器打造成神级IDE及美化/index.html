@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>带你玩转DEV-C++</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Thu Oct 31 2024 15:04:15 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h2 id="头记"><a href="#头记" class="headerlink" title="头记"></a>头记</h2><p>鉴于使用<code>原版DEV-C++</code>不得不说十分滞后，人家<code>Visual Studio</code>多高端，本人写下此文章,使用一些奇技淫巧，美化和增强此IDE，个人认为可以和<code>Visual Studio</code>相媲美</p>
+<h2 id="样式美化"><a href="#样式美化" class="headerlink" title="样式美化"></a>样式美化</h2><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/vttuwku5.png" alt="预览"></p>
+<p>1. 点击顶部菜单栏<code>工具</code></p>
+<p>1. 点击下拉列表中的<code>编译器选项</code></p>
+<p>1. 点击新弹出的窗口中的<code>基本</code></p>
+<p>1. 取消勾选<code>高亮显示当前行</code>，或者后面你再选择你喜欢的颜色。</p>
+<p>1. 点击还是这个窗口中的<code>语法</code>（和“基本”在同一排）</p>
+<p>1. 选择<code>预设</code>为 Obsidian，保存一下再进行以下修改</p>
+<p>1. 修改以下几个地方：（都只改前景和样式，背景不改，改完记得点确定）</p>
+<blockquote>
+<p>Preprocessor: （自定义）红136+绿99+蓝173+下划线</p>
+<p>Reserved Word： （自定义）红106+绿185+蓝255+下划线</p>
+<p>Identifier： Silver</p>
+<p>String：（自定义）红255+绿128+蓝128</p>
+<p>Symbol：（自定义）同上String</p>
+</blockquote>
+<h2 id="取消完成符号（个人喜好）"><a href="#取消完成符号（个人喜好）" class="headerlink" title="取消完成符号（个人喜好）"></a>取消完成符号（个人喜好）</h2><p>1. 点击顶部菜单栏<code>工具</code>-&gt;点击<code>编译器选项</code></p>
+<p>1. 点击新弹出的窗口中的<code>代码补全</code></p>
+<p>1. 点击<code>完成符号</code></p>
+<p>1. 取消勾选<code>启用符号配对</code></p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/1ijwn1cy.png"></p>
+<h2 id="编译选项优化"><a href="#编译选项优化" class="headerlink" title="编译选项优化"></a>编译选项优化</h2><p>1. 点击顶部菜单栏<code>工具</code></p>
+<p>1. 点击下拉列表中的<code>编译选项</code></p>
+<p>1. 点击新弹出的窗口中的<code>代码生成/优化</code></p>
+<p>1. 点击<code>代码警告</code></p>
+<p>1. 设<code>显示最多警告信息（-Wall）</code>为Yes</p>
+<p>1. (有必要的可以设“显示所有警告为错误（-Werror）”为Yes)</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/mf2j4j60.png" alt="像这样"></p>
+<h2 id="使用自己的mingw-w64"><a href="#使用自己的mingw-w64" class="headerlink" title="使用自己的mingw-w64"></a>使用自己的mingw-w64</h2><p>（Dev-C++ 5.11自带的mingw-w64的版本才4.9.2，我们可以使用自己最新版的mingw-w64，目前是8.1.0）</p>
+<p>1. mingw-w64的下载安装教程,在<a target="_blank" rel="noopener" href="https://www.luogu.com.cn/blog/sky-fox/post-an-li-sublime-text-3-pei-zhi-cjava-kai-fa-huan-jing">这里</a>有</p>
+<p>1. 打开Dev-C++过程中一定不要关闭</p>
+<p>1. 打开你Dev-C++安装的位置（默认在C:\Program Files (x86)\Dev-Cpp）</p>
+<p>1. 用你的MinGW64覆盖掉自带的MinGW64的文件夹</p>
+<p>1. 然后点击Dev-C++菜单栏 <code>文件</code> -&gt; <code> 编译选项</code> -&gt; 点击 <code>目录</code></p>
+<p>1. 点击<code>C包含文件</code>和<code>C++包含文件</code></p>
+<p>1. 把里面路径所有的4.9.2换成8.1.0（即你所用的版本）</p>
+<p>1. 然后重新打开Dev-C++进行配置</p>
+<p>修改样例（修改后点击替换）:</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/9ms6hwzz.png"></p>
+<p><strong>注</strong>：如果你过程中关闭了Dev-C++重新打开时他会提示你“<strong>路径无效，是否删除无效路径</strong>”请选择<strong>否</strong>，不然你的许多头文件会用不了</p>
+<p>接下来配置一下</p>
+<p>- 点击Dev-C++菜单栏 <code>文件</code> -&gt; <code>编译选项</code> 点击上方两个加号处</p>
+<p>- 点击Yes或No，点击Yes就会清空原有列表，点击No就会保留原来列表，建议清空（建议点击Yes）</p>
+<p>- 如果会生成一个新列表，说明配置成功了,像这样</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/5eebhg9a.png"><br><img src="https://cdn.luogu.com.cn/upload/image_hosting/vdtluh48.png"></p>
+<h2 id="格式化修改"><a href="#格式化修改" class="headerlink" title="格式化修改"></a>格式化修改</h2><p>1. 点击顶部菜单栏<code>AStyle</code></p>
+<p>1. 点击下拉列表中的<code>格式化选项</code></p>
+<p>1. 选择<code>选项——括号风格</code>为Allman（个人喜欢）（默认的Java也还行）</p>
+<p>1. 在编辑代码的时候按Ctrl+Shift+A就可以自动格式化啦</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/o8x9q60g.png" alt="预览"></p>
+<h2 id="设置透明编辑器"><a href="#设置透明编辑器" class="headerlink" title="设置透明编辑器"></a>设置透明编辑器</h2><p><img src="https://cdn.luogu.com.cn/upload/image_hosting/9ztt3tra.png" alt="预览"></p>
+<p>1. 点击<a target="_blank" rel="noopener" href="https://files.cnblogs.com/files/fox-nest/Glass2k.rar">这里</a>下载<a target="_blank" rel="noopener" href="https://files.cnblogs.com/files/fox-nest/Glass2k.rar">Glass2k程序</a></p>
+<p>1. 解压并打开<code>Glass2k.exe</code>(怎么都是英文的？！别怕)</p>
+<p>1. 如果没有显示界面那就看看任务栏右下角有没有三个箱子堆起来的图标，右键点<code>Settings</code></p>
+<p>1. 有三个勾选框，简单翻译一下，第一个是开机启动，第二个是记住透明度设置，第三个是深度使用该软件（建议勾选第二和第三个）（下面那个蓝蓝的条是用来设置任务栏的透明度的）</p>
+<p>1. 接下来为了避免鼠标按键冲突，设置<code>Right Click</code>: <code>+ Ctrl + Shift</code></p>
+<p>1. 然后打开DEV-C++，按着<code>Ctrl + Shift + 右键</code>点击DEV-C++窗口的任意地方，就会出现一个列表，选择你想要的透明度就可以啦（建议设置80%）</p>
+<p>- 可以按照下图修改</p>
+<p><img src="https://cdn.luogu.com.cn/upload/image_hosting/0gbn318e.png" alt="预览"></p>
+<p>（PS:这个软件也可以用在其他一些地方哦，如：浏览器，文件夹等）</p>
+<h2 id="一些快捷键"><a href="#一些快捷键" class="headerlink" title="一些快捷键"></a>一些快捷键</h2><p>1. f9编译，f10运行，f11编译运行（这个应该不用我多说）</p>
+<p>1. f5调试（记得把设定编译器配置改为TDM-GCC 4.9.2 64-bit Debug），F7下一步，F8单步进入（这个应该也不用我多说）</p>
+<p>1. Ctrl+f11全屏&#x2F;取消全屏，样例：<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/xv7z3idp.png"></p>
+<p>1. 当你打开了两个文件时，让你的页面停留在一个文件，按Ctrl+M就可以把另一个文件在新的页面打开，样例:<br><img src="https://cdn.luogu.com.cn/upload/image_hosting/klowtiln.png"></p>
+<h2 id="最后"><a href="#最后" class="headerlink" title="最后"></a>最后</h2><p>Dev-C++跟目前的主流代码编辑器相比已被拉开巨大的差距，但</p>
+<p><strong>文章到此就结束了，还在持续更新，给个赞再走呗</strong></p>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

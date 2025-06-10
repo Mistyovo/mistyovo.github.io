@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        
+<div class="post">
+    <div style="text-align: center;">
+        <h1><a href="/2025/06/10/hexo异常修复杂记/">hexo异常修复杂记</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Jun 10 2025 23:24:54 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="hexo-s报错TypeError-tokens-at-is-not-a-function（2025-6-10）"><a href="#hexo-s报错TypeError-tokens-at-is-not-a-function（2025-6-10）" class="headerlink" title="hexo s报错TypeError: tokens.at is not a function（2025.6.10）"></a>hexo s报错TypeError: tokens.at is not a function（2025.6.10）</h2><p>报错信息如下所示：</p>
+<pre><code class="language-bash">PS E:\Site\blog-new&gt; hexo s
+INFO  Validating config
+INFO  Start processing
+FATAL Something&#39;s wrong. Maybe you can find the solution here: https://hexo.io/docs/troubleshooting.html
+TypeError: tokens.at is not a function
+Please report this to https://github.com/markedjs/marked.
+    at __Lexer.blockTokens (E:\Site\blog-new\node_modules\marked\lib\marked.cjs:1286:34)
+    at __Lexer.lex (E:\Site\blog-new\node_modules\marked\lib\marked.cjs:1169:10)
+    at lex (E:\Site\blog-new\node_modules\marked\lib\marked.cjs:1155:19)
+    at Marked.parse2 [as parse] (E:\Site\blog-new\node_modules\marked\lib\marked.cjs:2135:22)
+    at Function.marked [as parse] (E:\Site\blog-new\node_modules\marked\lib\marked.cjs:2174:25)
+    at Hexo.module.exports (E:\Site\blog-new\node_modules\hexo-renderer-marked\lib\renderer.js:279:27)
+    at Hexo.tryCatcher (E:\Site\blog-new\node_modules\bluebird\js\release\util.js:16:23)
+    at Hexo.&lt;anonymous&gt; (E:\Site\blog-new\node_modules\bluebird\js\release\method.js:15:34)
+    at E:\Site\blog-new\node_modules\hexo\dist\hexo\render.js:73:28
+    at tryCatcher (E:\Site\blog-new\node_modules\bluebird\js\release\util.js:16:23)
+    at Promise._settlePromiseFromHandler (E:\Site\blog-new\node_modules\bluebird\js\release\promise.js:547:31)
+    at Promise._settlePromise (E:\Site\blog-new\node_modules\bluebird\js\release\promise.js:604:18)
+    at Promise._settlePromiseCtx (E:\Site\blog-new\node_modules\bluebird\js\release\promise.js:641:10)
+    at _drainQueueStep (E:\Site\blog-new\node_modules\bluebird\js\release\async.js:97:12)
+    at _drainQueue (E:\Site\blog-new\node_modules\bluebird\js\release\async.js:86:9)
+    at Async._drainQueues (E:\Site\blog-new\node_modules\bluebird\js\release\async.js:102:5)
+    at Immediate.Async.drainQueues [as _onImmediate] (E:\Site\blog-new\node_modules\bluebird\js\release\async.js:15:14)
+    at processImmediate (internal/timers.js:462:21)
+</code></pre>
+<p>修复方式：vscode打开&#x2F;node_modules文件夹，搜索<code>tokens.at(-1)</code>全部替换为<code>token[-1]</code></p>
+
+</div>
+
+<div class="post">
+    <div style="text-align: center;">
+        <h1><a href="/2025/06/10/Python-OpenCV学习笔记/">Python OpenCV学习笔记</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Jun 10 2025 16:50:23 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="常用工具包"><a href="#常用工具包" class="headerlink" title="常用工具包"></a>常用工具包</h2><pre><code class="language-python">import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+</code></pre>
+<h2 id="图像操作"><a href="#图像操作" class="headerlink" title="图像操作"></a>图像操作</h2><h3 id="图片读取"><a href="#图片读取" class="headerlink" title="图片读取"></a>图片读取</h3><pre><code class="language-python">img = cv2.imread(&#39;xxx.jpg&#39;) # 读取图像 数据类型
+img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_COLOR) # 读取彩色图像
+img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_GRAYSCALE) # 读取灰度图像
+cv2.imshow(&#39;xxx&#39;, img) # 显示图像（窗口名，图像）
+cv2.waitKey(0)
+cv2.destoryAllWindows()
+cv2.imwrite(&#39;xxx&#39;, img) # 保存图像
+
+# 查看图片的属性
+type(img)
+img.shape
+img.size
+img.dtype
+</code></pre>
+<h3 id="视频读取"><a href="#视频读取" class="headerlink" title="视频读取"></a>视频读取</h3><pre><code class="language-python">vc = cv2.VideoCapture(&#39;xxx.mp4&#39;) #打开视频
+
+if vc.isOpened():               #读取视频的一帧
+    open, frame = vc.read() 
+else:
+    open = False
+
+while open:                     #读取视频的每一帧
+    ret, frame = vc.read()
+    if frame is None:
+        break
+    if ret == True:
+        gray = cv.cvtColor(frame,)
+</code></pre>
+
+</div>
+
+<div class="post">
+    <div style="text-align: center;">
+        <h1><a href="/2025/06/09/免费将Windows-11家庭中文版升级为专业版等版本/">免费将Windows 11家庭中文版升级为专业版等版本</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Mon Jun 09 2025 22:35:02 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="Windows-11-版本更换"><a href="#Windows-11-版本更换" class="headerlink" title="Windows 11 版本更换"></a>Windows 11 版本更换</h2><p>本人亲自尝试了多种方法进行版本更换，但是效果都不尽如人意。</p>
+<p>尝试了使用MAS中自带的版本更换工具，结果出现如下提示：</p>
+<pre><code class="language-bash">Notes -
+
+ - Save your work before continuing, the system will auto-restart.
+
+ - You will need to activate with HWID option once the edition is changed.
+___________________________________________________________________________________________
+
+[1] Continue [2] Go back : 1
+
+Applying the DISM API method with Retail key VK7JG-NPHTM-C97JM-9MPGT-3V66T. Please wait...
+
+使用“6”个参数调用“_DismSetEdition”时发生异常:“不支持该请求。 (异常来自 HRESULT:0x80070032)”
+所在位置 行:22 字符: 5
++ if (!$Dism::_DismSetEdition($Session, &quot;$TargetEdition&quot;, &quot;$Key&quot;, 0, 0, ...
++     ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], MethodInvocationException
+    + FullyQualifiedErrorId : COMException
+
+
+Checking .NET Framework 3.5 Status - Enabled
+Log files are copied to the ChangeEdition_Logs folder on your desktop.
+
+In case there are errors, you should restart the system before trying again.
+
+Check this webpage for help -  https://massgrave.dev/change_edition_issues
+___________________________________________________________________________________________
+
+Follow ALL the ABOVE blue lines.
+Press [1] to Open Support Webpage  Press [0] to Ignore
+</code></pre>
+<p>也试了在“设置——系统——激活——更改产品密钥”中输入网上搜集的“可行的”密钥，且在联网、断网、重启、没重启的环境下都进行尝试，但是都会报错密钥无效（0xc004f050）</p>
+<p><a target="_blank" rel="noopener" href="https://gitcode.com/open-source-toolkit/fcc73">Win11版本一键转换工具 - GitCode</a>是目前我在网上找到的唯一有效的版本更换工具，操作方式十分简洁，我这里不多赘述。(虽然上面标注Windows 10 但是它们和Windows 11 的密钥应该是通用的)</p>
+<h2 id="Windows-11-激活"><a href="#Windows-11-激活" class="headerlink" title="Windows 11 激活"></a>Windows 11 激活</h2><p>以管理员身份运行PowerShell。</p>
+<p>在<a target="_blank" rel="noopener" href="https://massgrave.dev/">Microsoft Activation Scripts (MAS) | MAS</a>找到激活脚本，一般是下面这个：</p>
+<pre><code class="language-shell">irm https://get.activated.win | iex
+</code></pre>
+<p>进入页面之后选择[1]即可自动激活。</p>
+<h2 id="Windows-11-添加功能：组策略、Hyper-V、Sandbox"><a href="#Windows-11-添加功能：组策略、Hyper-V、Sandbox" class="headerlink" title="Windows 11 添加功能：组策略、Hyper-V、Sandbox"></a>Windows 11 添加功能：组策略、Hyper-V、Sandbox</h2><p>在这篇文章<a target="_blank" rel="noopener" href="https://www.deskmodder.de/blog/2024/03/02/windows-11-23h2-home-gruppenrichtlinien-gpedit-hyper-v-oder-sandbox-installieren-aktivieren-neues-skript/">Windows 11 23H2 Home - Gruppenrichtlinien (gpedit), Hyper-V oder Sandbox installieren &#x2F; aktivieren (neues Skript) - Deskmodder.de</a></p>
+<p>在Neuer Download小标题下存在一个下载连接，直接点击就可以下载了。</p>
+<p>- <a target="_blank" rel="noopener" href="https://www.deskmodder.de/blog/wp-content/uploads/2024/03/windows-11-home-hyper-v-gruppenrichtlinien-oder-sandbox-aktivieren.zip">Windows 11 Home Hyper-V Gruppenrichtlinien oder Sandbox aktivieren.zip</a> (11 KB)</p>
+<p>最后以管理员身份运行里面的脚本</p>
+
+</div>
+
+<div class="post">
+    <div style="text-align: center;">
+        <h1><a href="/2025/06/08/磁盘镜像取证杂记/">磁盘镜像取证杂记</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Sun Jun 08 2025 23:19:43 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="镜像的修复"><a href="#镜像的修复" class="headerlink" title="镜像的修复"></a>镜像的修复</h2><pre><code class="language-bash">$ file userdata.img
+userdata.img: Linux rev 1.0 ext4 filesystem data, UUID=dc1c8149-bb9e-4b37-adb2-f542b43cbebb (needs journal recovery) (extents) (64bit) (large files) (huge files)
+</code></pre>
+<p>注意上面的结果中存在：<code>(needs journal recovery)</code>，如果丢X-way Forensice的话不能被正常解析</p>
+<pre><code class="language-bash">$ e2fsck -fy userdata.img
+userdata.img: Linux rev 1.0 ext4 filesystem data, UUID=dc1c8149-bb9e-4b37-adb2-f542b43cbebb (extents) (64bit) (large files) (huge files)
+</code></pre>
+<p>再用X-way Forensice即可正常浏览文件目录和文件内容</p>
+
+</div>
+
+<div class="post">
+    <div style="text-align: center;">
+        <h1><a href="/2025/06/07/v2ray学习笔记/">v2ray学习笔记</a></h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Sat Jun 07 2025 19:58:40 GMT+0800</p>
+        <br>
+    </div>
+    <h2 id="免责声明"><a href="#免责声明" class="headerlink" title="免责声明"></a>免责声明</h2><p>本学习笔记仅供仅供教育、研究和安全测试目的而设计和开发。旨在为安全研究人员、学术界人士及技术爱好者提供一个探索和实践网络通信技术的学习渠道，其它任何将此技术用于任何非法用途的行为，与本人无关！</p>
+<h2 id="服务端"><a href="#服务端" class="headerlink" title="服务端"></a>服务端</h2><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>去<a target="_blank" rel="noopener" href="https://github.com/v2fly/v2ray-core/releases">Releases · v2fly&#x2F;v2ray-core</a>寻找适合你的服务器的v2ray-core。我这里选择的是v2ray-linux-64。（根据你自己的服务器版本选择！！）</p>
+<pre><code class="language-bash">wget https://github.com/v2fly/v2ray-core/releases/download/v5.32.0/v2ray-linux-64.zip
+unzip v2ray-linux-64.zip -d v2ray-linux-64
+</code></pre>
+<p>将v2ray文件放到<code>/usr/local/bin</code>文件夹下，在<code>/usr/local/etc</code>文件夹下创建一个文件夹v2ray，向文件夹中添加一个文件<code>config.json</code>。</p>
+<p>然后把<code>v2ray-linux-64/systemd/system</code>中的两个文件<code>v2ray.service</code>和<code>v2ray@.service</code>放到<code>/etc/systemd/system</code>文件夹下。懒得操作的可以直接使用以下代码:</p>
+<pre><code>cd v2ray-linux-64
+cp v2ray /usr/local/bin
+mkdir -p /usr/local/etc/v2ray
+touch /usr/local/etc/v2ray/config.json
+</code></pre>
+<p>然后输入下面这个命令，会自动生成一个uuid：</p>
+<pre><code class="language-bash">v2ray uuid
+</code></pre>
+<p>向刚刚创建的<code>config.json</code>文件中输入以下内容，需要修改有注释的两个地方：</p>
+<pre><code class="language-json">&#123;
+	&quot;inbounds&quot;: [
+		&#123;
+			&quot;port&quot;: , // 选择没有被占用的端口
+			&quot;protocol&quot;: &quot;vmess&quot;,
+			&quot;settings&quot;: &#123;
+				&quot;clients&quot;: [
+					&#123;
+						&quot;id&quot;: &quot;&quot;, //刚刚生成的uuid
+						&quot;level&quot;: 0,
+						&quot;alterId&quot;: 0,
+						&quot;security&quot;: &quot;auto&quot;
+					&#125;
+				]
+			&#125;,
+			&quot;streamSettings&quot;: &#123;
+				&quot;network&quot;: &quot;kcp&quot;
+			&#125;
+		&#125;
+	],
+	&quot;outbounds&quot;: [
+		&#123;
+			&quot;protocol&quot;: &quot;freedom&quot;,
+			&quot;settings&quot;: &#123;&#125;,
+			&quot;tag&quot;: &quot;direct&quot;
+		&#125;,
+		&#123;
+			&quot;protocol&quot;: &quot;blackhole&quot;,
+			&quot;settings&quot;: &#123;&#125;,
+			&quot;tag&quot;: &quot;blocked&quot;
+		&#125;
+	],
+	&quot;routing&quot;: &#123;
+		&quot;rules&quot;: [
+			&#123;
+				&quot;type&quot;: &quot;field&quot;,
+				&quot;protocol&quot;: [
+					&quot;bittorrent&quot;
+				],
+				&quot;outboundTag&quot;: &quot;blocked&quot;
+			&#125;
+		]
+	&#125;,
+	&quot;policy&quot;: &#123;
+		&quot;levels&quot;: &#123;
+			&quot;0&quot;: &#123;
+				&quot;uplinkOnly&quot;: 0,
+				&quot;downlinkOnly&quot;: 0
+			&#125;
+		&#125;
+	&#125;
+&#125;
+</code></pre>
+<p>尝试以下输入，看看是否报错，正常情况如下图所示：</p>
+<pre><code class="language-bash">v2ray run -config /usr/local/etc/v2ray/config.json
+</code></pre>
+<p><img src="https://s2.loli.net/2025/06/07/AP7quHwCp9aJgbk.png" alt="749306a88212af47e4a2e53433d8c875.png"></p>
+<h3 id="启动服务"><a href="#启动服务" class="headerlink" title="启动服务"></a>启动服务</h3><p>启动前先检查一下防火墙，最好是显示<code>FirewallD is not running</code>：</p>
+<pre><code class="language-bash">firewall-cmd --list-all
+</code></pre>
+<p>然后执行以下命令：</p>
+<pre><code class="language-bash">systemctl start v2ray # 立刻启动v2ray
+systemctl status v2ray # 查看v2ray的运行状态
+systemctl enable v2ray # 设置为开机自启
+</code></pre>
+<p>最后重启一下服务器，查看一下v2ray的运行状态是否为active(running)。</p>
+<h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><p>去<a target="_blank" rel="noopener" href="https://github.com/2dust/v2rayN/releases">Releases · 2dust&#x2F;v2rayN</a>下载v2ray的客户端v2rayN。我这里下载的是：</p>
+<p><img src="https://s2.loli.net/2025/06/07/viYPwqeOlkbAsLQ.png" alt="33708cd1-b751-44dc-a6ef-ecb9c537f55b.png"></p>
+<p>下载后解压运行<code>v2rayN.exe</code>，点击左上角<code>配置文件-&gt;添加[VMess]配置文件</code>，按照下图进行配置（有红字的才需要改），改完点确定：</p>
+<p><img src="https://s2.loli.net/2025/06/07/AYdRvBKxl1zSkZD.png" alt="63b749b1-f817-4a63-ac51-2cc4331356c8.png"></p>
+<p>系统代理选择<code>自动配置系统代理</code>，路由选择<code>全局</code>。然后尝试访问百度，如果能访问就在百度中输入<code>ip</code>，可以查看你的ip是否已经变成服务器的公网ip，如果变了则说明成功了。</p>
+
+</div>
+
+<div style="width: 100%; text-align: center;">
+    <p>更多文章请在<a href="/archives" style="text-decoration: underline">归档页</a>查看</p>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

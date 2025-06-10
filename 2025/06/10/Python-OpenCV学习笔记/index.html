@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>Python OpenCV学习笔记</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Jun 10 2025 16:50:23 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h2 id="常用工具包"><a href="#常用工具包" class="headerlink" title="常用工具包"></a>常用工具包</h2><pre><code class="language-python">import cv2
+import matplotlib.pyplot as plt
+import numpy as np
+</code></pre>
+<h2 id="图像操作"><a href="#图像操作" class="headerlink" title="图像操作"></a>图像操作</h2><h3 id="图片读取"><a href="#图片读取" class="headerlink" title="图片读取"></a>图片读取</h3><pre><code class="language-python">img = cv2.imread(&#39;xxx.jpg&#39;) # 读取图像 数据类型
+img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_COLOR) # 读取彩色图像
+img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_GRAYSCALE) # 读取灰度图像
+cv2.imshow(&#39;xxx&#39;, img) # 显示图像（窗口名，图像）
+cv2.waitKey(0)
+cv2.destoryAllWindows()
+cv2.imwrite(&#39;xxx&#39;, img) # 保存图像
+
+# 查看图片的属性
+type(img)
+img.shape
+img.size
+img.dtype
+</code></pre>
+<h3 id="视频读取"><a href="#视频读取" class="headerlink" title="视频读取"></a>视频读取</h3><pre><code class="language-python">vc = cv2.VideoCapture(&#39;xxx.mp4&#39;) #打开视频
+
+if vc.isOpened():               #读取视频的一帧
+    open, frame = vc.read() 
+else:
+    open = False
+
+while open:                     #读取视频的每一帧
+    ret, frame = vc.read()
+    if frame is None:
+        break
+    if ret == True:
+        gray = cv.cvtColor(frame,)
+</code></pre>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

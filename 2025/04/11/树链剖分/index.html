@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Mistyovo's Blog</title>
+	<link rel="icon" href="/images/favicon.ico" type="image/x-icon">
+
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
+	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
+
+
+	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
+    <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
+	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
+
+	<script src="/js/cursor.js"></script>
+	<script src="/js/fadeIn.js"></script>
+	<script src="/js/avatar-rotate.js"></script>
+	<script src="/js/snowfall.js"></script>
+	<script src="/js/backToTop.js"></script>
+	
+<link rel="stylesheet" href="/css/style.css">
+
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+<body>
+	<div id="container">
+		<div id="wrap">
+			<header>
+    <div class="navbar">
+        <div class="navbar-left">
+            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+        </div>
+        <div class="navbar-right">
+            <ul class="navbar-menu">
+                <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
+                <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
+                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
+                <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
+            </ul>
+        </div>
+    </div>
+</header>
+            <div class="sidebar">
+	<div class="author-info">
+		<div class="avatar">
+			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
+		</div>
+	</div>
+	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
+		Mistyovo
+	</div>
+	<div style="font-size: 14px; color: #aaa; text-align: center; margin: 0 0 20px 0;">
+		天下第一写屎山手请赐教
+	</div>
+	<div class="sidebar-stat">
+		<ul class="sidebar-stats">
+			<li>
+				<p class="stat-value">
+					15
+				</p>
+				<p class="stat-label">随笔</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					0
+				</p>
+				<p class="stat-label">分类</p>
+			</li>
+			<li>
+				<p class="stat-value">
+					9
+				</p>
+				<p class="stat-label">标签</p>
+			</li>
+		</ul>
+	</div>
+	<div class="sidebar-links">
+		<ul class="sidebar-links-list">
+			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
+			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
+			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+</div>
+            <div class="outer">
+                <section id="main">
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>树链剖分</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Apr 11 2025 09:15:58 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h2 id="算法目的"><a href="#算法目的" class="headerlink" title="算法目的"></a>算法目的</h2><p>维护静态树上的路径信息</p>
+<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>分两次DFS预处理出以下关键值：</p>
+<table>
+<thead>
+<tr>
+<th>DFS</th>
+<th>值</th>
+<th>含义</th>
+<th>获得方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>father[x]</td>
+<td>x在树中的父亲</td>
+<td>在dfs传参中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>dep[x]</td>
+<td>x在树中的深度</td>
+<td>在dfs传参中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>size[x]</td>
+<td>x为根的子树大小</td>
+<td>在dfs传递归中获得</td>
+</tr>
+<tr>
+<td>1</td>
+<td>son[x]</td>
+<td>x的重儿子编号</td>
+<td>在dfs传递归中获得</td>
+</tr>
+<tr>
+<td>2</td>
+<td>top[x]</td>
+<td>x所在的重路径的顶部结点编号</td>
+<td>top[重儿子]&#x3D;top[自己]<br>top[轻儿子]&#x3D;轻儿子</td>
+</tr>
+<tr>
+<td>2</td>
+<td>seg[x]</td>
+<td>x在线段树中的位置</td>
+<td>按照先访问重儿子的顺序先序遍历树，使得每条重链上的节点在线段树上保持相邻</td>
+</tr>
+<tr>
+<td>2</td>
+<td>rev[y]</td>
+<td>y在树中的结点编号</td>
+<td>这个简单</td>
+</tr>
+</tbody></table>
+<p>线段树的建树和查询的实现就只需按一般的做法</p>
+<p>树链的查询</p>
+<pre><code class="language-cpp">void ask (int x, int y)
+&#123;
+    int fx = top[x],fy = top[y];
+    while(fx != fy)							//直到两个点在同一条重链上
+    &#123;
+        if(dep[fx] &lt; dep[fy]) 				//选择深度大的往上跳
+            swap(x, y),swap(fx, fy);
+        query(1, 1, seg[0], seg[fx], seg[x]);	
+        x = father[fx]; fx=top[x];
+    &#125;
+    if(dep[x] &gt; dep[y]) 					//先序遍历导致：在同一棵子树上深度大的点在线段树中的位置靠后
+        swap(x, y);
+    query(1, 1, seg[0], seg[x], seg[y])		//而seg[x]&lt;=seg[y]故dep[x]&lt;=dep[y]
+&#125;
+</code></pre>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
+                </section>
+				<footer class="footer">
+	<script>hljs.highlightAll();</script>
+	<div class="footer-content">
+		<div class="footer-content-left">
+			<p>博客观点仅代表作者，与第三方无关</p>
+			<p>© 2018-2025 Mistyovo's Blog. All Rights Reserved.</p>
+		</div>
+		<div class="footer-content-right">
+			<p><a target="_blank" rel="noopener" href="https://beian.miit.gov.cn/">闽ICP备2025101699号</a></p>
+			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
+		</div>
+	</div>
+</footer>
+            </div>
+		</div>
+	</div>
+</body>
+</html>

@@ -1,0 +1,48 @@
+.friends ul {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  list-style: none;
+  justify-content: center;
+}
+.friends li {
+  height: 90px;
+  width: 30%;
+  border-radius: 5px;
+  border-left: 5px solid #0bf;
+  margin: 10px;
+  background-color: #f0f0f0;
+}
+.friends a {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+}
+.friends a:hover {
+  color: #000;
+}
+.friends img {
+  height: 60px;
+  width: 60px;
+  margin: 15px;
+  border-radius: 10px;
+}
+.friends div {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+.fn {
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 20px 0 0 0;
+}
+.fs {
+  margin: 0;
+  font-size: 12px;
+  font-weight: normal;
+  color: #aaa;
+  margin: 5px 0 0 0;
+}
