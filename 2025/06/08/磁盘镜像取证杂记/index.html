@@ -8,7 +8,6 @@
 	<link rel="stylesheet" href="https://mistyovo.xyz/libs/highlight/styles/atom-one-light.css">
 	<link rel="stylesheet" href="https://mistyovo.xyz/libs/font-awesome-pro/css/all.min.css">
 
-
 	<script src="https://registry.npmmirror.com/twikoo/1.6.44/files/dist/twikoo.min.js"></script>
     <script src="https://mistyovo.xyz/libs/highlight/highlight.min.js"></script>
 	<script src="https://mistyovo.xyz/libs/font-awesome-pro/js/all.min.js"></script>
@@ -17,7 +16,7 @@
 	<script src="/js/fadeIn.js"></script>
 	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
-	<script src="/js/backToTop.js"></script>
+	<script src="/js/tools.js"></script>
 	
 <link rel="stylesheet" href="/css/style.css">
 
@@ -64,7 +63,7 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					0
+					1
 				</p>
 				<p class="stat-label">分类</p>
 			</li>
@@ -84,6 +83,13 @@
 			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
 			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
 			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+		</ul>
+	</div>
+	<div class="reward">
+		<p>打赏</p>
+		<ul>
+			<li style="color: #2aae67"><i class="fa-brands fa-weixin"></i></li>
+			<li style="color: #1573f7"><i class="fa-brands fa-alipay"></i></li>
 		</ul>
 	</div>
 </div>
@@ -122,7 +128,6 @@ userdata.img: Linux rev 1.0 ext4 filesystem data, UUID=dc1c8149-bb9e-4b37-adb2-f
 </div>
                 </section>
 				<footer class="footer">
-	<script>hljs.highlightAll();</script>
 	<div class="footer-content">
 		<div class="footer-content-left">
 			<p>博客观点仅代表作者，与第三方无关</p>
@@ -133,9 +138,27 @@ userdata.img: Linux rev 1.0 ext4 filesystem data, UUID=dc1c8149-bb9e-4b37-adb2-f
 			<p>Powered by <a href="https://hexo.io" target="_blank">Hexo</a></p>
 		</div>
 	</div>
+	<script>
+		document.addEventListener('DOMContentLoaded', function() {
+			hljs.highlightAll();
+			hljs.initLineNumbersOnLoad();
+		});
+	</script>
+	<script src="/js/lazyload.js"></script>
 </footer>
             </div>
 		</div>
 	</div>
+	<div class="tools">
+	<div class="tools-item reward">
+		<i class="fa-brands fa-btc" onclick="reward()"></i>
+		<div id="rewards" class="message-box">
+			<img src="/images/wechat.png">
+		</div>
+	</div>	
+	<div class="tools-item btt" onclick="scrollToTop()">
+		<i class="fa-solid fa-arrow-up-to-line"></i>
+	</div>
+</div>
 </body>
 </html>

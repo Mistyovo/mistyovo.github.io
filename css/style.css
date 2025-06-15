@@ -253,30 +253,51 @@
   color: #aaa !important;
   font-size: 12px;
 }
-.back-to-top {
+.tools {
   position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  background-color: #fff;
-  color: #000;
+  display: flex;
+  flex-direction: column;
+  width: auto;
+  height: auto;
+  bottom: 80px;
+  right: 50px;
+  z-index: 888;
+}
+.tools-item {
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
+  box-shadow: 0 0 8px rgba(0,0,0,0.2);
+  background-color: #fff;
+  margin: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
-  box-shadow: 0 0px 8px rgba(0,0,0,0.2);
-  cursor: pointer;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-  opacity: 0;
-  visibility: hidden;
+  font-size: 20px;
+  color: #000;
+  transition: background-color 0.5s, color 0.5s;
 }
-.back-to-top.show {
-  opacity: 1;
-  visibility: visible;
+.tools-item:hover {
+  background-color: #000;
+  color: #fff;
 }
-.back-to-top:hover {
-  transform: scale(1.1);
+.message-box {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+  z-index: 999;
+}
+.message-box img {
+  width: 400px;
+  height: auto;
+}
+#rewards {
+  display: none;
 }
 #cursor {
   position: fixed;
@@ -377,10 +398,11 @@
 }
 .draggable-toc li {
   color: inherit;
+  font-size: 14px;
 }
 .draggable-toc li a {
   display: block;
-  padding: 5px 0;
+  padding: 3px 0;
   width: 100%;
 }
 .draggable-toc li::marker {
