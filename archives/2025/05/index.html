@@ -14,9 +14,7 @@
 
 	<script src="/js/cursor.js"></script>
 	<script src="/js/fadeIn.js"></script>
-	<script src="/js/avatar-rotate.js"></script>
 	<script src="/js/snowfall.js"></script>
-	<script src="/js/tools.js"></script>
 	
 <link rel="stylesheet" href="/css/style.css">
 
@@ -35,6 +33,7 @@
                 <li><a href="/"><i class="fa-solid fa-house"></i> 首页</a></li>
                 <li><a href="/categories"><i class="fa-solid fa-table"></i> 分类</a></li>
                 <li><a href="/archives"><i class="fa-solid fa-box-archive"></i> 归档</a></li>
+                <li><a href="/todo"><i class="fa-solid fa-file-check"></i> 任务</a></li>
                 <li><a href="/friends"><i class="fa-solid fa-link"></i> 友链</a></li>
                 <li><a href="/resources"><i class="fa-solid fa-gift"></i> 资源</a></li>
             </ul>
@@ -42,11 +41,15 @@
     </div>
 </header>
             <div class="sidebar">
+	<!--头像-->
 	<div class="author-info">
 		<div class="avatar">
 			<img id="avatar" src="/images/avatar.jpg" alt="博主头像">
 		</div>
 	</div>
+	<script src="/js/avatar-rotate.js"></script>
+
+	<!--博客信息-->
 	<div style="font-size: 20px; font-weight: bold; color: #333; text-align: center; margin: 0 0 20px 0;">
 		Mistyovo
 	</div>
@@ -75,6 +78,8 @@
 			</li>
 		</ul>
 	</div>
+
+	<!--社交链接-->
 	<div class="sidebar-links">
 		<ul class="sidebar-links-list">
 			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
@@ -85,12 +90,11 @@
 			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
 		</ul>
 	</div>
-	<div class="reward">
-		<p>打赏</p>
-		<ul>
-			<li style="color: #2aae67"><i class="fa-brands fa-weixin"></i></li>
-			<li style="color: #1573f7"><i class="fa-brands fa-alipay"></i></li>
-		</ul>
+
+	<!--公告板-->
+	<div class="bulletin-board">
+		<p class="bulletin">公&nbsp&nbsp告</p>
+		<p class="bulletin-content">暂时还没有公告哦~</p>
 	</div>
 </div>
             <div class="outer">
@@ -100,7 +104,7 @@
     <a href="/2025/05/05/借助svcudp进行栈迁移/">
 		<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
 			<h1 style="font-size: 18px">借助svcudp进行栈迁移</h1>
-			<p style="color: #888 font-size: 14px">创建于 42 天之前</p>
+			<p style="color: #888 font-size: 14px">创建于 43 天之前</p>
 		</div>
 	</a>
 </div>
@@ -132,7 +136,6 @@
 			hljs.initLineNumbersOnLoad();
 		});
 	</script>
-	<script src="/js/lazyload.js"></script>
 </footer>
             </div>
 		</div>
@@ -148,5 +151,6 @@
 		<i class="fa-solid fa-arrow-up-to-line"></i>
 	</div>
 </div>
+<script src="/js/tools.js"></script>
 </body>
 </html>
