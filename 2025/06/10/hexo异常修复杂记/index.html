@@ -162,9 +162,9 @@ Please report this to https://github.com/markedjs/marked.
 		</div>
 	</div>
 	<script>
-		document.addEventListener('DOMContentLoaded', function() {
-			hljs.highlightAll();
-			hljs.initLineNumbersOnLoad();
+		hljs.highlightAll();
+		hljs.configure({
+			tabReplace: '    '
 		});
 	</script>
 </footer>
