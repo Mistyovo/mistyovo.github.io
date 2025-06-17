@@ -551,13 +551,6 @@ blockquote {
   font-style: italic;
   color: #555;
 }
-@font-face {
-  font-family: 'Source Han Serif';
-  src: url("/fonts/SourceHanSerif-VF.ttf") format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
 * {
   font-family: "Libertinus Serif", "Georgia", "Noto Serif SC", songti sc, serif;
 }
