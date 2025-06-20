@@ -8,6 +8,7 @@
 }
 .post img {
   max-width: 100%;
+  max-height: 500px;
 }
 #container {
   width: 100%;
@@ -128,6 +129,29 @@
   width: 10px;
   border-radius: 4px;
   transition: width 5s;
+}
+.piclib {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin: 0;
+  padding: 0;
+}
+.piclib-col {
+  display: flex;
+  flex-direction: column;
+}
+.piclib-col img {
+  display: block;
+  opacity: 0;
+  width: 100%;
+  margin: 10px;
+  padding: 0;
+  transition: opacity 0.6s, transform 0.3s ease;
+}
+.piclib-col img:hover {
+  transform: scale(1.02);
 }
 .sidebar {
   position: fixed;

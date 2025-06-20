@@ -99,100 +99,62 @@
 </div>
             <div class="outer">
                 <section id="main">
-			        <head>
-    <link rel="stylesheet" href="/css/style.styl">
-</head>
-<div class="post">
-    <div class="header-image"></div>
-    <div style="text-align: center;">
-        <h1>树链剖分</h1>
-        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Apr 11 2025 09:15:58 GMT+0800</p>
-        <br>
-    </div>
-    <div>
-    <h2 id="算法目的"><a href="#算法目的" class="headerlink" title="算法目的"></a>算法目的</h2><p>维护静态树上的路径信息</p>
-<h2 id="算法流程"><a href="#算法流程" class="headerlink" title="算法流程"></a>算法流程</h2><p>分两次DFS预处理出以下关键值：</p>
-<table>
-<thead>
-<tr>
-<th>DFS</th>
-<th>值</th>
-<th>含义</th>
-<th>获得方式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>1</td>
-<td>father[x]</td>
-<td>x在树中的父亲</td>
-<td>在dfs传参中获得</td>
-</tr>
-<tr>
-<td>1</td>
-<td>dep[x]</td>
-<td>x在树中的深度</td>
-<td>在dfs传参中获得</td>
-</tr>
-<tr>
-<td>1</td>
-<td>size[x]</td>
-<td>x为根的子树大小</td>
-<td>在dfs传递归中获得</td>
-</tr>
-<tr>
-<td>1</td>
-<td>son[x]</td>
-<td>x的重儿子编号</td>
-<td>在dfs传递归中获得</td>
-</tr>
-<tr>
-<td>2</td>
-<td>top[x]</td>
-<td>x所在的重路径的顶部结点编号</td>
-<td>top[重儿子]&#x3D;top[自己]<br>top[轻儿子]&#x3D;轻儿子</td>
-</tr>
-<tr>
-<td>2</td>
-<td>seg[x]</td>
-<td>x在线段树中的位置</td>
-<td>按照先访问重儿子的顺序先序遍历树，使得每条重链上的节点在线段树上保持相邻</td>
-</tr>
-<tr>
-<td>2</td>
-<td>rev[y]</td>
-<td>y在树中的结点编号</td>
-<td>这个简单</td>
-</tr>
-</tbody></table>
-<p>线段树的建树和查询的实现就只需按一般的做法</p>
-<p>树链的查询</p>
-<pre><code class="language-cpp">void ask (int x, int y)
-&#123;
-    int fx = top[x],fy = top[y];
-    while(fx != fy)							//直到两个点在同一条重链上
-    &#123;
-        if(dep[fx] &lt; dep[fy]) 				//选择深度大的往上跳
-            swap(x, y),swap(fx, fy);
-        query(1, 1, seg[0], seg[fx], seg[x]);	
-        x = father[fx]; fx=top[x];
-    &#125;
-    if(dep[x] &gt; dep[y]) 					//先序遍历导致：在同一棵子树上深度大的点在线段树中的位置靠后
-        swap(x, y);
-    query(1, 1, seg[0], seg[x], seg[y])		//而seg[x]&lt;=seg[y]故dep[x]&lt;=dep[y]
-&#125;
-</code></pre>
+			        <div class="piclib">
+	<script>
+		const piclib = document.querySelector('.piclib');
+        const colnum = 5;
+		for (let i = 0; i < colnum; i++) {
+			const col = document.createElement('div');
+			col.className = 'piclib-col';
+            col.style.width = `calc(${100 / colnum}% - 10px)`;
+			piclib.appendChild(col);
+		}
+		const imageUrls = [
+			'https://s2.loli.net/2025/06/17/vpSlNomMR4LzBqI.jpg',
+			'https://s2.loli.net/2024/01/14/rQbKfMUEGYeiasL.png',
+			'https://s2.loli.net/2024/01/14/MqHeVQwhlXUx7Gd.png',
+            'https://s2.loli.net/2025/06/19/E9udOpvC8HZQ6PG.jpg',
+            'https://s2.loli.net/2025/06/19/M7mXFAScfREk4gz.jpg',
+            'https://s2.loli.net/2025/06/19/EmKdVwIqMjHQGYR.jpg',
+            'https://s2.loli.net/2025/06/19/z4WNR7t9PXi1a6x.jpg'
+		];
+        async function addImagesSequentially(urls) {
+            for (const url of urls) {
+            await new Promise(resolve => {
+                const cols = document.querySelectorAll('.piclib-col');
+                let minCol = cols[0];
+                cols.forEach(col => {
+                if (col.offsetHeight < minCol.offsetHeight) {
+                    minCol = col;
+                }
+                });
+                const img = document.createElement('img');
+                img.dataset.src = url;
+                img.style.opacity = '0';
+                minCol.appendChild(img);
 
-    </div>
-    <div id="twikoo"></div>
-    <script>
-        // Twikoo initialization
-        twikoo.init({
-            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
-            el: '#twikoo'
-        });
-    </script>
-	<script src="/js/contents.js"></script>
+                // Intersection Observer for lazy loading
+                const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                    img.src = img.dataset.src;
+                    img.onload = () => {
+                        img.style.opacity = '1';
+                        resolve();
+                    };
+                    img.onerror = () => resolve();
+                    obs.unobserve(img);
+                    }
+                });
+                }, { rootMargin: '100px' });
+                observer.observe(img);
+            });
+            }
+        }
+		addImagesSequentially(imageUrls);
+	</script>
 </div>
+<p style="text-align: center; color: #aaa; font-size: 14px">再怎么找也没有啦~</p>
                 </section>
 				<footer class="footer">
 	<div class="footer-content">
