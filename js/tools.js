@@ -1,27 +1,27 @@
+//回到顶部
 function scrollToTop() {
-    
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
-
+//打赏
 function reward() {
-    if(document.getElementById('rewards').style.display=='none')
-    {
+    if (document.getElementById('rewards').style.display == 'none') {
         console.log("change");
         document.getElementById('rewards').style.display = 'block';
         return;
     }
-    if(document.getElementById('rewards').style.display == 'block')
-    {
+    if (document.getElementById('rewards').style.display == 'block') {
         console.log("change");
         document.getElementById('rewards').style.display = 'none';
     }
 }
 
-document.addEventListener('DOMContentLoaded', function() {
-    document.querySelectorAll('.post img, .piclib img').forEach(function(img) {
+//图片放大
+document.addEventListener('DOMContentLoaded', function () {
+    document.querySelectorAll('.post img, .piclib img').forEach(function (img) {
         img.style.cursor = 'zoom-in';
-        img.addEventListener('click', function() {
+        img.addEventListener('click', function () {
             // Create overlay
             const overlay = document.createElement('div');
             overlay.style.position = 'fixed';
@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', function() {
             overlay.appendChild(enlargedImg);
 
             // Click overlay to close
-            overlay.addEventListener('click', function() {
+            overlay.addEventListener('click', function () {
                 document.body.removeChild(overlay);
             });
 
@@ -55,3 +55,8 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 });
+
+document.querySelector('.notice-bar .close-btn').onclick = function () {
+    document.getElementById('noticeBar').style.display = 'none';
+    document.body.style.paddingTop = '0';
+};

@@ -99,16 +99,90 @@
 </div>
             <div class="outer">
                 <section id="main">
-			        
-<div class="archive">
-    <a href="/2025/03/13/学习使用世界上最好的godot游戏引擎/">
-		<div style="display: flex; flex-direction: row; justify-content: space-between; align-items: center;">
-			<h1 style="font-size: 18px">学习使用世界上最好的godot游戏引擎</h1>
-			<p style="color: #888 font-size: 14px">创建于 107 天之前</p>
-		</div>
-	</a>
-</div>
+			        <div id="map" style="width:100%; padding: 20px 0 0 0;">
 
+	<script src="https://d3js.org/d3.v7.min.js"></script>
+	<script src="https://unpkg.com/topojson-client@3"></script>
+	<script>
+		const width = document.getElementById('map').clientWidth;
+		const height = width / 2;
+		document.getElementById('map').style.height = height + 'px';
+
+		const projection = d3.geoEquirectangular()
+			.scale((width / (2 * Math.PI)))
+			.translate([width / 2, height / 2])
+			.center([0, 0])
+			.fitExtent([
+				[0, 0],
+				[width, height]
+			], {
+				type: "Sphere"
+			});
+
+		const path = d3.geoPath().projection(projection);
+
+		const svg = d3.select("#map")
+			.append("svg")
+			.attr("width", width)
+			.attr("height", height);
+
+		svg.append("rect")
+			.attr("width", width)
+			.attr("height", height)
+			.attr("fill", "#fff");
+
+		// 国家代码到名称的映射（部分示例，可根据需要补全）
+		const countryNames = {
+			"004": "Afghanistan",
+			"008": "Albania",
+			"012": "Algeria",
+			"404": "Kenya",
+			"710": "South Africa",
+			"158": "Taiwan",
+			"410": "South Korea",
+			"392": "Japan",
+			"064": "Bhutan",
+			// ... 可补充完整
+		};
+
+		// 绿色国家代码列表（台湾:158，韩国:410，日本:392，不丹:064）
+		const greenCountries = ["404", "710", "158", "410", "392", "064"];
+
+		d3.json("https://unpkg.com/world-atlas@2/countries-110m.json").then(world => {
+			const countries = topojson.feature(world, world.objects.countries);
+
+			svg.append("g")
+				.selectAll("path")
+				.data(countries.features)
+				.enter().append("path")
+				.attr("d", path)
+				.attr("fill", function(d) {
+					return greenCountries.includes(d.id) ? "#6d92bc" : "#d9d9d9";
+				})
+				.attr("stroke", "#333")
+				.attr("stroke-width", 0.5)
+				.on("mouseover", function(event, d) {
+					d3.select(this).attr("fill", greenCountries.includes(d.id) ? "rgba(109, 146, 188, 0.78)" : "#eee");
+					let name = d.properties.name || countryNames[d.id] || "Unknown";
+				})
+				.on("mouseout", function(event, d) {
+					d3.select(this).attr("fill", greenCountries.includes(d.id) ? "#6d92bc" : "#d9d9d9");
+				});
+
+			svg.append("path")
+				.datum({
+					type: "Sphere"
+				})
+				.attr("d", path)
+				.attr("fill", "none")
+				.attr("stroke", "#fff")
+				.attr("stroke-width", 1);
+		});
+
+		// 其余经纬线和刻度脚本保持不变...
+	</script>
+	<!-- 其余脚本保持不变 -->
+</div>
                 </section>
 				<footer class="footer">
 	<div class="footer-content">

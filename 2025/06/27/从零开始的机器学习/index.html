@@ -30,7 +30,7 @@
         <div class="navbar-right">
             <ul class="navbar-menu">
                 <li><a href="/"><i class="fa-solid fa-house"></i>首页</a></li>
-                <li><a href="/categories"><i class="fa-solid fa-table"></i>分类</a></li>
+                <!-- <li><a href="/categories"><i class="fa-solid fa-table"></i>分类</a></li> -->
                 <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
                 <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
                 <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
@@ -60,7 +60,7 @@
 		<ul class="sidebar-stats">
 			<li>
 				<p class="stat-value">
-					15
+					16
 				</p>
 				<p class="stat-label">随笔</p>
 			</li>
@@ -72,7 +72,7 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					9
+					8
 				</p>
 				<p class="stat-label">标签</p>
 			</li>
@@ -105,44 +105,12 @@
 <div class="post">
     <div class="header-image"></div>
     <div style="text-align: center;">
-        <h1>Python OpenCV学习笔记</h1>
-        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Tue Jun 10 2025 16:50:23 GMT+0800</p>
+        <h1>从零开始的机器学习（Machine Learning）</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jun 27 2025 22:35:42 GMT+0800</p>
         <br>
     </div>
     <div>
-    <h2 id="常用工具包"><a href="#常用工具包" class="headerlink" title="常用工具包"></a>常用工具包</h2><pre><code class="language-python">import cv2
-import matplotlib.pyplot as plt
-import numpy as np
-</code></pre>
-<h2 id="图像操作"><a href="#图像操作" class="headerlink" title="图像操作"></a>图像操作</h2><h3 id="图片读取"><a href="#图片读取" class="headerlink" title="图片读取"></a>图片读取</h3><pre><code class="language-python">img = cv2.imread(&#39;xxx.jpg&#39;) # 读取图像 数据类型
-img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_COLOR) # 读取彩色图像
-img = cv2.imread(&#39;xxx.jpg&#39;， cv2.IMREAD_GRAYSCALE) # 读取灰度图像
-cv2.imshow(&#39;xxx&#39;, img) # 显示图像（窗口名，图像）
-cv2.waitKey(0)
-cv2.destoryAllWindows()
-cv2.imwrite(&#39;xxx&#39;, img) # 保存图像
-
-# 查看图片的属性
-type(img)
-img.shape
-img.size
-img.dtype
-</code></pre>
-<h3 id="视频读取"><a href="#视频读取" class="headerlink" title="视频读取"></a>视频读取</h3><pre><code class="language-python">vc = cv2.VideoCapture(&#39;xxx.mp4&#39;) #打开视频
-
-if vc.isOpened():               #读取视频的一帧
-    open, frame = vc.read() 
-else:
-    open = False
-
-while open:                     #读取视频的每一帧
-    ret, frame = vc.read()
-    if frame is None:
-        break
-    if ret == True:
-        gray = cv.cvtColor(frame,)
-</code></pre>
-
+    
     </div>
     <div id="twikoo"></div>
     <script>
@@ -182,11 +150,17 @@ while open:                     #读取视频的每一帧
 		<div id="rewards" class="message-box">
 			<img src="/images/wechat.png">
 		</div>
-	</div>	
+	</div>
 	<div class="tools-item btt" onclick="scrollToTop()">
 		<i class="fa-solid fa-turn-up"></i>
 	</div>
 </div>
 <script src="/js/tools.js"></script>
+
+<div class="notice-bar" id="noticeBar">
+	<i class="fa-solid fa-bullhorn"></i>
+	<span class="notice-content">欢迎访问本站！</span>
+	<i class="fa-solid fa-xmark close-btn" onclick="document.getElementById('noticeBar').style.display='none'"></i>
+</div>
 </body>
 </html>

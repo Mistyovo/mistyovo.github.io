@@ -30,7 +30,7 @@
         <div class="navbar-right">
             <ul class="navbar-menu">
                 <li><a href="/"><i class="fa-solid fa-house"></i>首页</a></li>
-                <li><a href="/categories"><i class="fa-solid fa-table"></i>分类</a></li>
+                <!-- <li><a href="/categories"><i class="fa-solid fa-table"></i>分类</a></li> -->
                 <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
                 <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
                 <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
@@ -60,7 +60,7 @@
 		<ul class="sidebar-stats">
 			<li>
 				<p class="stat-value">
-					15
+					16
 				</p>
 				<p class="stat-label">随笔</p>
 			</li>
@@ -72,7 +72,7 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					9
+					8
 				</p>
 				<p class="stat-label">标签</p>
 			</li>
@@ -99,7 +99,35 @@
 </div>
             <div class="outer">
                 <section id="main">
-			        tag
+			        <head>
+    <link rel="stylesheet" href="/css/style.styl">
+</head>
+<div class="post">
+    <div class="header-image"></div>
+    <div style="text-align: center;">
+        <h1>页面样式测试</h1>
+        <p style="color: #888"><i class="fa-regular fa-calendar-days"></i> Fri Jun 20 2025 19:13:53 GMT+0800</p>
+        <br>
+    </div>
+    <div>
+    <h1 id="一级标题"><a href="#一级标题" class="headerlink" title="一级标题"></a>一级标题</h1><h2 id="二级标题"><a href="#二级标题" class="headerlink" title="二级标题"></a>二级标题</h2><h3 id="三级标题"><a href="#三级标题" class="headerlink" title="三级标题"></a>三级标题</h3><h4 id="四级标题"><a href="#四级标题" class="headerlink" title="四级标题"></a>四级标题</h4><h5 id="五级标题"><a href="#五级标题" class="headerlink" title="五级标题"></a>五级标题</h5><h6 id="六级标题"><a href="#六级标题" class="headerlink" title="六级标题"></a>六级标题</h6><blockquote>
+<p>引用</p>
+</blockquote>
+<pre><code class="language-cpp">//代码块
+</code></pre>
+<p><strong>粗体</strong><br><em>斜体</em><br><del>删除线</del></p>
+
+    </div>
+    <div id="twikoo"></div>
+    <script>
+        // Twikoo initialization
+        twikoo.init({
+            envId: 'http://101.200.30.183:8080/', // Replace with your Twikoo server URL
+            el: '#twikoo'
+        });
+    </script>
+	<script src="/js/contents.js"></script>
+</div>
                 </section>
 				<footer class="footer">
 	<div class="footer-content">
@@ -128,11 +156,17 @@
 		<div id="rewards" class="message-box">
 			<img src="/images/wechat.png">
 		</div>
-	</div>	
+	</div>
 	<div class="tools-item btt" onclick="scrollToTop()">
 		<i class="fa-solid fa-turn-up"></i>
 	</div>
 </div>
 <script src="/js/tools.js"></script>
+
+<div class="notice-bar" id="noticeBar">
+	<i class="fa-solid fa-bullhorn"></i>
+	<span class="notice-content">欢迎访问本站！</span>
+	<i class="fa-solid fa-xmark close-btn" onclick="document.getElementById('noticeBar').style.display='none'"></i>
+</div>
 </body>
 </html>
