@@ -25,18 +25,23 @@
 			<header>
     <div class="navbar">
         <div class="navbar-left">
-            <a href="/" class="navbar-brand">Mistyovo's Blog</a>
+            <a href="/" class="navbar-brand">Mistyovo&#39;s Blog</a>
         </div>
         <div class="navbar-right">
             <ul class="navbar-menu">
-                <li><a href="/"><i class="fa-solid fa-house"></i>首页</a></li>
-                <!-- <li><a href="/categories"><i class="fa-solid fa-table"></i>分类</a></li> -->
-                <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
-                <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
-                <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
-                <li><a href="/resources"><i class="fa-solid fa-gift"></i>资源</a></li>
-                <li><a href="/AcgPic"><i class="fa-solid fa-image"></i>图床</a></li>
-                <li><a href="/Docs"><i class="fa-solid fa-book"></i>文档</a></li>
+                
+                    <li><a href="/"><i class="fa-solid fa-house"></i>首页</a></li>
+                
+                    <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
+                
+                    <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
+                
+                    <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
+                
+                    <li><a href="/resources"><i class="fa-solid fa-gift"></i>资源</a></li>
+                
+                    <li><a href="/AcgPic"><i class="fa-solid fa-image"></i>图床</a></li>
+                
             </ul>
         </div>
     </div>
@@ -83,26 +88,514 @@
 	<!--社交链接-->
 	<div class="sidebar-links">
 		<ul class="sidebar-links-list">
-			<li> <a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785"><i class="fa-brands fa-bilibili" style="color: #00aeec"></i> </a> </li>
-			<li> <a target="_blank" rel="noopener" href="https://github.com/Mistyovo"> <i class="fa-brands fa-github-alt" style="color: #5b418b"></i> </a> </li>
-			<li> <a href=""> <i class="fa-brands fa-discord" style="color: #5865f2"></i> </a> </li>
-			<li> <a href=""> <i class="fa-brands fa-weixin" style="color: #38cd7f"></i> </a> </li>
-			<li> <a href=""> <i class="fa-brands fa-qq" style="color: #0099ff"></i> </a> </li>
-			<li> <a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo"> <i class="fa-solid fa-envelope" style="color: pink"></i> </a> </li>
+			
+				<li> 
+					<a target="_blank" rel="noopener" href="https://space.bilibili.com/400701785">
+						<i class="fa-brands fa-bilibili" style="color: #00aeec"></i> 
+					</a> 
+				</li>
+			
+				<li> 
+					<a target="_blank" rel="noopener" href="https://github.com/Mistyovo">
+						<i class="fa-brands fa-github-alt" style="color: #5b418b"></i> 
+					</a> 
+				</li>
+			
+				<li> 
+					<a href="">
+						<i class="fa-brands fa-discord" style="color: #5865f2"></i> 
+					</a> 
+				</li>
+			
+				<li> 
+					<a href="">
+						<i class="fa-brands fa-weixin" style="color: #38cd7f"></i> 
+					</a> 
+				</li>
+			
+				<li> 
+					<a href="">
+						<i class="fa-brands fa-qq" style="color: #0099ff"></i> 
+					</a> 
+				</li>
+			
+				<li> 
+					<a target="_blank" rel="noopener" href="https://www.zhihu.com/people/mistyovo">
+						<i class="fa-solid fa-envelope" style="color: pink"></i> 
+					</a> 
+				</li>
+			
 		</ul>
 	</div>
 
 	<!--公告板-->
 	<div class="bulletin-board">
-		<p class="bulletin">公&nbsp&nbsp告</p>
+		<p class="bulletin">公告</p>
 		<p class="bulletin-content">暂时还没有公告哦~</p>
 	</div>
 </div>
             <div class="outer">
                 <section id="main">
 			        <div class="resources">
-    
+	<!-- 资源分类导航 -->
+	<div class="resources-nav">
+		<ul class="category-tabs">
+			<li class="tab-item active" data-category="all">全部</li>
+			
+				
+				<li class="tab-item" data-category="design">设计资源</li>
+				
+				<li class="tab-item" data-category="learning">学习平台</li>
+				
+				<li class="tab-item" data-category="security">网络安全</li>
+				
+				<li class="tab-item" data-category="utility">实用工具</li>
+				
+			
+			<!-- 搜索框 -->
+			<li class="resources-search">
+				<div class="search-box">
+					<input type="text" placeholder="搜索资源..." id="resourceSearch">
+					<button type="button" id="clearSearch" style="display: none;">
+						<i class="fas fa-times"></i>
+					</button>
+				</div>
+			</li>
+		</ul>
+	</div>
+
+	<!-- 资源内容区域 -->
+	<div class="resources-content">
+		
+			
+				
+				<div class="resource-category" data-category="design">
+					<h2 class="category-title">设计资源</h2>
+					<div class="resources-grid">
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Figma</h3>
+								<p class="resource-description">在线协作设计工具</p>
+								<div class="resource-tags">
+									
+									<span class="tag">设计</span>
+									
+									<span class="tag">协作</span>
+									
+								</div>
+							</div>
+							<a href="https://figma.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Unsplash</h3>
+								<p class="resource-description">免费高质量图片库</p>
+								<div class="resource-tags">
+									
+									<span class="tag">图片</span>
+									
+									<span class="tag">免费</span>
+									
+								</div>
+							</div>
+							<a href="https://unsplash.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Adobe Color</h3>
+								<p class="resource-description">配色方案生成器</p>
+								<div class="resource-tags">
+									
+									<span class="tag">配色</span>
+									
+									<span class="tag">工具</span>
+									
+								</div>
+							</div>
+							<a href="https://color.adobe.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Google Fonts</h3>
+								<p class="resource-description">免费字体库</p>
+								<div class="resource-tags">
+									
+									<span class="tag">字体</span>
+									
+									<span class="tag">免费</span>
+									
+								</div>
+							</div>
+							<a href="https://fonts.google.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="resource-category" data-category="learning">
+					<h2 class="category-title">学习平台</h2>
+					<div class="resources-grid">
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">MDN Web Docs</h3>
+								<p class="resource-description">Web技术文档</p>
+								<div class="resource-tags">
+									
+									<span class="tag">文档</span>
+									
+									<span class="tag">Web</span>
+									
+								</div>
+							</div>
+							<a href="https://developer.mozilla.org" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">LeetCode</h3>
+								<p class="resource-description">算法练习平台</p>
+								<div class="resource-tags">
+									
+									<span class="tag">算法</span>
+									
+									<span class="tag">练习</span>
+									
+								</div>
+							</div>
+							<a href="https://leetcode.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">洛谷</h3>
+								<p class="resource-description">梦开始的地方</p>
+								<div class="resource-tags">
+									
+									<span class="tag">编程</span>
+									
+									<span class="tag">竞赛</span>
+									
+									<span class="tag">OI</span>
+									
+									<span class="tag">ACM</span>
+									
+								</div>
+							</div>
+							<a href="https://luogu.com.cn" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">BUUOJ</h3>
+								<p class="resource-description">BUU Online Judge</p>
+								<div class="resource-tags">
+									
+									<span class="tag">CTF</span>
+									
+									<span class="tag">竞赛</span>
+									
+								</div>
+							</div>
+							<a href="https://buuoj.cn" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="resource-category" data-category="security">
+					<h2 class="category-title">网络安全</h2>
+					<div class="resources-grid">
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Kali Linux</h3>
+								<p class="resource-description">你多久没恰饭了？</p>
+								<div class="resource-tags">
+									
+									<span class="tag">渗透测试</span>
+									
+									<span class="tag">Linux</span>
+									
+								</div>
+							</div>
+							<a href="https://kali.org" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">OWASP</h3>
+								<p class="resource-description">开放式Web应用程序安全项目</p>
+								<div class="resource-tags">
+									
+									<span class="tag">安全</span>
+									
+									<span class="tag">Web</span>
+									
+								</div>
+							</div>
+							<a href="https://owasp.org" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Shodan</h3>
+								<p class="resource-description">互联网设备搜索引擎</p>
+								<div class="resource-tags">
+									
+									<span class="tag">搜索</span>
+									
+									<span class="tag">设备</span>
+									
+								</div>
+							</div>
+							<a href="https://shodan.io" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">VirusTotal</h3>
+								<p class="resource-description">文件恶意软件检测</p>
+								<div class="resource-tags">
+									
+									<span class="tag">沙盒</span>
+									
+								</div>
+							</div>
+							<a href="https://virustotal.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">站长工具</h3>
+								<p class="resource-description">站长工具集合</p>
+								<div class="resource-tags">
+									
+									<span class="tag">信息收集</span>
+									
+								</div>
+							</div>
+							<a href="https://tool.chinaz.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">BOOTLIN</h3>
+								<p class="resource-description">Linux源码阅读</p>
+								<div class="resource-tags">
+									
+									<span class="tag">Linux</span>
+									
+									<span class="tag">源码</span>
+									
+								</div>
+							</div>
+							<a href="https://elixir.bootlin.com/" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">Libc Database Search</h3>
+								<p class="resource-description">libc版本查询</p>
+								<div class="resource-tags">
+									
+									<span class="tag">libc</span>
+									
+									<span class="tag">Pwn</span>
+									
+								</div>
+							</div>
+							<a href="https://libc.blukat.me/" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">中国漏洞应急响应中心</h3>
+								<p class="resource-description">国家级漏洞应急响应中心</p>
+								<div class="resource-tags">
+									
+									<span class="tag">漏洞</span>
+									
+									<span class="tag">应急响应</span>
+									
+								</div>
+							</div>
+							<a href="https://www.cverc.org.cn/" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">看雪论坛</h3>
+								<p class="resource-description">安全技术交流论坛</p>
+								<div class="resource-tags">
+									
+									<span class="tag">安全</span>
+									
+									<span class="tag">论坛</span>
+									
+								</div>
+							</div>
+							<a href="https://bbs.kanxue.com/" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+				
+			
+				
+				<div class="resource-category" data-category="utility">
+					<h2 class="category-title">实用工具</h2>
+					<div class="resources-grid">
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">TinyPNG</h3>
+								<p class="resource-description">图片压缩工具</p>
+								<div class="resource-tags">
+									
+									<span class="tag">压缩</span>
+									
+									<span class="tag">图片</span>
+									
+								</div>
+							</div>
+							<a href="https://tinypng.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">DeepL</h3>
+								<p class="resource-description">AI翻译工具</p>
+								<div class="resource-tags">
+									
+									<span class="tag">翻译</span>
+									
+									<span class="tag">AI</span>
+									
+								</div>
+							</div>
+							<a href="https://deepl.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">QR Code Generator</h3>
+								<p class="resource-description">二维码生成器</p>
+								<div class="resource-tags">
+									
+									<span class="tag">二维码</span>
+									
+									<span class="tag">生成器</span>
+									
+								</div>
+							</div>
+							<a href="https://qr-code-generator.com" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">SM.MS</h3>
+								<p class="resource-description">免费图床服务</p>
+								<div class="resource-tags">
+									
+									<span class="tag">图床</span>
+									
+								</div>
+							</div>
+							<a href="https://sm.ms" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">SteamDB</h3>
+								<p class="resource-description">Steam数据库查询</p>
+								<div class="resource-tags">
+									
+									<span class="tag">Steam</span>
+									
+									<span class="tag">查询</span>
+									
+								</div>
+							</div>
+							<a href="https://steamdb.info/" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+						<div class="resource-card">
+							<div class="resource-info">
+								<h3 class="resource-name">TouchGal</h3>
+								<p class="resource-description">免费Galgame图书馆</p>
+								<div class="resource-tags">
+									
+									<span class="tag">Galgame</span>
+									
+								</div>
+							</div>
+							<a href="https://www.touchgal.io" class="resource-link" target="_blank" rel="noopener noreferrer">
+								<i class="fas fa-external-link-alt"></i>
+							</a>
+						</div>
+						
+					</div>
+				</div>
+				
+			
+		
+	</div>
 </div>
+
+<script src="/js/resources.js"></script>
                 </section>
 				<footer class="footer">
 	<div class="footer-content">
@@ -128,20 +621,43 @@
 	<div class="tools">
 	<div class="tools-item reward">
 		<i class="fa-brands fa-btc" onclick="reward()"></i>
-		<div id="rewards" class="message-box">
-			<img src="/images/wechat.png">
-		</div>
+	</div>
+	<div class="tools-item sidebar-toggle" onclick="toggleSidebar()">
+		<i class="fa-solid fa-bars"></i>
 	</div>
 	<div class="tools-item btt" onclick="scrollToTop()">
 		<i class="fa-solid fa-turn-up"></i>
 	</div>
 </div>
-<script src="/js/tools.js"></script>
 
-<div class="notice-bar" id="noticeBar">
-	<i class="fa-solid fa-bullhorn"></i>
-	<span class="notice-content">欢迎访问本站！</span>
-	<i class="fa-solid fa-xmark close-btn" onclick="document.getElementById('noticeBar').style.display='none'"></i>
+<!-- 打赏悬浮窗遮罩层 -->
+<div id="reward-overlay" class="reward-overlay" onclick="closeReward()"></div>
+
+<!-- 打赏悬浮窗 -->
+<div id="rewards" class="message-box">
+	<div class="message-box-header">
+		<h3 class="message-box-title">
+			<i class="fa-solid fa-heart" style="color: #ff6b6b; margin-right: 8px;"></i>
+			感谢支持
+		</h3>
+		<button class="message-box-close" onclick="closeReward()">
+			<i class="fa-solid fa-xmark"></i>
+		</button>
+	</div>
+	<div class="message-box-content">
+		<img src="/images/wechat.png" alt="微信打赏码">
+		<div class="reward-text">
+			<p>如果您觉得这篇文章对您有帮助</p>
+			<p>可以扫描上方二维码支持一下作者</p>
+			<p style="margin-top: 10px; color: #ff6b6b;">
+				<i class="fa-solid fa-heart"></i> 您的支持是我创作的动力 <i class="fa-solid fa-heart"></i>
+			</p>
+		</div>
+	</div>
 </div>
+
+<script src="/js/tools.js"></script>
+<script src="/js/navbar-scroll.js"></script>
+<script src="/js/sidebar-toggle.js"></script>
 </body>
 </html>

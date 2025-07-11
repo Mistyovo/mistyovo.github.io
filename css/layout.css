@@ -4,9 +4,16 @@
 }
 .outer {
   margin-top: 50px;
-  margin-left: 300px;
   right: 0;
   padding: 0 50px;
+  transition: margin 0.3s ease-in-out;
+}
+.outer-sidebar {
+  margin-left: 300px;
+}
+.outer-fullwidth {
+  margin-left: 150px;
+  margin-right: 150px;
 }
 .fade-in {
   opacity: 0;
@@ -17,4 +24,23 @@
   opacity: 1;
   transform: translateY(0);
   transition: 0.5s ease;
+}
+@media (max-width: 768px) {
+  .outer-sidebar {
+    margin-left: 50px;
+  }
+  .sidebar {
+    width: 200px;
+  }
+  .outer {
+    padding: 0 20px;
+  }
+}
+@media (max-width: 480px) {
+  .outer {
+    padding: 0 10px;
+  }
+  .sidebar {
+    width: 180px;
+  }
 }

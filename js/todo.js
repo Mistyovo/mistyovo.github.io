@@ -1,4 +1,18 @@
-document.querySelectorAll('.task').forEach(function (task) {
+document.addEventListener('DOMContentLoaded', function () {
+    const todoContainer = document.querySelector('.todo');
+    const tasks = Array.from(todoContainer.children);
+
+    tasks.sort((a, b) => {
+        const aProgress = a.querySelector('.progress').textContent.split('/').map(Number);
+        const bProgress = b.querySelector('.progress').textContent.split('/').map(Number);
+        const aRatio = aProgress[0] / aProgress[1];
+        const bRatio = bProgress[0] / bProgress[1];
+        return bRatio - aRatio;
+    });
+
+    tasks.forEach(task => todoContainer.appendChild(task));
+});
+document.querySelectorAll('.task, .task-finish, .task-stopped').forEach(function (task) {
     var progressText = task.querySelector('.progress').textContent.trim();
     var parts = progressText.split('/');
     var current = parseInt(parts[0], 10);
