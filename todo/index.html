@@ -34,6 +34,10 @@
                 
                     <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
                 
+                    <li><a href="/categories"><i class="fa-solid fa-list"></i>分类</a></li>
+                
+                    <li><a href="/tags"><i class="fa-solid fa-tags"></i>标签</a></li>
+                
                     <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
                 
                     <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
@@ -72,13 +76,13 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					1
+					3
 				</p>
 				<p class="stat-label">分类</p>
 			</li>
 			<li>
 				<p class="stat-value">
-					8
+					12
 				</p>
 				<p class="stat-label">标签</p>
 			</li>
@@ -136,41 +140,97 @@
 </div>
             <div class="outer">
                 <section id="main">
-			        <div class="todo">
+			        <div class="todo-container fade-in">
+    <!-- 待办页面标题 -->
+    <div class="todo-header">
+        <h1><i class="fa-solid fa-check"></i> 待办事项</h1>
+        <p class="todo-stats">
+            
+            共 <span class="stats-number">6</span> 个任务，
+            <span class="stats-finished">0</span> 个已完成，
+            <span class="stats-active">6</span> 个进行中，
+            <span class="stats-stopped">0</span> 个已暂停
+        </p>
+    </div>
+
+    <div class="todo">
+        
+        
+            
+                <a href="#" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            Machine Learning
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">0/100</p>
+                    </div>
+                </a>
+            
+        
+            
+                <a href="https://www.bilibili.com/video/BV14Y411h7Po/?spm_id_from=333.337.search-card.all.click&amp;vd_source=ac9c3a2b36fdc1d66c8db8b1fccd70fa" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            GODOT开发学习
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">42/108</p>
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            JLPT N5 Grammar
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">114/514</p>
+                    </div>
+                </a>
+            
+        
+            
+                <a href="#" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            JLPT N5 Vocabulary
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">6/60</p>
+                    </div>
+                </a>
+            
+        
+            
+                <a href="https://xz.aliyun.com/news/5466" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            PWN-IO_FILE
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">0/7</p>
+                    </div>
+                </a>
+            
+        
+            
+                <a href="https://github.com/shellphish/how2heap" target="_blank" class="task-link">
+                    <div class="task">
+                        <p class="task-name">
+                            PWN-HEAP
+                            <i class="fa-solid fa-external-link-alt task-link-icon"></i>
+                        </p>
+                        <p class="progress">15/50</p>
+                    </div>
+                </a>
+            
+        
     
-        
-            <div class="task">
-                <p class="task-name">Machine Learning</p>
-                <p class="progress">0/100</p>
-            </div>
-        
-            <div class="task">
-                <p class="task-name">PWN</p>
-                <p class="progress">22/34</p>
-            </div>
-        
-            <div class="task-finish">
-                <p class="task-name">GODOT开发学习</p>
-                <p class="progress">42/108</p>
-            </div>
-        
-            <div class="task">
-                <p class="task-name">JLPT N5 Grammar</p>
-                <p class="progress">114/514</p>
-            </div>
-        
-            <div class="task">
-                <p class="task-name">JLPT N5 Vocabulary</p>
-                <p class="progress">6/60</p>
-            </div>
-        
-            <div class="task-stopped">
-                <p class="task-name">Web前端学习</p>
-                <p class="progress">15/50</p>
-            </div>
-        
-    
-</div>     
+    </div>     
+</div>
 <script src="/js/todo.js"></script>
                 </section>
 				<footer class="footer">

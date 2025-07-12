@@ -1,24 +1,75 @@
 /* 友链页面容器 */
-.friends {
-  padding: 40px 20px;
+.friends-container {
   max-width: 1200px;
-  margin: 0 auto;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(139,179,221,0.15);
 }
-/* 友链标题区域 */
+/* 友链页面头部 */
 .friends-header {
   text-align: center;
   margin-bottom: 40px;
+  padding: 40px 20px;
+  background: rgba(139,179,221,0.05);
+  border: 2px solid rgba(139,179,221,0.2);
+  border-radius: 12px;
+  color: #333;
+  position: relative;
+  overflow: hidden;
 }
-.friends-title {
-  font-size: 2.5rem;
-  font-weight: 700;
+.friends-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+.friends-header h1 {
+  font-size: 2.4rem;
   color: #6d92bc;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  text-shadow: none;
+}
+.friends-header h1 svg {
+  margin-right: 15px;
+  color: #8bb3dd;
+}
+.friends-stats {
+  font-size: 1rem;
+  color: #666;
+  position: relative;
+  z-index: 1;
+  margin: 0 0 10px 0;
+}
+.stats-number {
+  color: #6d92bc;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.stats-placeholder {
+  color: #8bb3dd;
+  font-weight: bold;
+  font-size: 1.1rem;
 }
 .friends-subtitle {
-  font-size: 1.1rem;
-  color: #718096;
+  font-size: 1rem;
+  color: #888;
   font-weight: 400;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  font-style: italic;
+}
+.friends {
+  padding: 0;
 }
 /* 友链网格布局 */
 .friends-grid {
@@ -151,8 +202,26 @@
 }
 /* 响应式设计 */
 @media (max-width: 768px) {
-  .friends {
-    padding: 20px 16px;
+  .friends-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  .friends-header {
+    padding: 30px 15px;
+    margin-bottom: 30px;
+  }
+  .friends-header h1 {
+    font-size: 2rem;
+  }
+  .friends-stats {
+    font-size: 0.9rem;
+  }
+  .stats-number,
+  .stats-placeholder {
+    font-size: 0.95rem;
+  }
+  .friends-subtitle {
+    font-size: 0.9rem;
   }
   .friends-grid {
     grid-template-columns: 1fr;
@@ -161,15 +230,21 @@
   .friend-card {
     padding: 20px;
   }
-  .friends-title {
-    font-size: 2rem;
-  }
   .friend-avatar img {
     width: 56px;
     height: 56px;
   }
 }
 @media (max-width: 480px) {
+  .friends-header h1 {
+    font-size: 1.7rem;
+  }
+  .friends-stats {
+    font-size: 0.85rem;
+  }
+  .friends-subtitle {
+    font-size: 0.85rem;
+  }
   .friend-link {
     flex-direction: column;
     text-align: center;
@@ -178,6 +253,38 @@
     margin-right: 0;
     margin-bottom: 12px;
     align-self: center;
+  }
+}
+@-moz-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }
 @-moz-keyframes pulse {

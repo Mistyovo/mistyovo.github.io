@@ -34,6 +34,10 @@
                 
                     <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
                 
+                    <li><a href="/categories"><i class="fa-solid fa-list"></i>分类</a></li>
+                
+                    <li><a href="/tags"><i class="fa-solid fa-tags"></i>标签</a></li>
+                
                     <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
                 
                     <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
@@ -72,13 +76,13 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					1
+					3
 				</p>
 				<p class="stat-label">分类</p>
 			</li>
 			<li>
 				<p class="stat-value">
-					8
+					12
 				</p>
 				<p class="stat-label">标签</p>
 			</li>
@@ -141,7 +145,7 @@
     <div class="archive-header">
         <h1><i class="fa-solid fa-archive"></i> 文章归档</h1>
         <p class="archive-stats">
-            共 <span class="stats-number">6</span> 篇文章
+            共 <span class="archive-stats-number">6</span> 篇文章
         </p>
     </div>
 
@@ -155,22 +159,22 @@
             <!-- 年份分割 -->
             
                 
-                <div class="year-section">
-                    <div class="year-header">
-                        <h2 class="year-title">
+                <div class="archive-year-section">
+                    <div class="archive-year-header">
+                        <h2 class="archive-year-title">
                             <i class="fa-regular fa-calendar"></i>
                             2025
-                            <span class="year-count">(6 篇)</span>
+                            <span class="archive-year-count">(6 篇)</span>
                         </h2>
                     </div>
-                    <div class="posts-container">
+                    <div class="archive-posts-container">
                 
             
             
             <!-- 月份分割 -->
             
-                <div class="month-section">
-                    <h3 class="month-title">
+                <div class="archive-month-section">
+                    <h3 class="archive-month-title">
                         <i class="fa-regular fa-calendar-days"></i>
                         六月
                     </h3>
@@ -180,16 +184,16 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">27</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">27</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/27/%E4%BB%8E%E9%9B%B6%E5%BC%80%E5%A7%8B%E7%9A%84%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/">
                             从零开始的机器学习（Machine Learning）
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
                         
                         
                     </div>
@@ -206,17 +210,33 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">26</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">26</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/26/C%E8%AF%AD%E8%A8%80%E8%A1%A5%E6%BC%8F/">
                             C语言补漏
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
                         
+                            <span class="archive-post-category">
+                                <i class="fa-solid fa-folder"></i>
+                                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">
+                                    计算机
+                                </a>
+                            </span>
+                        
+                        
+                            <span class="archive-post-tags">
+                                <i class="fa-solid fa-tags"></i>
+                                
+                                    <a href="/tags/C/" class="archive-tag-link">
+                                        C
+                                    </a>
+                                
+                            </span>
                         
                     </div>
                 </div>
@@ -232,22 +252,29 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">10</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">10</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/10/hexo%E5%BC%82%E5%B8%B8%E4%BF%AE%E5%A4%8D%E6%9D%82%E8%AE%B0/">
                             hexo异常修复杂记
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
+                        
+                            <span class="archive-post-category">
+                                <i class="fa-solid fa-folder"></i>
+                                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">
+                                    计算机
+                                </a>
+                            </span>
                         
                         
-                            <span class="post-tags">
+                            <span class="archive-post-tags">
                                 <i class="fa-solid fa-tags"></i>
                                 
-                                    <a href="/tags/hexo/" class="tag-link">
+                                    <a href="/tags/hexo/" class="archive-tag-link">
                                         hexo
                                     </a>
                                 
@@ -267,17 +294,33 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">09</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">09</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/09/%E5%85%8D%E8%B4%B9%E5%B0%86Windows-11%E5%AE%B6%E5%BA%AD%E4%B8%AD%E6%96%87%E7%89%88%E5%8D%87%E7%BA%A7%E4%B8%BA%E4%B8%93%E4%B8%9A%E7%89%88%E7%AD%89%E7%89%88%E6%9C%AC/">
                             免费将Windows 11家庭中文版升级为专业版等版本
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
                         
+                            <span class="archive-post-category">
+                                <i class="fa-solid fa-folder"></i>
+                                <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA/">
+                                    计算机
+                                </a>
+                            </span>
+                        
+                        
+                            <span class="archive-post-tags">
+                                <i class="fa-solid fa-tags"></i>
+                                
+                                    <a href="/tags/Windows/" class="archive-tag-link">
+                                        Windows
+                                    </a>
+                                
+                            </span>
                         
                     </div>
                 </div>
@@ -293,17 +336,33 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">08</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">08</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/08/%E7%A3%81%E7%9B%98%E9%95%9C%E5%83%8F%E5%8F%96%E8%AF%81%E6%9D%82%E8%AE%B0/">
                             磁盘镜像取证杂记
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
                         
+                            <span class="archive-post-category">
+                                <i class="fa-solid fa-folder"></i>
+                                <a href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">
+                                    网络安全
+                                </a>
+                            </span>
+                        
+                        
+                            <span class="archive-post-tags">
+                                <i class="fa-solid fa-tags"></i>
+                                
+                                    <a href="/tags/%E5%8F%96%E8%AF%81/" class="archive-tag-link">
+                                        取证
+                                    </a>
+                                
+                            </span>
                         
                     </div>
                 </div>
@@ -319,16 +378,16 @@
             
             <!-- 文章条目 -->
             <div class="archive-post-item">
-                <div class="post-date">
-                    <span class="day">07</span>
+                <div class="archive-post-date">
+                    <span class="archive-day">07</span>
                 </div>
-                <div class="post-info">
-                    <h4 class="post-title">
+                <div class="archive-post-info">
+                    <h4 class="archive-post-title">
                         <a href="/2025/06/07/v2ray%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
                             v2ray学习笔记
                         </a>
                     </h4>
-                    <div class="post-meta">
+                    <div class="archive-post-meta">
                         
                         
                     </div>

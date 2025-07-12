@@ -1,12 +1,11 @@
 .todo {
   display: flex;
   flex-direction: column;
-  padding: 40px 0 0 0;
 }
 .task {
   height: 40px;
   width: 100%;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 0;
   box-shadow: 0 0 8px rgba(255,193,7,0.2);
   border-radius: 5px;
   display: flex;
@@ -45,7 +44,7 @@
 .task-finish {
   height: 40px;
   width: 100%;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 0;
   box-shadow: 0 0 8px rgba(144,238,144,0.2);
   border-radius: 5px;
   display: flex;
@@ -79,7 +78,7 @@
 .task-stopped {
   height: 40px;
   width: 100%;
-  margin: 10px 10px 10px 10px;
+  margin: 10px 0;
   box-shadow: 0 0 8px rgba(255,182,193,0.2);
   border-radius: 5px;
   display: flex;
@@ -109,4 +108,173 @@
   width: 10px;
   border-radius: 4px;
   transition: width 5s;
+}
+.task-link {
+  text-decoration: none;
+  color: inherit;
+  display: block;
+  transition: transform 0.2s ease;
+}
+.task-link:hover {
+  transform: translateY(-2px);
+  text-decoration: none;
+  color: inherit;
+}
+.task-link:visited {
+  color: inherit;
+}
+.task-link-icon {
+  font-size: 0.8em;
+  margin-left: 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+.task-link:hover .task-link-icon {
+  opacity: 1;
+}
+.task-link .task,
+.task-link .task-finish,
+.task-link .task-stopped {
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+.task-link:hover .task {
+  box-shadow: 0 4px 16px rgba(255,193,7,0.3);
+}
+.task-link:hover .task-finish {
+  box-shadow: 0 4px 16px rgba(144,238,144,0.3);
+}
+.task-link:hover .task-stopped {
+  box-shadow: 0 4px 16px rgba(255,182,193,0.3);
+}
+.todo-container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(139,179,221,0.15);
+}
+.todo-header {
+  text-align: center;
+  margin-bottom: 40px;
+  padding: 40px 20px;
+  background: rgba(139,179,221,0.05);
+  border: 2px solid rgba(139,179,221,0.2);
+  border-radius: 12px;
+  color: #333;
+  position: relative;
+  overflow: hidden;
+}
+.todo-header::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+  animation: rotate 20s linear infinite;
+}
+.todo-header h1 {
+  font-size: 2.4rem;
+  color: #6d92bc;
+  margin-bottom: 15px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  text-shadow: none;
+}
+.todo-header h1 svg {
+  margin-right: 15px;
+  color: #8bb3dd;
+}
+.todo-stats {
+  font-size: 1rem;
+  color: #666;
+  position: relative;
+  z-index: 1;
+  margin: 0;
+}
+.stats-number {
+  color: #6d92bc;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.stats-finished {
+  color: #2e8b57;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.stats-active {
+  color: #f57c00;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+.stats-stopped {
+  color: #d6336c;
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+@media (max-width: 768px) {
+  .todo-container {
+    margin: 10px;
+    padding: 15px;
+  }
+  .todo-header {
+    padding: 30px 15px;
+    margin-bottom: 30px;
+  }
+  .todo-header h1 {
+    font-size: 2rem;
+  }
+  .todo-stats {
+    font-size: 0.9rem;
+  }
+  .stats-number,
+  .stats-finished,
+  .stats-active,
+  .stats-stopped {
+    font-size: 0.95rem;
+  }
+}
+@media (max-width: 480px) {
+  .todo-header h1 {
+    font-size: 1.7rem;
+  }
+  .todo-stats {
+    font-size: 0.85rem;
+  }
+}
+@-moz-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@-o-keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
 }

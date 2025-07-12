@@ -34,6 +34,10 @@
                 
                     <li><a href="/archives"><i class="fa-solid fa-box-archive"></i>归档</a></li>
                 
+                    <li><a href="/categories"><i class="fa-solid fa-list"></i>分类</a></li>
+                
+                    <li><a href="/tags"><i class="fa-solid fa-tags"></i>标签</a></li>
+                
                     <li><a href="/todo"><i class="fa-solid fa-check"></i>待办</a></li>
                 
                     <li><a href="/friends"><i class="fa-solid fa-link"></i>友链</a></li>
@@ -72,13 +76,13 @@
 			</li>
 			<li>
 				<p class="stat-value">
-					1
+					3
 				</p>
 				<p class="stat-label">分类</p>
 			</li>
 			<li>
 				<p class="stat-value">
-					8
+					12
 				</p>
 				<p class="stat-label">标签</p>
 			</li>
@@ -148,7 +152,7 @@
     </div>
     <div>
     <p>在libc.so.6文件中存在一个被去符号的函数——svcudp_reply，它含有如下gadget：</p>
-<pre><code class="language-asm">mov     rbp, [rdi+48h]          ; 写入rbp的地址
+<pre><code>mov     rbp, [rdi+48h]          ; 写入rbp的地址
 mov     rax, [rbp+18h]          ; 确保rbp+0x18的位置，是leave ; ret的.text地址的地址-0x28（有点拗口）
 lea     r13, [rbp+10h]
 mov     dword ptr [rbp+10h], 0  ; 确保rbp+0x10位置可写
@@ -156,7 +160,7 @@ mov     rdi, r13
 call    qword ptr [rax+28h]     ; 调用leave ; ret
 </code></pre>
 <p>在IDA中可以通过搜索汇编指令搜索到，推荐搜索以下两条指令，它们的搜索结果是最少的：</p>
-<pre><code class="language-asm">mov     rbp, [rdi+48h]
+<pre><code>mov     rbp, [rdi+48h]
 lea     r13, [rbp+10h]
 </code></pre>
 <p>在rdi可控且写入数据的地址可获得的情况下，可以借助此gadget栈迁移到任意位置。</p>

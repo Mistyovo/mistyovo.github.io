@@ -3,8 +3,12 @@ document.addEventListener('DOMContentLoaded', function () {
     const tasks = Array.from(todoContainer.children);
 
     tasks.sort((a, b) => {
-        const aProgress = a.querySelector('.progress').textContent.split('/').map(Number);
-        const bProgress = b.querySelector('.progress').textContent.split('/').map(Number);
+        // 处理可能被链接包装的任务
+        const taskA = a.classList.contains('task-link') ? a.querySelector('.task, .task-finish, .task-stopped') : a;
+        const taskB = b.classList.contains('task-link') ? b.querySelector('.task, .task-finish, .task-stopped') : b;
+        
+        const aProgress = taskA.querySelector('.progress').textContent.split('/').map(Number);
+        const bProgress = taskB.querySelector('.progress').textContent.split('/').map(Number);
         const aRatio = aProgress[0] / aProgress[1];
         const bRatio = bProgress[0] / bProgress[1];
         return bRatio - aRatio;
