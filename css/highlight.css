@@ -1,0 +1,114 @@
+/* ============================================================
+   KiraKira —— 代码块配色（星夜紫底 + 糖果色高亮）
+   ============================================================ */
+
+.kk-content figure.highlight,
+figure.highlight {
+  background: #241f31;
+  border-radius: 14px;
+  margin: 1.4rem 0;
+  overflow: auto;
+  box-shadow: 0 10px 30px rgba(40, 30, 70, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+figure.highlight table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  border: none;
+}
+
+figure.highlight td { border: none; padding: 0; }
+
+figure.highlight pre {
+  margin: 0;
+  padding: 0.95rem 0;
+  font-family: var(--kk-mono);
+  font-size: 0.84rem;
+  line-height: 1.75;
+}
+
+/* 行号栏 */
+figure.highlight .gutter {
+  width: 1%;
+  min-width: 2.8rem;
+  text-align: right;
+  user-select: none;
+  border-right: 1px solid rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.18);
+}
+
+figure.highlight .gutter pre { padding: 0.95rem 0.7rem 0.95rem 1rem; }
+figure.highlight .gutter .line { color: #6a6188; }
+
+/* 代码栏 */
+figure.highlight .code { width: 100%; }
+figure.highlight .code pre { padding: 0.95rem 1.2rem; }
+
+figure.highlight .line {
+  color: #e6e1f5;
+  min-height: 1.75em;
+}
+
+figure.highlight .line.marked { background: rgba(255, 111, 165, 0.16); }
+
+/* 有工具条时代码区去掉上圆角多余留白 */
+figure.highlight .kk-codebar + table pre { padding-top: 0.8rem; }
+
+/* 滚动条 */
+figure.highlight::-webkit-scrollbar { height: 8px; }
+figure.highlight::-webkit-scrollbar-track { background: #241f31; }
+figure.highlight::-webkit-scrollbar-thumb { background: #4d4266; border: none; border-radius: 4px; }
+
+/* ---------- 糖果色语法 ---------- */
+
+/* 樱花粉 —— 关键字 */
+.highlight .keyword,
+.highlight .selector-tag,
+.highlight .tag,
+.highlight .name { color: #ff7eb6; }
+
+/* 天空蓝 —— 函数 */
+.highlight .title,
+.highlight .function,
+.highlight .section { color: #8db0ff; }
+
+/* 薄荷绿 —— 字符串 */
+.highlight .string,
+.highlight .regexp,
+.highlight .addition,
+.highlight .value { color: #9ee8c0; }
+
+/* 杏子黄 —— 数字常量 */
+.highlight .number,
+.highlight .literal,
+.highlight .symbol,
+.highlight .bullet,
+.highlight .link { color: #ffc977; }
+
+/* 薰衣草 —— 类型与内建 */
+.highlight .built_in,
+.highlight .type,
+.highlight .class { color: #c4a8ff; }
+
+/* 紫灰 —— 注释 */
+.highlight .comment,
+.highlight .quote,
+.highlight .deletion { color: #7d7494; font-style: italic; }
+
+/* 桃橙 —— 属性变量 */
+.highlight .attr,
+.highlight .attribute,
+.highlight .variable,
+.highlight .template-variable { color: #ffab8f; }
+
+/* 亮粉 —— 预处理与元信息 */
+.highlight .meta,
+.highlight .preprocessor,
+.highlight .meta .keyword { color: #ff9ecf; }
+
+.highlight .emphasis { font-style: italic; }
+.highlight .strong { font-weight: bold; color: #ffffff; }
+
+figure.highlight ::selection { background: rgba(255, 111, 165, 0.4); color: #fff; }

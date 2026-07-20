@@ -1,0 +1,341 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // 暗色模式提前初始化，避免闪烁
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('kk-theme'); } catch (e) {}
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  
+  <title>标签：assembly · Mistyovo的博客</title>
+  
+  
+  <meta name="author" content="Mistyovo">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/highlight.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="kk-page-tag">
+  <div id="kk-loading" aria-hidden="true">
+  <div class="kk-loader">
+    <span class="kk-loader-star">✦</span>
+    <span class="kk-loader-text">KiraKira</span>
+    <span class="kk-loader-jp">きらきら</span>
+  </div>
+</div>
+
+  <canvas id="kk-petals" aria-hidden="true"></canvas>
+  <canvas id="kk-cursor" aria-hidden="true"></canvas>
+  <div id="kk-progress" aria-hidden="true"><span></span></div>
+  <header class="kk-topbar">
+  <button class="kk-icon-btn kk-menu-btn" id="kk-menu-btn" type="button" aria-label="打开菜单">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <a class="kk-logo" href="/">
+    <img src="/images/favicon.svg" alt="logo" width="30" height="30">
+    <span class="kk-logo-text">Mistyovo的博客</span>
+  </a>
+  <nav class="kk-nav">
+    <a class="kk-nav-link" href="/">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>首页
+    </a>
+    <a class="kk-nav-link" href="/archives">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>归档
+    </a>
+    <a class="kk-nav-link" href="/categories">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>分类
+    </a>
+    <a class="kk-nav-link is-active" href="/tags">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>标签
+    </a>
+  </nav>
+  <div class="kk-actions">
+    
+    <button class="kk-icon-btn" id="kk-search-btn" type="button" aria-label="搜索">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+    </button>
+    
+    
+    <button class="kk-icon-btn" id="kk-theme-btn" type="button" aria-label="切换暗色模式">
+      <svg class="kk-icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      <svg class="kk-icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8.5 8.5 0 0 1 10.5 4 8.5 8.5 0 1 0 20 13.5Z"/></svg>
+    </button>
+    
+  </div>
+</header>
+
+  
+  <div class="kk-wrap">
+    <aside class="kk-left" id="kk-drawer">
+<div class="kk-side-inner">
+  <div class="kk-card kk-profile">
+    <div class="kk-profile-banner" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
+    <img class="kk-avatar" src="/images/avatar.jpg" alt="Mistyovo" width="90" height="90">
+    <h2 class="kk-profile-name">Mistyovo</h2>
+    <p class="kk-profile-bio">二进制安全学习中 / PWN / 漏洞挖掘</p>
+    <div class="kk-profile-stats">
+      <a class="kk-stat" href="/archives">
+        <b>10</b><span>文章</span>
+      </a>
+      <a class="kk-stat" href="/categories">
+        <b>3</b><span>分类</span>
+      </a>
+      <a class="kk-stat" href="/tags">
+        <b>24</b><span>标签</span>
+      </a>
+    </div>
+    
+    <div class="kk-socials">
+      
+        <a class="kk-social" href="https://github.com/" target="_blank" rel="noopener" aria-label="github">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C16.8 4.9 17.8 5.2 17.8 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="mailto:hi@example.com" target="_blank" rel="noopener" aria-label="mail">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="/atom.xml" target="_blank" rel="noopener" aria-label="rss">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
+          
+        </a>
+      
+    </div>
+    
+    
+    <blockquote class="kk-hitokoto">
+      <span class="kk-hitokoto-mark">「</span>所谓漏洞，是被遗忘的边界。<span class="kk-hitokoto-mark">」</span>
+    </blockquote>
+    
+  </div>
+</div>
+</aside>
+    <div class="kk-drawer-mask" id="kk-drawer-mask"></div>
+    <main class="kk-main" id="main"><div class="kk-archive">
+  <header class="kk-card kk-list-header" data-reveal>
+    <h1 class="kk-list-title"><span class="kk-title-star">✦</span> 标签 · #assembly</h1>
+    <p class="kk-list-sub">共 <b>2</b> 篇文章</p>
+  </header>
+  
+    <a class="kk-card kk-archive-item" data-reveal href="/2026/07/15/pwn-assembly/">
+      <time>2026-30-3</time>
+      <span class="kk-archive-title">汇编语言从入门到精通</span>
+      <span class="kk-archive-arrow" aria-hidden="true">→</span>
+    </a>
+  
+    <a class="kk-card kk-archive-item" data-reveal href="/2026/07/15/pwn-shellcode/">
+      <time>2026-30-3</time>
+      <span class="kk-archive-title">Shellcode 合集</span>
+      <span class="kk-archive-arrow" aria-hidden="true">→</span>
+    </a>
+  
+</div>
+
+
+</main>
+    
+    <aside class="kk-right kk-rail-widgets"><div class="kk-widgets">
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+      最新文章
+    </h3>
+    <ul class="kk-recent">
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">免杀技术</span>
+            <time>07-19</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E6%8F%90%E6%9D%83%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">提权技术</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">应急响应学习笔记</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/15/pwn-assembly/">
+            <span class="kk-recent-dot kk-cover-5" aria-hidden="true"></span>
+            <span class="kk-recent-title">汇编语言从入门到精通</span>
+            <time>07-15</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/15/pwn-chrome-v8/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">Chrome V8 PWN从入门到精通</span>
+            <time>07-15</time>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>
+      分类
+    </h3>
+    <ul class="kk-cat-list">
+      
+        <li>
+          <a href="/categories/PWN/">
+            <span>PWN</span>
+            <span class="kk-badge">7</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
+            <span>应急响应</span>
+            <span class="kk-badge">1</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
+            <span>渗透测试</span>
+            <span class="kk-badge">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+      标签
+    </h3>
+    <div class="kk-tag-cloud">
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/assembly/">#assembly</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/av-bypass/">#av-bypass</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/browser/">#browser</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/chrome/">#chrome</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/glibc/">#glibc</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/heap/">#heap</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/io-file/">#io-file</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/kernel/">#kernel</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/linux/">#linux</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/magic-gadget/">#magic-gadget</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/mysql/">#mysql</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/ptmalloc2/">#ptmalloc2</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/pwn/">#pwn</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/setcontext/">#setcontext</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/shellcode/">#shellcode</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/srop/">#srop</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/stack-overflow/">#stack-overflow</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/v8/">#v8</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/windows/">#windows</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/x64/">#x64</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/x86/">#x86</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+      
+    </div>
+  </div>
+</div>
+</aside>
+  </div>
+  
+<footer class="kk-footer">
+  <div class="kk-footer-deco" aria-hidden="true">✦ ✧ ✦ ✧ ✦</div>
+  <p class="kk-footer-title">Mistyovo的博客</p>
+  <p class="kk-footer-meta">
+    &copy; 2026 Mistyovo
+    · Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+    · Theme <b>KiraKira</b>
+  </p>
+  <p class="kk-footer-stats">
+    全站 9.5w 字
+     · 已陪伴你 <b>6</b> 天
+  </p>
+</footer>
+
+  <div class="kk-search-modal" id="kk-search-modal" role="dialog" aria-modal="true" aria-label="站内搜索" hidden>
+  <div class="kk-search-mask" id="kk-search-mask"></div>
+  <div class="kk-search-panel">
+    <div class="kk-search-box">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="kk-search-input" type="search" placeholder="搜索文章标题或内容…" autocomplete="off">
+      <button class="kk-search-close" id="kk-search-close" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="kk-search-stats" id="kk-search-stats">输入关键词开始搜索 ✦</div>
+    <ul class="kk-search-results" id="kk-search-results"></ul>
+  </div>
+</div>
+
+  <button id="kk-top" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg class="kk-top-ring" viewBox="0 0 44 44" width="44" height="44"><circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round"/></svg>
+  </button>
+  <script>
+    window.KK = {"petals":true,"cursorFx":true,"typing":true,"cardTilt":true,"codeCopy":true,"imageZoom":true,"loading":true,"darkMode":true,"typed":["代码与星空的边界，由我来探索 ✦","PWN 之路，亦是星辰大海","保持热爱，奔赴山海"],"searchPath":"/search.xml"};
+  </script>
+  
+<script src="/js/petals.js"></script>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>

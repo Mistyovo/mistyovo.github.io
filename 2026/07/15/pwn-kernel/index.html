@@ -1,0 +1,567 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // 暗色模式提前初始化，避免闪烁
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('kk-theme'); } catch (e) {}
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  
+  <title>Linux 内核漏洞 · Mistyovo的博客</title>
+  
+  
+  <meta name="author" content="Mistyovo">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/highlight.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="kk-page-post kk-with-toc">
+  <div id="kk-loading" aria-hidden="true">
+  <div class="kk-loader">
+    <span class="kk-loader-star">✦</span>
+    <span class="kk-loader-text">KiraKira</span>
+    <span class="kk-loader-jp">きらきら</span>
+  </div>
+</div>
+
+  <canvas id="kk-petals" aria-hidden="true"></canvas>
+  <canvas id="kk-cursor" aria-hidden="true"></canvas>
+  <div id="kk-progress" aria-hidden="true"><span></span></div>
+  <header class="kk-topbar">
+  <button class="kk-icon-btn kk-menu-btn" id="kk-menu-btn" type="button" aria-label="打开菜单">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <a class="kk-logo" href="/">
+    <img src="/images/favicon.svg" alt="logo" width="30" height="30">
+    <span class="kk-logo-text">Mistyovo的博客</span>
+  </a>
+  <nav class="kk-nav">
+    <a class="kk-nav-link" href="/">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>首页
+    </a>
+    <a class="kk-nav-link" href="/archives">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>归档
+    </a>
+    <a class="kk-nav-link" href="/categories">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>分类
+    </a>
+    <a class="kk-nav-link" href="/tags">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>标签
+    </a>
+  </nav>
+  <div class="kk-actions">
+    
+    <button class="kk-icon-btn" id="kk-search-btn" type="button" aria-label="搜索">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+    </button>
+    
+    
+    <button class="kk-icon-btn" id="kk-theme-btn" type="button" aria-label="切换暗色模式">
+      <svg class="kk-icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      <svg class="kk-icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8.5 8.5 0 0 1 10.5 4 8.5 8.5 0 1 0 20 13.5Z"/></svg>
+    </button>
+    
+  </div>
+</header>
+
+  
+  <div class="kk-wrap">
+    <aside class="kk-left" id="kk-drawer">
+<div class="kk-side-inner">
+  <div class="kk-card kk-profile">
+    <div class="kk-profile-banner" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
+    <img class="kk-avatar" src="/images/avatar.jpg" alt="Mistyovo" width="90" height="90">
+    <h2 class="kk-profile-name">Mistyovo</h2>
+    <p class="kk-profile-bio">二进制安全学习中 / PWN / 漏洞挖掘</p>
+    <div class="kk-profile-stats">
+      <a class="kk-stat" href="/archives">
+        <b>10</b><span>文章</span>
+      </a>
+      <a class="kk-stat" href="/categories">
+        <b>3</b><span>分类</span>
+      </a>
+      <a class="kk-stat" href="/tags">
+        <b>24</b><span>标签</span>
+      </a>
+    </div>
+    
+    <div class="kk-socials">
+      
+        <a class="kk-social" href="https://github.com/" target="_blank" rel="noopener" aria-label="github">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C16.8 4.9 17.8 5.2 17.8 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="mailto:hi@example.com" target="_blank" rel="noopener" aria-label="mail">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="/atom.xml" target="_blank" rel="noopener" aria-label="rss">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
+          
+        </a>
+      
+    </div>
+    
+    
+    <blockquote class="kk-hitokoto">
+      <span class="kk-hitokoto-mark">「</span>所谓漏洞，是被遗忘的边界。<span class="kk-hitokoto-mark">」</span>
+    </blockquote>
+    
+  </div>
+</div>
+</aside>
+    <div class="kk-drawer-mask" id="kk-drawer-mask"></div>
+    <main class="kk-main" id="main">
+<article class="kk-article">
+  <header class="kk-article-hero kk-cover-6" data-reveal>
+    
+    <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=49966')"></span>
+    <span class="kk-cover-shade"></span>
+    
+    <span class="kk-cover-deco" aria-hidden="true">✦</span>
+    <h1 class="kk-article-title">Linux 内核漏洞</h1>
+    <div class="kk-article-meta">
+      <span class="kk-chip kk-chip-glass">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        2026-07-15
+      </span>
+      
+        
+          <a class="kk-chip kk-chip-glass" href="/categories/PWN/">PWN</a>
+        
+      
+      <span class="kk-chip kk-chip-glass">5.6k 字</span>
+      <span class="kk-chip kk-chip-glass">约 14 分钟</span>
+    </div>
+  </header>
+
+  <div class="kk-card kk-article-body" data-reveal>
+    <div class="kk-content" id="kk-content">
+      <h1 id="环境搭建"><a href="#环境搭建" class="headerlink" title="环境搭建"></a>环境搭建</h1><p>一个完整的 Kernel Pwn 环境通常包含以下三个核心文件：</p>
+<table>
+<thead>
+<tr>
+<th><strong>文件</strong></th>
+<th><strong>作用</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>bzImage</code></td>
+<td>压缩后的 Linux 内核镜像文件</td>
+</tr>
+<tr>
+<td><code>rootfs.cpio</code></td>
+<td>精简的文件系统（包含基本的 Linux 命令和你的 Pwn 漏洞程序）</td>
+</tr>
+<tr>
+<td><code>vmlinux</code></td>
+<td>未压缩的、带有调试符号的内核文件（用于 GDB 调试时加载符号和源码）</td>
+</tr>
+</tbody></table>
+<p>接下来我们将一步步完成环境的搭建。</p>
+<p>第一步，更新系统并安装编译内核、构建文件系统和运行 QEMU 所需的依赖：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> apt-get update</span><br><span class="line"><span class="built_in">sudo</span> apt-get install -y build-essential libncurses-dev bison flex libssl-dev libelf-dev bc git curl</span><br><span class="line"><span class="built_in">sudo</span> apt-get install -y qemu-system-x86 gdb cpio</span><br></pre></td></tr></table></figure>
+
+<p>第二步，我们开始编译Linux内核，我们可以前往 <a target="_blank" rel="noopener" href="https://www.kernel.org/pub/linux/kernel/">Index of &#x2F;pub&#x2F;linux&#x2F;kernel&#x2F;</a> 网站下载你所需的Linux内核。</p>
+<p>下载并解压源码。（此过程可能会有点久）</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">wget https://cdn.kernel.org/pub/linux/kernel/v5.x/linux-5.15.109.tar.xz</span><br><span class="line">tar -xvf linux-5.15.109.tar.xz</span><br><span class="line"><span class="built_in">cd</span> linux-5.15.109</span><br></pre></td></tr></table></figure>
+
+<p>配置编译选项。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 生成默认的 x86_64 配置</span></span><br><span class="line">make x86_64_defconfig</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入图形化配置界面</span></span><br><span class="line">make menuconfig</span><br></pre></td></tr></table></figure>
+
+<p>在 <code>menuconfig</code> 界面中，你需要开启调试信息，并关闭一些干扰初学者调试的保护机制。具体涉及的选项如下：</p>
+<table>
+<thead>
+<tr>
+<th>配置项</th>
+<th>设置</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>CONFIG_DEBUG_INFO</code></td>
+<td>y</td>
+<td>生成调试符号，GDB 调试内核时可以看到源码行号和变量</td>
+</tr>
+<tr>
+<td><code>CONFIG_GDB_SCRIPTS</code></td>
+<td>y</td>
+<td>启用内核自带的 GDB 辅助脚本（<code>lx-symbols</code> 等命令）</td>
+</tr>
+<tr>
+<td><code>CONFIG_RANDOMIZE_BASE</code></td>
+<td>n</td>
+<td>关闭 KASLR（内核地址随机化），调试时地址固定</td>
+</tr>
+<tr>
+<td><code>CONFIG_STACKPROTECTOR</code></td>
+<td>n</td>
+<td>关闭内核栈金丝雀，方便练习内核栈溢出</td>
+</tr>
+<tr>
+<td><code>CONFIG_PAGE_TABLE_ISOLATION</code></td>
+<td>n</td>
+<td>关闭 KPTI 页表隔离（新版本内核为 <code>CONFIG_MITIGATION_PAGE_TABLE_ISOLATION</code>）</td>
+</tr>
+</tbody></table>
+<p>注意 SMEP、SMAP 不是编译选项，它们由 CPU 特性决定，在后面 QEMU 启动参数中通过 <code>-cpu qemu64,-smep,-smap</code> 关闭。</p>
+<p>开始编译，可以调用多个内核加速编译：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">make -j8</span><br></pre></td></tr></table></figure>
+
+<p>编译完成后，你会在以下路径找到我们需要的文件：</p>
+<ul>
+<li>带有符号的内核二进制：源码根目录下的 <code>vmlinux</code></li>
+<li>可启动的压缩镜像：<code>arch/x86/boot/bzImage</code></li>
+</ul>
+<p>将上述两个文件拷贝到你的工作目录，或者说是实验环境。</p>
+<p>第三步，构建精简文件系统。首先编译 busybox，它是构建精简文件系统最常用的工具，一个静态二进制即可提供 sh、mount、cp 等几乎所有基础命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">wget https://busybox.net/downloads/busybox-1.36.1.tar.bz2</span><br><span class="line">tar -xjf busybox-1.36.1.tar.bz2</span><br><span class="line"><span class="built_in">cd</span> busybox-1.36.1</span><br><span class="line"></span><br><span class="line"><span class="comment"># 进入配置界面，勾选 Settings -&gt; Build static binary (no shared libs)</span></span><br><span class="line">make menuconfig</span><br><span class="line"></span><br><span class="line">make -j8</span><br><span class="line">make install    <span class="comment"># 生成 _install 目录，里面就是基本的文件系统骨架</span></span><br></pre></td></tr></table></figure>
+
+<p>接着在 <code>_install</code> 目录基础上补全目录结构，并编写 init 脚本。init 是内核启动后执行的第一个用户态程序，负责挂载虚拟文件系统、加载漏洞驱动、以普通用户身份启动 shell：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> _install</span><br><span class="line"><span class="built_in">mkdir</span> -p proc sys dev etc/init.d</span><br><span class="line"></span><br><span class="line"><span class="comment"># 最小化的用户配置</span></span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;root:x:0:0:root:/root:/bin/sh&quot;</span> &gt; etc/passwd</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;user:x:1000:1000:user:/home/user:/bin/sh&quot;</span> &gt;&gt; etc/passwd</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;root:x:0:&quot;</span> &gt; etc/group</span><br><span class="line"><span class="built_in">echo</span> <span class="string">&quot;user:x:1000:&quot;</span> &gt;&gt; etc/group</span><br></pre></td></tr></table></figure>
+
+<p>init 脚本内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/sh</span></span><br><span class="line">mount -t proc none /proc</span><br><span class="line">mount -t sysfs none /sys</span><br><span class="line">mount -t devtmpfs none /dev</span><br><span class="line"></span><br><span class="line"><span class="comment"># 加载漏洞驱动模块并放行设备节点权限</span></span><br><span class="line">insmod /vuln.ko</span><br><span class="line"><span class="built_in">chmod</span> 666 /dev/vuln</span><br><span class="line"></span><br><span class="line"><span class="comment"># 以 uid=1000 的普通用户身份启动 shell</span></span><br><span class="line">setsid cttyhack setuidgid 1000 sh</span><br><span class="line"></span><br><span class="line"><span class="comment"># 退出 shell 后关机</span></span><br><span class="line">poweroff -d 0 -f</span><br></pre></td></tr></table></figure>
+
+<p>别忘了给它加上执行权限，然后将整个目录打包为 cpio 格式的 rootfs：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">chmod</span> +x init</span><br><span class="line">find . | cpio -o --format=newc &gt; ../rootfs.cpio</span><br></pre></td></tr></table></figure>
+
+<p>后续每次修改 exp 或驱动，只需把新文件放进该目录重新执行打包命令即可。</p>
+<p>第四步，编写 QEMU 启动脚本 run.sh：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">qemu-system-x86_64 \</span><br><span class="line">    -m 256M \</span><br><span class="line">    -kernel bzImage \</span><br><span class="line">    -initrd rootfs.cpio \</span><br><span class="line">    -append <span class="string">&quot;console=ttyS0 nokaslr quiet&quot;</span> \</span><br><span class="line">    -cpu qemu64,-smep,-smap \</span><br><span class="line">    -smp 1 \</span><br><span class="line">    -nographic \</span><br><span class="line">    -monitor /dev/null \</span><br><span class="line">    -s</span><br></pre></td></tr></table></figure>
+
+<p>各参数要点：</p>
+<ul>
+<li><code>-kernel</code> &#x2F; <code>-initrd</code>：指定我们编译好的内核镜像与文件系统。</li>
+<li><code>-append</code>：内核启动参数，<code>console=ttyS0</code> 把控制台重定向到串口（配合 -nographic），<code>nokaslr</code> 关闭 KASLR。</li>
+<li><code>-cpu qemu64,-smep,-smap</code>：关闭 SMEP&#x2F;SMAP，练习阶段先拆掉这两道防线。</li>
+<li><code>-s</code>：在 1234 端口开启 GDB 调试服务，等价于 <code>-gdb tcp::1234</code>。</li>
+<li><code>-S</code>（大写，可选）：启动时冻结 CPU，等 GDB 连接后才开始执行，调试内核启动早期代码时使用。</li>
+</ul>
+<p>第五步，使用 GDB 调试内核。保持 QEMU 运行，另开终端：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gdb ./vmlinux</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">(gdb) target remote localhost:1234     # 连接 QEMU 的调试服务</span><br><span class="line">(gdb) lx-symbols                       # 加载内核 GDB 脚本，自动识别模块符号</span><br><span class="line">(gdb) b start_kernel                   # 在内核启动入口下断点</span><br><span class="line">(gdb) b vuln_ioctl                     # 也可以直接断漏洞驱动的函数</span><br><span class="line">(gdb) c</span><br></pre></td></tr></table></figure>
+
+<p><code>lx-symbols</code> 需要编译内核时开启 <code>CONFIG_GDB_SCRIPTS</code>。若要调试驱动模块内部的代码，可在 <code>insmod</code> 后用 <code>add-symbol-file vuln.ko &lt;模块加载基址&gt;</code> 手动加载符号，基址通过 <code>cat /proc/modules</code> 或 lx-symbols 自动获取。</p>
+<p>至此，一个可编译、可运行、可调试的 Kernel Pwn 环境就搭建完成了。</p>
+<h1 id="内核漏洞利用基础"><a href="#内核漏洞利用基础" class="headerlink" title="内核漏洞利用基础"></a>内核漏洞利用基础</h1><h2 id="内核态与用户态"><a href="#内核态与用户态" class="headerlink" title="内核态与用户态"></a>内核态与用户态</h2><p>x86-64 通过特权级隔离代码权限：用户态运行在 ring3，内核运行在 ring0。用户态程序通过 <code>syscall</code> 指令陷入内核，内核在 ring0 下以全部权限执行请求后返回。Linux 的虚拟地址空间也因此一分为二：</p>
+<ul>
+<li>用户态：<code>0x0000000000000000</code> ~ <code>0x00007fffffffffff</code>，普通进程的代码、堆栈都在这里。</li>
+<li>内核态：<code>0xffff800000000000</code> 以上的高端地址，所有进程共享同一份内核映射。</li>
+</ul>
+<p>内核漏洞利用的目标，就是借助漏洞让内核在 ring0 下执行我们期望的操作——最常见的是篡改当前进程的凭证实现提权。</p>
+<h2 id="内核保护机制"><a href="#内核保护机制" class="headerlink" title="内核保护机制"></a>内核保护机制</h2><p>内核有一系列与用户态类似（且更严格）的防护机制，搭环境时我们将其关闭，实际利用时则需要逐一绕过：</p>
+<table>
+<thead>
+<tr>
+<th>机制</th>
+<th>防护点</th>
+<th>关闭&#x2F;对抗方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>KASLR</td>
+<td>内核镜像与模块地址每次启动随机化</td>
+<td><code>nokaslr</code> 启动参数关闭；实战中需信息泄露获取基址</td>
+</tr>
+<tr>
+<td>SMEP</td>
+<td>禁止内核直接执行用户态页面的代码</td>
+<td><code>nosmep</code> &#x2F; <code>-cpu</code> 参数关闭；实战中需内核 ROP 或 ret2dir 等绕过</td>
+</tr>
+<tr>
+<td>SMAP</td>
+<td>禁止内核直接读写用户态页面的数据</td>
+<td><code>nosmap</code> &#x2F; <code>-cpu</code> 参数关闭；绕过思路与 SMEP 类似</td>
+</tr>
+<tr>
+<td>KPTI</td>
+<td>用户态与内核态页表隔离（Meltdown 缓解）</td>
+<td><code>nopti</code> 关闭；返回用户态时需借助 trampoline 切页表</td>
+</tr>
+<tr>
+<td>STACKPROTECTOR</td>
+<td>内核栈金丝雀，检测栈溢出</td>
+<td>编译选项关闭；实战中需先泄露 canary</td>
+</tr>
+<tr>
+<td>SLUB 加固</td>
+<td>freelist 指针加密、随机化（FREELIST_HARDENED&#x2F;RANDOM）</td>
+<td>增加堆喷与 UAF 利用难度</td>
+</tr>
+</tbody></table>
+<h2 id="用户态与内核态数据交互"><a href="#用户态与内核态数据交互" class="headerlink" title="用户态与内核态数据交互"></a>用户态与内核态数据交互</h2><p>内核漏洞题通常以驱动模块（.ko）形式给出，用户态通过打开设备节点并调用 <code>ioctl</code> 与驱动交互。驱动读写用户态数据必须使用专用接口：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">unsigned</span> <span class="type">long</span> <span class="title function_">copy_from_user</span><span class="params">(<span class="type">void</span> *to, <span class="type">const</span> <span class="type">void</span> __user *from, <span class="type">unsigned</span> <span class="type">long</span> n)</span>;</span><br><span class="line"><span class="type">unsigned</span> <span class="type">long</span> <span class="title function_">copy_to_user</span><span class="params">(<span class="type">void</span> __user *to, <span class="type">const</span> <span class="type">void</span> *from, <span class="type">unsigned</span> <span class="type">long</span> n)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>一个典型的最小漏洞驱动骨架如下，其中 <code>vuln_ioctl</code> 里的 <code>copy_from_user</code> 把用户数据拷入固定大小的内核栈缓冲区而长度由用户控制，形成内核栈溢出：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/module.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/fs.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;linux/uaccess.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">define</span> VULN_DEVICE <span class="string">&quot;vuln&quot;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">long</span> <span class="title function_">vuln_ioctl</span><span class="params">(<span class="keyword">struct</span> file *filp, <span class="type">unsigned</span> <span class="type">int</span> cmd, <span class="type">unsigned</span> <span class="type">long</span> arg)</span> &#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">64</span>];   <span class="comment">// 内核栈上的固定缓冲区</span></span><br><span class="line">    <span class="comment">// cmd=1 时把用户数据拷入 buf，长度未校验 —— 漏洞点</span></span><br><span class="line">    <span class="keyword">if</span> (cmd == <span class="number">1</span>)</span><br><span class="line">        copy_from_user(buf, (<span class="type">void</span> __user *)arg, <span class="number">0x400</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="class"><span class="keyword">struct</span> <span class="title">file_operations</span> <span class="title">vuln_fops</span> =</span> &#123;</span><br><span class="line">    .unlocked_ioctl = vuln_ioctl,</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">int</span> __init <span class="title function_">vuln_init</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    register_chrdev(<span class="number">233</span>, VULN_DEVICE, &amp;vuln_fops);</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">static</span> <span class="type">void</span> __exit <span class="title function_">vuln_exit</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    unregister_chrdev(<span class="number">233</span>, VULN_DEVICE);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">module_init(vuln_init);</span><br><span class="line">module_exit(vuln_exit);</span><br><span class="line">MODULE_LICENSE(<span class="string">&quot;GPL&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>用户态交互代码形如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> fd = open(<span class="string">&quot;/dev/vuln&quot;</span>, O_RDWR);</span><br><span class="line">ioctl(fd, <span class="number">1</span>, payload);   <span class="comment">// 触发 copy_from_user，payload 超长即溢出</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="提权原理"><a href="#提权原理" class="headerlink" title="提权原理"></a>提权原理</h2><p>Linux 中每个进程的权限由 <code>task_struct</code> 指向的 <code>cred</code> 结构体描述，里面是 uid、gid、euid、egid 等一组 ID，全为 0 即 root。因此提权的标准动作是把当前进程的 cred 替换为 root 凭证，内核提供了两个现成函数：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 方式一：prepare_kernel_cred 构造一份 root cred，commit_creds 应用之</span></span><br><span class="line"><span class="comment">// 新内核（5.19+ 及回移植版本）参数传 NULL 即表示以 init 的 cred 为模板</span></span><br><span class="line">commit_creds(prepare_kernel_cred(<span class="literal">NULL</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// 方式二：直接套用 init 进程的静态 cred</span></span><br><span class="line">commit_creds(&amp;init_cred);</span><br></pre></td></tr></table></figure>
+
+<p>漏洞利用中获得内核态任意代码执行（或 ROP）后调用上述函数，再返回用户态执行 <code>system(&quot;/bin/sh&quot;)</code>，拿到的就是 root shell。</p>
+<h2 id="返回用户态"><a href="#返回用户态" class="headerlink" title="返回用户态"></a>返回用户态</h2><p>利用代码在内核态执行完后必须安全返回用户态，否则内核立即 panic，提权成果归零。标准的返回路径是内核函数 <code>swapgs_restore_regs_and_return_to_usermode</code>：它负责恢复 GS、切换页表（KPTI 场景），最终以 <code>iretq</code> 返回用户态，需要我们在栈上依次布置好用户态的 rip、cs、rflags、rsp、ss 五个值。</p>
+<p>因此 exp 开头要先用内联汇编保存进入内核前的用户态现场：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">size_t</span> user_cs, user_ss, user_rflags, user_sp;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">save_state</span><span class="params">()</span> &#123;</span><br><span class="line">    __asm__(</span><br><span class="line">        <span class="string">&quot;mov user_cs, cs;&quot;</span></span><br><span class="line">        <span class="string">&quot;mov user_ss, ss;&quot;</span></span><br><span class="line">        <span class="string">&quot;mov user_sp, rsp;&quot;</span></span><br><span class="line">        <span class="string">&quot;pushf;&quot;</span></span><br><span class="line">        <span class="string">&quot;pop user_rflags;&quot;</span></span><br><span class="line">    );</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">get_shell</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">if</span> (getuid() == <span class="number">0</span>) &#123;</span><br><span class="line">        system(<span class="string">&quot;/bin/sh&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">()</span> &#123;</span><br><span class="line">    save_state();</span><br><span class="line">    <span class="comment">// ... 触发漏洞、内核 ROP 调用 commit_creds(prepare_kernel_cred(NULL)) ...</span></span><br><span class="line">    <span class="comment">// 返回用户态后 rip 指向 get_shell</span></span><br><span class="line">    get_shell();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>栈上布置的五元组中，rip 指向 <code>get_shell</code>，cs&#x2F;ss&#x2F;rflags&#x2F;sp 用 <code>save_state</code> 保存的值即可。这样内核利用代码执行完毕、iretq 一响，进程就以 root 身份回到用户态弹 shell，整个提权流程闭环。</p>
+
+    </div>
+    
+    <div class="kk-article-tags">
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/pwn/">#pwn</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/kernel/">#kernel</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/linux/">#linux</a>
+      
+    </div>
+    
+  </div>
+
+  <nav class="kk-post-nav" data-reveal>
+    
+      <a class="kk-card kk-pnav kk-cover-7" href="/2026/07/15/pwn-stack-overflow/">
+        
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=92335')"></span>
+        <span class="kk-cover-shade"></span>
+        
+        <span class="kk-pnav-label">‹ 上一篇</span>
+        <span class="kk-pnav-title">栈溢出漏洞</span>
+      </a>
+    
+    
+      <a class="kk-card kk-pnav kk-pnav-next kk-cover-4" href="/2026/07/15/pwn-heap-exploit/">
+        
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=78740')"></span>
+        <span class="kk-cover-shade"></span>
+        
+        <span class="kk-pnav-label">下一篇 ›</span>
+        <span class="kk-pnav-title">堆利用漏洞</span>
+      </a>
+    
+  </nav>
+</article>
+</main>
+    
+    <aside class="kk-right kk-rail-toc"><div class="kk-widgets">
+<div class="kk-card kk-widget kk-toc-card" data-reveal>
+  <h3 class="kk-widget-title">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+    目录
+  </h3>
+  <div class="kk-toc" id="kk-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">环境搭建</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%BC%8F%E6%B4%9E%E5%88%A9%E7%94%A8%E5%9F%BA%E7%A1%80"><span class="toc-text">内核漏洞利用基础</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E6%80%81%E4%B8%8E%E7%94%A8%E6%88%B7%E6%80%81"><span class="toc-text">内核态与用户态</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%86%85%E6%A0%B8%E4%BF%9D%E6%8A%A4%E6%9C%BA%E5%88%B6"><span class="toc-text">内核保护机制</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%94%A8%E6%88%B7%E6%80%81%E4%B8%8E%E5%86%85%E6%A0%B8%E6%80%81%E6%95%B0%E6%8D%AE%E4%BA%A4%E4%BA%92"><span class="toc-text">用户态与内核态数据交互</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8F%90%E6%9D%83%E5%8E%9F%E7%90%86"><span class="toc-text">提权原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E8%BF%94%E5%9B%9E%E7%94%A8%E6%88%B7%E6%80%81"><span class="toc-text">返回用户态</span></a></li></ol></li></ol></div>
+</div>
+
+</div></aside>
+    
+    <aside class="kk-right kk-rail-widgets"><div class="kk-widgets">
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+      最新文章
+    </h3>
+    <ul class="kk-recent">
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">免杀技术</span>
+            <time>07-19</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E6%8F%90%E6%9D%83%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">提权技术</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">应急响应学习笔记</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/15/pwn-assembly/">
+            <span class="kk-recent-dot kk-cover-5" aria-hidden="true"></span>
+            <span class="kk-recent-title">汇编语言从入门到精通</span>
+            <time>07-15</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/15/pwn-chrome-v8/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">Chrome V8 PWN从入门到精通</span>
+            <time>07-15</time>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>
+      分类
+    </h3>
+    <ul class="kk-cat-list">
+      
+        <li>
+          <a href="/categories/PWN/">
+            <span>PWN</span>
+            <span class="kk-badge">7</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
+            <span>应急响应</span>
+            <span class="kk-badge">1</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
+            <span>渗透测试</span>
+            <span class="kk-badge">2</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+      标签
+    </h3>
+    <div class="kk-tag-cloud">
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/assembly/">#assembly</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/av-bypass/">#av-bypass</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/browser/">#browser</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/chrome/">#chrome</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/glibc/">#glibc</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/heap/">#heap</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/io-file/">#io-file</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/kernel/">#kernel</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/linux/">#linux</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/magic-gadget/">#magic-gadget</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/mysql/">#mysql</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/ptmalloc2/">#ptmalloc2</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/pwn/">#pwn</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/setcontext/">#setcontext</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/shellcode/">#shellcode</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/srop/">#srop</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/stack-overflow/">#stack-overflow</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/v8/">#v8</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/windows/">#windows</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/x64/">#x64</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/x86/">#x86</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+      
+    </div>
+  </div>
+</div>
+</aside>
+  </div>
+  
+<footer class="kk-footer">
+  <div class="kk-footer-deco" aria-hidden="true">✦ ✧ ✦ ✧ ✦</div>
+  <p class="kk-footer-title">Mistyovo的博客</p>
+  <p class="kk-footer-meta">
+    &copy; 2026 Mistyovo
+    · Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+    · Theme <b>KiraKira</b>
+  </p>
+  <p class="kk-footer-stats">
+    全站 9.5w 字
+     · 已陪伴你 <b>6</b> 天
+  </p>
+</footer>
+
+  <div class="kk-search-modal" id="kk-search-modal" role="dialog" aria-modal="true" aria-label="站内搜索" hidden>
+  <div class="kk-search-mask" id="kk-search-mask"></div>
+  <div class="kk-search-panel">
+    <div class="kk-search-box">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="kk-search-input" type="search" placeholder="搜索文章标题或内容…" autocomplete="off">
+      <button class="kk-search-close" id="kk-search-close" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="kk-search-stats" id="kk-search-stats">输入关键词开始搜索 ✦</div>
+    <ul class="kk-search-results" id="kk-search-results"></ul>
+  </div>
+</div>
+
+  <button id="kk-top" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg class="kk-top-ring" viewBox="0 0 44 44" width="44" height="44"><circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round"/></svg>
+  </button>
+  <script>
+    window.KK = {"petals":true,"cursorFx":true,"typing":true,"cardTilt":true,"codeCopy":true,"imageZoom":true,"loading":true,"darkMode":true,"typed":["代码与星空的边界，由我来探索 ✦","PWN 之路，亦是星辰大海","保持热爱，奔赴山海"],"searchPath":"/search.xml"};
+  </script>
+  
+<script src="/js/petals.js"></script>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>
