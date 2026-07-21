@@ -1,0 +1,628 @@
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script>
+    // 暗色模式提前初始化，避免闪烁
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem('kk-theme'); } catch (e) {}
+      if (!t) t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', t);
+    })();
+  </script>
+  
+  <title>信息收集 · Mistyovo的博客</title>
+  
+  
+  <meta name="author" content="Mistyovo">
+  <link rel="icon" type="image/svg+xml" href="/images/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700;800&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+  
+<link rel="stylesheet" href="/css/main.css">
+
+  
+<link rel="stylesheet" href="/css/highlight.css">
+
+<meta name="generator" content="Hexo 8.1.2"></head>
+
+<body class="kk-page-post kk-with-toc">
+  <div id="kk-loading" aria-hidden="true">
+  <div class="kk-loader">
+    <span class="kk-loader-star">✦</span>
+    <span class="kk-loader-text">KiraKira</span>
+    <span class="kk-loader-jp">きらきら</span>
+  </div>
+</div>
+
+  <canvas id="kk-petals" aria-hidden="true"></canvas>
+  <canvas id="kk-cursor" aria-hidden="true"></canvas>
+  <div id="kk-progress" aria-hidden="true"><span></span></div>
+  <header class="kk-topbar">
+  <button class="kk-icon-btn kk-menu-btn" id="kk-menu-btn" type="button" aria-label="打开菜单">
+    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h10"/></svg>
+  </button>
+  <a class="kk-logo" href="/">
+    <img src="/images/favicon.svg" alt="logo" width="30" height="30">
+    <span class="kk-logo-text">Mistyovo的博客</span>
+  </a>
+  <nav class="kk-nav">
+    <a class="kk-nav-link" href="/">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5 9.5V21h14V9.5"/></svg>首页
+    </a>
+    <a class="kk-nav-link" href="/archives">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/></svg>归档
+    </a>
+    <a class="kk-nav-link" href="/categories">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>分类
+    </a>
+    <a class="kk-nav-link" href="/tags">
+      <svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>标签
+    </a>
+  </nav>
+  <div class="kk-actions">
+    
+    <button class="kk-icon-btn" id="kk-search-btn" type="button" aria-label="搜索">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+    </button>
+    
+    
+    <button class="kk-icon-btn" id="kk-theme-btn" type="button" aria-label="切换暗色模式">
+      <svg class="kk-icon-sun" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="12" cy="12" r="4.5"/><path d="M12 2.5v2.5M12 19v2.5M2.5 12H5M19 12h2.5M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M19.1 4.9l-1.8 1.8M6.7 17.3l-1.8 1.8"/></svg>
+      <svg class="kk-icon-moon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 13.5A8.5 8.5 0 0 1 10.5 4 8.5 8.5 0 1 0 20 13.5Z"/></svg>
+    </button>
+    
+  </div>
+</header>
+
+  
+  <div class="kk-wrap">
+    <aside class="kk-left" id="kk-drawer">
+<div class="kk-side-inner">
+  <div class="kk-card kk-profile">
+    <div class="kk-profile-banner" aria-hidden="true"><span>✦</span><span>✧</span><span>✦</span></div>
+    <img class="kk-avatar" src="/images/avatar.jpg" alt="Mistyovo" width="90" height="90">
+    <h2 class="kk-profile-name">Mistyovo</h2>
+    <p class="kk-profile-bio">二进制安全学习中 / PWN / 漏洞挖掘</p>
+    <div class="kk-profile-stats">
+      <a class="kk-stat" href="/archives">
+        <b>12</b><span>文章</span>
+      </a>
+      <a class="kk-stat" href="/categories">
+        <b>3</b><span>分类</span>
+      </a>
+      <a class="kk-stat" href="/tags">
+        <b>30</b><span>标签</span>
+      </a>
+    </div>
+    
+    <div class="kk-socials">
+      
+        <a class="kk-social" href="https://github.com/" target="_blank" rel="noopener" aria-label="github">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12a11.5 11.5 0 0 0 7.9 10.9c.6.1.8-.2.8-.5v-2c-3.2.7-3.9-1.4-3.9-1.4-.5-1.3-1.3-1.7-1.3-1.7-1-.7.1-.7.1-.7 1.2.1 1.8 1.2 1.8 1.2 1 1.8 2.7 1.3 3.4 1 .1-.8.4-1.3.7-1.6-2.6-.3-5.3-1.3-5.3-5.7 0-1.3.5-2.3 1.2-3.1-.1-.3-.5-1.5.1-3.1 0 0 1-.3 3.2 1.2a11 11 0 0 1 5.8 0C16.8 4.9 17.8 5.2 17.8 5.2c.6 1.6.2 2.8.1 3.1.8.8 1.2 1.8 1.2 3.1 0 4.4-2.7 5.4-5.3 5.7.4.4.8 1.1.8 2.2v3.2c0 .3.2.6.8.5A11.5 11.5 0 0 0 23.5 12 11.5 11.5 0 0 0 12 .5Z"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="mailto:hi@example.com" target="_blank" rel="noopener" aria-label="mail">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+          
+        </a>
+      
+        <a class="kk-social" href="/atom.xml" target="_blank" rel="noopener" aria-label="rss">
+          
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 11a9 9 0 0 1 9 9M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1.6" fill="currentColor" stroke="none"/></svg>
+          
+        </a>
+      
+    </div>
+    
+    
+    <blockquote class="kk-hitokoto">
+      <span class="kk-hitokoto-mark">「</span>调试到凌晨三点的栈，比谁都诚实。<span class="kk-hitokoto-mark">」</span>
+    </blockquote>
+    
+  </div>
+</div>
+</aside>
+    <div class="kk-drawer-mask" id="kk-drawer-mask"></div>
+    <main class="kk-main" id="main">
+<article class="kk-article">
+  <header class="kk-article-hero kk-cover-6" data-reveal>
+    
+    <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=62174')"></span>
+    <span class="kk-cover-shade"></span>
+    
+    <span class="kk-cover-deco" aria-hidden="true">✦</span>
+    <h1 class="kk-article-title">信息收集</h1>
+    <div class="kk-article-meta">
+      <span class="kk-chip kk-chip-glass">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
+        2026-07-20
+      </span>
+      
+        
+          <a class="kk-chip kk-chip-glass" href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">渗透测试</a>
+        
+      
+      <span class="kk-chip kk-chip-glass">4.6k 字</span>
+      <span class="kk-chip kk-chip-glass">约 12 分钟</span>
+    </div>
+  </header>
+
+  <div class="kk-card kk-article-body" data-reveal>
+    <div class="kk-content" id="kk-content">
+      <h1 id="外网信息收集"><a href="#外网信息收集" class="headerlink" title="外网信息收集"></a>外网信息收集</h1><h2 id="域名信息"><a href="#域名信息" class="headerlink" title="域名信息"></a>域名信息</h2><p><strong>whois 查询</strong> 通过 whois 协议查询域名的注册信息，可获得注册商、注册人&#x2F;组织、联系邮箱、电话、注册&#x2F;到期时间、DNS 服务器等。常用渠道：</p>
+<ul>
+<li>命令行：<code>whois example.com</code>（Linux 自带，Windows 可用 Sysinternals whois）</li>
+<li>在线：站长工具（whois.chinaz.com）、爱站、VirusTotal</li>
+</ul>
+<p>拿到注册邮箱或注册人后可以做 <strong>whois 反查</strong>，找出同一人&#x2F;组织名下的其他域名，扩大资产面。</p>
+<p><strong>ICP 备案查询</strong> 国内站点可通过工信部备案系统（beian.miit.gov.cn）或第三方（icp.chinaz.com）查询备案主体，往往能直接定位到目标公司全称，进而通过企业信用信息公示系统、天眼查&#x2F;企查查挖掘子公司、分支机构的更多资产。</p>
+<h2 id="子域名收集"><a href="#子域名收集" class="headerlink" title="子域名收集"></a>子域名收集</h2><h3 id="枚举工具"><a href="#枚举工具" class="headerlink" title="枚举工具"></a>枚举工具</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># OneForAll（集成证书透明度、DNS 数据集、爆破等多种方式）</span></span><br><span class="line">python3 oneforall.py --target example.com run</span><br><span class="line"></span><br><span class="line"><span class="comment"># subfinder（被动数据源枚举，速度快）</span></span><br><span class="line">subfinder -d example.com -o subs.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># ksubdomain（无状态爆破，适合大字典）</span></span><br><span class="line">ksubdomain e -d example.com -f subnames.txt</span><br></pre></td></tr></table></figure>
+
+<p>实际使用建议多个工具结合，结果去重后再验证存活（ksubdomain 的 verify 模式或 massdns）。</p>
+<h3 id="证书透明度（CT-Log）"><a href="#证书透明度（CT-Log）" class="headerlink" title="证书透明度（CT Log）"></a>证书透明度（CT Log）</h3><p>证书透明度日志记录了 CA 签发的所有证书，是被动收集子域名的高质量来源：</p>
+<ul>
+<li>crt.sh：<code>https://crt.sh/?q=%25.example.com&amp;output=json</code>（%25 即通配符 %）</li>
+<li>censys.io：直接搜索证书中的域名</li>
+</ul>
+<h3 id="网络空间测绘"><a href="#网络空间测绘" class="headerlink" title="网络空间测绘"></a>网络空间测绘</h3><table>
+<thead>
+<tr>
+<th>平台</th>
+<th>常用语法示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>FOFA</td>
+<td><code>domain=&quot;example.com&quot;</code>、<code>cert=&quot;example.com&quot;</code>、<code>icon_hash=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Quake</td>
+<td><code>domain:&quot;example.com&quot;</code>、<code>favicon:&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Hunter</td>
+<td><code>domain=&quot;example.com&quot;</code>、<code>web.title=&quot;...&quot;</code></td>
+</tr>
+<tr>
+<td>Shodan</td>
+<td><code>hostname:example.com</code>、<code>ssl:&quot;example.com&quot;</code>、<code>http.favicon.hash:xxx</code></td>
+</tr>
+<tr>
+<td>ZoomEye</td>
+<td><code>site:example.com</code>、<code>ssl:&quot;example.com&quot;</code></td>
+</tr>
+</tbody></table>
+<p>测绘平台能发现直接搜不到的资产：按证书、icon_hash、favicon 哈希搜索经常有意想不到的收获。</p>
+<h2 id="端口与服务扫描"><a href="#端口与服务扫描" class="headerlink" title="端口与服务扫描"></a>端口与服务扫描</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># masscan 快速扫全端口（速率可调，注意不要打挂目标）</span></span><br><span class="line">masscan -p1-65535 1.2.3.4 --rate=1000 -oL mass.txt</span><br><span class="line"></span><br><span class="line"><span class="comment"># 对 masscan 发现的端口用 nmap 精扫服务与版本</span></span><br><span class="line">nmap -sV -sC -p 22,80,443,3389 1.2.3.4 -oA target</span><br></pre></td></tr></table></figure>
+
+<p>nmap 常用参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>-sS</td>
+<td>SYN 半开扫描（默认，快且相对隐蔽）</td>
+</tr>
+<tr>
+<td>-sV</td>
+<td>探测服务版本</td>
+</tr>
+<tr>
+<td>-O</td>
+<td>探测操作系统（需 root）</td>
+</tr>
+<tr>
+<td>-sC</td>
+<td>调用 default 脚本（相当于 –script&#x3D;default）</td>
+</tr>
+<tr>
+<td>-p-</td>
+<td>扫描全部 65535 端口</td>
+</tr>
+<tr>
+<td>-Pn</td>
+<td>跳过主机存活探测（目标禁 ping 时用）</td>
+</tr>
+<tr>
+<td>-sU</td>
+<td>UDP 扫描（常见端口：53、123、161、500）</td>
+</tr>
+<tr>
+<td>–script&#x3D;vuln</td>
+<td>调用漏洞检测脚本</td>
+</tr>
+<tr>
+<td>-oA</td>
+<td>同时输出三种格式结果文件</td>
+</tr>
+</tbody></table>
+<h2 id="Web-指纹识别"><a href="#Web-指纹识别" class="headerlink" title="Web 指纹识别"></a>Web 指纹识别</h2><h3 id="CMS、框架与中间件"><a href="#CMS、框架与中间件" class="headerlink" title="CMS、框架与中间件"></a>CMS、框架与中间件</h3><p>识别目标使用的 CMS（WordPress、织梦、Discuz 等）、开发框架（ThinkPHP、Spring、Shiro 等）和中间件（Nginx、Apache、Tomcat），直接决定了后续的漏洞利用方向。</p>
+<ul>
+<li>工具：<code>whatweb https://target.com</code>、浏览器插件 Wappalyzer</li>
+<li>在线指纹库：云悉指纹、潮汐指纹</li>
+<li>手工判断：favicon 哈希（mmh3 计算后去 FOFA 搜）、robots.txt、报错页面、响应头（Server、X-Powered-By）、特有文件路径</li>
+</ul>
+<h3 id="WAF-识别"><a href="#WAF-识别" class="headerlink" title="WAF 识别"></a>WAF 识别</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wafw00f https://target.com</span><br></pre></td></tr></table></figure>
+
+<p>也可以在请求中插入常见攻击载荷（如 <code>&#39; or 1=1--</code>）观察是否被拦截及拦截页面特征。识别出 WAF 后，后续的扫描和攻击都需要考虑绕过策略。</p>
+<h3 id="CDN-判断与真实-IP-发现"><a href="#CDN-判断与真实-IP-发现" class="headerlink" title="CDN 判断与真实 IP 发现"></a>CDN 判断与真实 IP 发现</h3><p><strong>判断是否使用 CDN</strong>：用多个地区的节点 ping 或解析域名，若返回不同 IP 则大概率使用了 CDN。</p>
+<ul>
+<li>超级 ping：ping.chinaz.com、itdog.cn</li>
+<li><code>nslookup example.com 8.8.8.8</code>，与本地 DNS 解析结果对比</li>
+</ul>
+<p><strong>找真实 IP 的常用思路</strong>：</p>
+<ul>
+<li>历史 DNS 记录：ip138、SecurityTrails、微步在线，查域名上 CDN 之前的解析记录</li>
+<li>子域名往往没上 CDN，解析出真实 IP 后验证与主站的证书&#x2F;内容是否一致</li>
+<li>SSL 证书匹配：在 censys&#x2F;FOFA 中搜索证书特征，找使用同一证书的真实 IP</li>
+<li>邮件头：让目标服务器给自己发邮件（注册、找回密码），邮件头 Received 字段可能暴露真实出口 IP</li>
+</ul>
+<h2 id="目录与敏感文件扫描"><a href="#目录与敏感文件扫描" class="headerlink" title="目录与敏感文件扫描"></a>目录与敏感文件扫描</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># dirsearch（自带字典，支持递归）</span></span><br><span class="line">dirsearch -u https://target.com -e php,html,js --recursive</span><br><span class="line"></span><br><span class="line"><span class="comment"># gobuster（配合 SecLists 字典）</span></span><br><span class="line">gobuster <span class="built_in">dir</span> -u https://target.com -w /usr/share/wordlists/dirb/common.txt -x php,txt,bak</span><br><span class="line"></span><br><span class="line"><span class="comment"># ffuf（速度快，支持灵活过滤）</span></span><br><span class="line">ffuf -u https://target.com/FUZZ -w common.txt -mc 200,301,302 -<span class="built_in">fc</span> 404</span><br></pre></td></tr></table></figure>
+
+<p>重点关注的敏感文件&#x2F;目录：</p>
+<table>
+<thead>
+<tr>
+<th>路径</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>&#x2F;.git&#x2F;</td>
+<td>Git 源码泄露，可用 GitHack 还原整个仓库</td>
+</tr>
+<tr>
+<td>&#x2F;.svn&#x2F;entries</td>
+<td>SVN 源码泄露</td>
+</tr>
+<tr>
+<td>&#x2F;.DS_Store</td>
+<td>macOS 目录结构泄露</td>
+</tr>
+<tr>
+<td>&#x2F;<a target="_blank" rel="noopener" href="http://www.zip、/backup.rar%E3%80%81/1.tar.gz">www.zip、/backup.rar、/1.tar.gz</a></td>
+<td>运维留下的整站备份</td>
+</tr>
+<tr>
+<td>&#x2F;phpinfo.php</td>
+<td>泄露绝对路径、环境变量</td>
+</tr>
+<tr>
+<td>&#x2F;robots.txt</td>
+<td>常有后台、接口路径线索</td>
+</tr>
+</tbody></table>
+<h2 id="敏感信息泄露"><a href="#敏感信息泄露" class="headerlink" title="敏感信息泄露"></a>敏感信息泄露</h2><h3 id="Google-Hacking"><a href="#Google-Hacking" class="headerlink" title="Google Hacking"></a>Google Hacking</h3><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>作用</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>site:</td>
+<td>限定域名</td>
+<td><code>site:example.com</code></td>
+</tr>
+<tr>
+<td>inurl:</td>
+<td>URL 包含关键字</td>
+<td><code>inurl:admin site:example.com</code></td>
+</tr>
+<tr>
+<td>intitle:</td>
+<td>标题包含关键字</td>
+<td><code>intitle:&quot;后台登录&quot;</code></td>
+</tr>
+<tr>
+<td>intext:</td>
+<td>正文包含关键字</td>
+<td><code>intext:&quot;powered by dedecms&quot;</code></td>
+</tr>
+<tr>
+<td>filetype:</td>
+<td>限定文件类型</td>
+<td><code>filetype:sql site:example.com</code></td>
+</tr>
+<tr>
+<td>cache:</td>
+<td>查看网页快照</td>
+<td><code>cache:example.com</code></td>
+</tr>
+</tbody></table>
+<p>组合示例：<code>site:example.com inurl:login</code>、<code>site:example.com filetype:xlsx intext:手机</code>（找泄露的通讯录表格）。</p>
+<h3 id="GitHub-泄露"><a href="#GitHub-泄露" class="headerlink" title="GitHub 泄露"></a>GitHub 泄露</h3><p>在 GitHub 搜索目标域名&#x2F;公司名配合敏感关键字，经常有运维误传配置文件：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;example.com&quot; password</span><br><span class="line">&quot;example.com&quot; smtp</span><br><span class="line">&quot;example.com&quot; accesskey</span><br><span class="line">&quot;example.com&quot; JDBC</span><br></pre></td></tr></table></figure>
+
+<p>也可用自动化工具（GitDorker 等）批量跑字典。</p>
+<h2 id="人员与社工信息"><a href="#人员与社工信息" class="headerlink" title="人员与社工信息"></a>人员与社工信息</h2><ul>
+<li>theHarvester：<code>theHarvester -d example.com -b baidu,bing</code>，从搜索引擎收集邮箱、子域名</li>
+<li>收集到的邮箱前缀即潜在用户名，可用于后续爆破或钓鱼（需授权）</li>
+<li>LinkedIn、脉脉等职场平台可摸清目标组织架构和关键岗位人员</li>
+</ul>
+<h1 id="内网信息收集"><a href="#内网信息收集" class="headerlink" title="内网信息收集"></a>内网信息收集</h1><p>进入内网后的第一件事仍然是信息收集：搞清楚”我是谁、这台机器是什么、周围有什么、域在哪里”。</p>
+<h2 id="本机信息收集"><a href="#本机信息收集" class="headerlink" title="本机信息收集"></a>本机信息收集</h2><h3 id="Windows"><a href="#Windows" class="headerlink" title="Windows"></a>Windows</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">:: 系统信息（版本、补丁、域成员身份）</span><br><span class="line">systeminfo</span><br><span class="line"></span><br><span class="line">:: 网络配置（注意 DNS 后缀，域成员机器通常带域后缀）</span><br><span class="line"><span class="built_in">ipconfig</span> /all</span><br><span class="line"></span><br><span class="line">:: 本地用户与管理员组</span><br><span class="line"><span class="built_in">net</span> user</span><br><span class="line"><span class="built_in">net</span> localgroup administrators</span><br><span class="line"></span><br><span class="line">:: 当前登录的会话</span><br><span class="line">query user</span><br><span class="line"></span><br><span class="line">:: 进程与服务（找杀软、找高权限进程）</span><br><span class="line">tasklist /svc</span><br><span class="line">sc query state= all</span><br><span class="line"></span><br><span class="line">:: 网络连接与监听端口</span><br><span class="line">netstat -ano</span><br><span class="line"></span><br><span class="line">:: ARP 表与路由表（相邻网段线索）</span><br><span class="line">arp -a</span><br><span class="line">route <span class="built_in">print</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Linux"><a href="#Linux" class="headerlink" title="Linux"></a>Linux</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 内核与发行版</span></span><br><span class="line"><span class="built_in">uname</span> -a</span><br><span class="line"><span class="built_in">cat</span> /etc/*-release</span><br><span class="line"></span><br><span class="line"><span class="comment"># 当前用户与权限</span></span><br><span class="line"><span class="built_in">id</span></span><br><span class="line"><span class="built_in">sudo</span> -l</span><br><span class="line"></span><br><span class="line"><span class="comment"># 网络配置与连接</span></span><br><span class="line">ip a</span><br><span class="line">ip route</span><br><span class="line">ss -tunlp</span><br><span class="line">arp -n</span><br><span class="line"></span><br><span class="line"><span class="comment"># 历史命令中的敏感信息</span></span><br><span class="line"><span class="built_in">cat</span> ~/.bash_history</span><br></pre></td></tr></table></figure>
+
+<p>更详细的 Linux 提权向信息收集命令见《提权技术》一文的信息收集一节，此处不再重复。</p>
+<h2 id="网络与拓扑发现"><a href="#网络与拓扑发现" class="headerlink" title="网络与拓扑发现"></a>网络与拓扑发现</h2><h3 id="存活主机探测"><a href="#存活主机探测" class="headerlink" title="存活主机探测"></a>存活主机探测</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># nmap 禁端口扫描，只做主机发现</span></span><br><span class="line">nmap -sn 192.168.1.0/24</span><br><span class="line"></span><br><span class="line"><span class="comment"># Linux 下无 nmap 时用 ping 扫 C 段</span></span><br><span class="line"><span class="keyword">for</span> i <span class="keyword">in</span> $(<span class="built_in">seq</span> 1 254); <span class="keyword">do</span> ping -c 1 -W 1 192.168.1.<span class="variable">$i</span> | grep <span class="string">&quot;from&quot;</span> &amp; <span class="keyword">done</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">:: Windows <span class="built_in">cmd</span> 下扫 C 段</span><br><span class="line"><span class="keyword">for</span> /L %i <span class="keyword">in</span> (<span class="number">1</span>,<span class="number">1</span>,<span class="number">255</span>) <span class="keyword">do</span> @<span class="built_in">ping</span> -n <span class="number">1</span> -w <span class="number">200</span> <span class="number">192</span>.<span class="number">168</span>.<span class="number">1</span>.%i | <span class="built_in">findstr</span> &quot;TTL&quot;</span><br></pre></td></tr></table></figure>
+
+<p>内网扫描优先用 ARP&#x2F;ICMP，动静小。拿到存活主机后，结合本机的 ARP 表、路由表、DNS 缓存（<code>ipconfig /displaydns</code>）分析网段划分，推测办公网、服务器网段的位置，再对服务器网段做端口扫描。</p>
+<h2 id="域信息收集"><a href="#域信息收集" class="headerlink" title="域信息收集"></a>域信息收集</h2><h3 id="判断是否在域内"><a href="#判断是否在域内" class="headerlink" title="判断是否在域内"></a>判断是否在域内</h3><p>满足以下任意一条基本可判定为域成员机器：</p>
+<ul>
+<li><code>systeminfo</code> 输出中”域”字段不是 WORKGROUP</li>
+<li><code>ipconfig /all</code> 的主 DNS 后缀是域名</li>
+<li><code>net time /domain</code> 能返回域控时间</li>
+</ul>
+<h3 id="域基础枚举"><a href="#域基础枚举" class="headerlink" title="域基础枚举"></a>域基础枚举</h3><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">:: 查看域列表与域内主机</span><br><span class="line"><span class="built_in">net</span> view /domain</span><br><span class="line"><span class="built_in">net</span> view /domain:域名</span><br><span class="line"></span><br><span class="line">:: 查询域控</span><br><span class="line"><span class="built_in">net</span> group &quot;Domain Controllers&quot; /domain</span><br><span class="line">nltest /dsgetdc:域名</span><br><span class="line"></span><br><span class="line">:: 域管理员</span><br><span class="line"><span class="built_in">net</span> group &quot;Domain Admins&quot; /domain</span><br><span class="line"></span><br><span class="line">:: 查看指定域用户信息</span><br><span class="line"><span class="built_in">net</span> user 用户名 /domain</span><br></pre></td></tr></table></figure>
+
+<p>更系统的域信息收集一般用 <strong>BloodHound</strong>：用 SharpHound 在目标机器上采集域数据（用户、组、会话、ACL 等），导入 Neo4j 画图，自动算出到 Domain Admin 的最短攻击路径。</p>
+<h2 id="凭据搜集"><a href="#凭据搜集" class="headerlink" title="凭据搜集"></a>凭据搜集</h2><figure class="highlight cmd"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">:: 查看保存的凭据</span><br><span class="line">cmdkey /l</span><br><span class="line"></span><br><span class="line">:: WiFi 密码（需要曾连接过的配置文件）</span><br><span class="line">netsh wlan show profiles</span><br><span class="line">netsh wlan show profile name=&quot;WiFi名称&quot; key=clear</span><br></pre></td></tr></table></figure>
+
+<p>此外浏览器保存的密码（Chrome Login Data）、各类客户端配置文件（Xshell、Navicat、mstsc 的 RDP 凭据）都是常见来源；内存凭据抓取交给 mimikatz 类工具，使用时注意免杀（见《免杀技术》一文）。</p>
+<hr>
+<p>信息收集是渗透测试中耗时最长也最值得投入的环节——收集得越全，攻击面就越大。最后提醒：以上所有手段仅可用于获得授权的测试目标，对未授权目标进行扫描、探测属于违法行为。</p>
+
+    </div>
+    
+    <div class="kk-article-tags">
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">#信息收集</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/%E5%86%85%E7%BD%91/">#内网</a>
+      
+    </div>
+    
+  </div>
+
+  <nav class="kk-post-nav" data-reveal>
+    
+      <a class="kk-card kk-pnav kk-cover-6" href="/2026/07/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+        
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=81502')"></span>
+        <span class="kk-cover-shade"></span>
+        
+        <span class="kk-pnav-label">‹ 上一篇</span>
+        <span class="kk-pnav-title">内存取证</span>
+      </a>
+    
+    
+      <a class="kk-card kk-pnav kk-pnav-next kk-cover-2" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
+        
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=49346')"></span>
+        <span class="kk-cover-shade"></span>
+        
+        <span class="kk-pnav-label">下一篇 ›</span>
+        <span class="kk-pnav-title">免杀技术</span>
+      </a>
+    
+  </nav>
+</article>
+</main>
+    
+    <aside class="kk-right kk-rail-toc"><div class="kk-widgets">
+<div class="kk-card kk-widget kk-toc-card" data-reveal>
+  <h3 class="kk-widget-title">
+    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
+    目录
+  </h3>
+  <div class="kk-toc" id="kk-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%A4%96%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">外网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E5%90%8D%E4%BF%A1%E6%81%AF"><span class="toc-text">域名信息</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%AD%90%E5%9F%9F%E5%90%8D%E6%94%B6%E9%9B%86"><span class="toc-text">子域名收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9E%9A%E4%B8%BE%E5%B7%A5%E5%85%B7"><span class="toc-text">枚举工具</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%AF%81%E4%B9%A6%E9%80%8F%E6%98%8E%E5%BA%A6%EF%BC%88CT-Log%EF%BC%89"><span class="toc-text">证书透明度（CT Log）</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E6%B5%8B%E7%BB%98"><span class="toc-text">网络空间测绘</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%AB%AF%E5%8F%A3%E4%B8%8E%E6%9C%8D%E5%8A%A1%E6%89%AB%E6%8F%8F"><span class="toc-text">端口与服务扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Web-%E6%8C%87%E7%BA%B9%E8%AF%86%E5%88%AB"><span class="toc-text">Web 指纹识别</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#CMS%E3%80%81%E6%A1%86%E6%9E%B6%E4%B8%8E%E4%B8%AD%E9%97%B4%E4%BB%B6"><span class="toc-text">CMS、框架与中间件</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#WAF-%E8%AF%86%E5%88%AB"><span class="toc-text">WAF 识别</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#CDN-%E5%88%A4%E6%96%AD%E4%B8%8E%E7%9C%9F%E5%AE%9E-IP-%E5%8F%91%E7%8E%B0"><span class="toc-text">CDN 判断与真实 IP 发现</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E5%BD%95%E4%B8%8E%E6%95%8F%E6%84%9F%E6%96%87%E4%BB%B6%E6%89%AB%E6%8F%8F"><span class="toc-text">目录与敏感文件扫描</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%8F%E6%84%9F%E4%BF%A1%E6%81%AF%E6%B3%84%E9%9C%B2"><span class="toc-text">敏感信息泄露</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Google-Hacking"><span class="toc-text">Google Hacking</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#GitHub-%E6%B3%84%E9%9C%B2"><span class="toc-text">GitHub 泄露</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BA%BA%E5%91%98%E4%B8%8E%E7%A4%BE%E5%B7%A5%E4%BF%A1%E6%81%AF"><span class="toc-text">人员与社工信息</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%86%85%E7%BD%91%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">内网信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%9C%AC%E6%9C%BA%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">本机信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Windows"><span class="toc-text">Windows</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Linux"><span class="toc-text">Linux</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%8B%93%E6%89%91%E5%8F%91%E7%8E%B0"><span class="toc-text">网络与拓扑发现</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%AD%98%E6%B4%BB%E4%B8%BB%E6%9C%BA%E6%8E%A2%E6%B5%8B"><span class="toc-text">存活主机探测</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%9F%9F%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86"><span class="toc-text">域信息收集</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%A4%E6%96%AD%E6%98%AF%E5%90%A6%E5%9C%A8%E5%9F%9F%E5%86%85"><span class="toc-text">判断是否在域内</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9F%9F%E5%9F%BA%E7%A1%80%E6%9E%9A%E4%B8%BE"><span class="toc-text">域基础枚举</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%87%AD%E6%8D%AE%E6%90%9C%E9%9B%86"><span class="toc-text">凭据搜集</span></a></li></ol></li></ol></div>
+</div>
+
+</div></aside>
+    
+    <aside class="kk-right kk-rail-widgets"><div class="kk-widgets">
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20V2H6.5A2.5 2.5 0 0 0 4 4.5v15Z"/><path d="M4 19.5A2.5 2.5 0 0 0 6.5 22H20v-5"/></svg>
+      最新文章
+    </h3>
+    <ul class="kk-recent">
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">内存取证</span>
+            <time>07-20</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">信息收集</span>
+            <time>07-20</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">免杀技术</span>
+            <time>07-19</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E6%8F%90%E6%9D%83%E6%8A%80%E6%9C%AF/">
+            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
+            <span class="kk-recent-title">提权技术</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/16/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">应急响应学习笔记</span>
+            <time>07-16</time>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h6l2 3h8v13H4z"/></svg>
+      分类
+    </h3>
+    <ul class="kk-cat-list">
+      
+        <li>
+          <a href="/categories/PWN/">
+            <span>PWN</span>
+            <span class="kk-badge">7</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
+            <span>应急响应</span>
+            <span class="kk-badge">2</span>
+          </a>
+        </li>
+      
+        <li>
+          <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
+            <span>渗透测试</span>
+            <span class="kk-badge">3</span>
+          </a>
+        </li>
+      
+    </ul>
+  </div>
+
+  <div class="kk-card kk-widget" data-reveal>
+    <h3 class="kk-widget-title">
+      <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.4 12 22 2 12V2h10l8.6 8.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.5"/></svg>
+      标签
+    </h3>
+    <div class="kk-tag-cloud">
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/assembly/">#assembly</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/av-bypass/">#av-bypass</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/browser/">#browser</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/chrome/">#chrome</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/glibc/">#glibc</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/heap/">#heap</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/io-file/">#io-file</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/kernel/">#kernel</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/linux/">#linux</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/magic-gadget/">#magic-gadget</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/mysql/">#mysql</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/ptmalloc2/">#ptmalloc2</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/pwn/">#pwn</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/ret2dlresolve/">#ret2dlresolve</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/setcontext/">#setcontext</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/shellcode/">#shellcode</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/srop/">#srop</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/stack-overflow/">#stack-overflow</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/v8/">#v8</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/volatility/">#volatility</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/windows/">#windows</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/x64/">#x64</a>
+      
+        <a class="kk-tag-chip kk-chip-6" href="/tags/x86/">#x86</a>
+      
+        <a class="kk-tag-chip kk-chip-7" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">#信息收集</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">#内存取证</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/%E5%86%85%E7%BD%91/">#内网</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>
+      
+    </div>
+  </div>
+</div>
+</aside>
+  </div>
+  
+<footer class="kk-footer">
+  <div class="kk-footer-deco" aria-hidden="true">✦ ✧ ✦ ✧ ✦</div>
+  <p class="kk-footer-title">Mistyovo的博客</p>
+  <p class="kk-footer-meta">
+    &copy; 2026 Mistyovo
+    · Powered by <a href="https://hexo.io" target="_blank" rel="noopener">Hexo</a>
+    · Theme <b>KiraKira</b>
+  </p>
+  <p class="kk-footer-stats">
+    全站 11.2w 字
+     · 已陪伴你 <b>7</b> 天
+  </p>
+</footer>
+
+  <div class="kk-search-modal" id="kk-search-modal" role="dialog" aria-modal="true" aria-label="站内搜索" hidden>
+  <div class="kk-search-mask" id="kk-search-mask"></div>
+  <div class="kk-search-panel">
+    <div class="kk-search-box">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.8-3.8"/></svg>
+      <input id="kk-search-input" type="search" placeholder="搜索文章标题或内容…" autocomplete="off">
+      <button class="kk-search-close" id="kk-search-close" type="button" aria-label="关闭">✕</button>
+    </div>
+    <div class="kk-search-stats" id="kk-search-stats">输入关键词开始搜索 ✦</div>
+    <ul class="kk-search-results" id="kk-search-results"></ul>
+  </div>
+</div>
+
+  <button id="kk-top" type="button" aria-label="回到顶部">
+    <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    <svg class="kk-top-ring" viewBox="0 0 44 44" width="44" height="44"><circle cx="22" cy="22" r="19" fill="none" stroke="currentColor" stroke-width="2.4" stroke-dasharray="119.4" stroke-dashoffset="119.4" stroke-linecap="round"/></svg>
+  </button>
+  <script>
+    window.KK = {"petals":true,"cursorFx":true,"typing":true,"cardTilt":true,"codeCopy":true,"imageZoom":true,"loading":true,"darkMode":true,"typed":["代码与星空的边界，由我来探索 ✦","PWN 之路，亦是星辰大海","保持热爱，奔赴山海"],"searchPath":"/search.xml"};
+  </script>
+  
+<script src="/js/petals.js"></script>
+
+  
+<script src="/js/main.js"></script>
+
+</body>
+</html>

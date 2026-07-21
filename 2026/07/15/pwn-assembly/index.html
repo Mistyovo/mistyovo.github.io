@@ -14,7 +14,7 @@
     })();
   </script>
   
-  <title>汇编语言从入门到精通 · Mistyovo的博客</title>
+  <title>汇编语言速成 · Mistyovo的博客</title>
   
   
   <meta name="author" content="Mistyovo">
@@ -90,13 +90,13 @@
     <p class="kk-profile-bio">二进制安全学习中 / PWN / 漏洞挖掘</p>
     <div class="kk-profile-stats">
       <a class="kk-stat" href="/archives">
-        <b>10</b><span>文章</span>
+        <b>12</b><span>文章</span>
       </a>
       <a class="kk-stat" href="/categories">
         <b>3</b><span>分类</span>
       </a>
       <a class="kk-stat" href="/tags">
-        <b>24</b><span>标签</span>
+        <b>30</b><span>标签</span>
       </a>
     </div>
     
@@ -124,7 +124,7 @@
     
     
     <blockquote class="kk-hitokoto">
-      <span class="kk-hitokoto-mark">「</span>所谓漏洞，是被遗忘的边界。<span class="kk-hitokoto-mark">」</span>
+      <span class="kk-hitokoto-mark">「</span>调试到凌晨三点的栈，比谁都诚实。<span class="kk-hitokoto-mark">」</span>
     </blockquote>
     
   </div>
@@ -133,13 +133,13 @@
     <div class="kk-drawer-mask" id="kk-drawer-mask"></div>
     <main class="kk-main" id="main">
 <article class="kk-article">
-  <header class="kk-article-hero kk-cover-5" data-reveal>
+  <header class="kk-article-hero kk-cover-3" data-reveal>
     
-    <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=31677')"></span>
+    <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=10419')"></span>
     <span class="kk-cover-shade"></span>
     
     <span class="kk-cover-deco" aria-hidden="true">✦</span>
-    <h1 class="kk-article-title">汇编语言从入门到精通</h1>
+    <h1 class="kk-article-title">汇编语言速成</h1>
     <div class="kk-article-meta">
       <span class="kk-chip kk-chip-glass">
         <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg>
@@ -150,8 +150,8 @@
           <a class="kk-chip kk-chip-glass" href="/categories/PWN/">PWN</a>
         
       
-      <span class="kk-chip kk-chip-glass">762 字</span>
-      <span class="kk-chip kk-chip-glass">约 2 分钟</span>
+      <span class="kk-chip kk-chip-glass">3.2k 字</span>
+      <span class="kk-chip kk-chip-glass">约 8 分钟</span>
     </div>
   </header>
 
@@ -160,10 +160,204 @@
       <h1 id="指令详解"><a href="#指令详解" class="headerlink" title="指令详解"></a>指令详解</h1><h2 id="MOV"><a href="#MOV" class="headerlink" title="MOV"></a>MOV</h2><p><strong>用法</strong> MOV destination, source。寄存器直接写寄存器的名称reg，内存写[addr]，立即数直接写数字。</p>
 <p><strong>注意事项及规则</strong> 操作数大小需要匹配</p>
 <ul>
-<li><strong>寄存器</strong></li>
+<li><p><strong>寄存器</strong></p>
+<table>
+<thead>
+<tr>
+<th>位宽</th>
+<th>累加</th>
+<th>基址</th>
+<th>计数</th>
+<th>数据</th>
+<th>栈指针</th>
+<th>基址指针</th>
+<th>源变址</th>
+<th>目的变址</th>
+<th>扩展</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>64位</td>
+<td>rax</td>
+<td>rbx</td>
+<td>rcx</td>
+<td>rdx</td>
+<td>rsp</td>
+<td>rbp</td>
+<td>rsi</td>
+<td>rdi</td>
+<td>r8 ~ r15</td>
+</tr>
+<tr>
+<td>32位</td>
+<td>eax</td>
+<td>ebx</td>
+<td>ecx</td>
+<td>edx</td>
+<td>esp</td>
+<td>ebp</td>
+<td>esi</td>
+<td>edi</td>
+<td>r8d ~ r15d</td>
+</tr>
+<tr>
+<td>16位</td>
+<td>ax</td>
+<td>bx</td>
+<td>cx</td>
+<td>dx</td>
+<td>sp</td>
+<td>bp</td>
+<td>si</td>
+<td>di</td>
+<td>r8w ~ r15w</td>
+</tr>
+<tr>
+<td>低8位</td>
+<td>al</td>
+<td>bl</td>
+<td>cl</td>
+<td>dl</td>
+<td>spl</td>
+<td>bpl</td>
+<td>sil</td>
+<td>dil</td>
+<td>r8b ~ r15b</td>
+</tr>
+<tr>
+<td>高8位</td>
+<td>ah</td>
+<td>bh</td>
+<td>ch</td>
+<td>dh</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+<td>—</td>
+</tr>
+</tbody></table>
+</li>
+<li><p><strong>规则</strong></p>
+<ul>
+<li>两个操作数的位宽必须一致：<code>mov eax, ebx</code> 合法，<code>mov eax, bx</code> 不合法</li>
+<li>不能内存到内存：<code>mov [addr1], [addr2]</code> 不合法，需借助寄存器中转</li>
+<li>立即数不能作为目的操作数</li>
+<li>段寄存器不能由立即数直接装载，需先装入通用寄存器再转</li>
+<li>64位模式下写32位寄存器（如 <code>mov eax, 1</code>）会自动清零对应64位寄存器的高32位，写16位或8位寄存器则不会</li>
+</ul>
+</li>
+<li><p><strong>示例</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">mov eax, 0x1234        ; 立即数 → 寄存器</span><br><span class="line">mov rax, rbx           ; 寄存器 → 寄存器</span><br><span class="line">mov eax, [0x404000]    ; 内存 → 寄存器</span><br><span class="line">mov [rbp-0x10], rdx    ; 寄存器 → 内存</span><br><span class="line">mov byte [rdi], 0x41   ; 立即数 → 内存，需用 byte/word/dword/qword 指明位宽</span><br></pre></td></tr></table></figure></li>
 </ul>
 <hr>
-<h2 id="LEA"><a href="#LEA" class="headerlink" title="LEA"></a>LEA</h2><h2 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h2><h2 id="JUMP"><a href="#JUMP" class="headerlink" title="JUMP"></a>JUMP</h2><h2 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h2><p><strong>用法</strong> TEST destination, source。TEST进行的是<strong>与运算</strong>，只不过不保存计算结果的值，只根据结果设置标志寄存器SF、ZF、PF，并清除CF、OF。</p>
+<h2 id="LEA"><a href="#LEA" class="headerlink" title="LEA"></a>LEA</h2><p><strong>用法</strong> LEA destination, [address_expression]。计算方括号中地址表达式的结果（有效地址），直接存入目的寄存器，<strong>不会访问该地址处的内存</strong>。</p>
+<ul>
+<li><strong>与MOV的区别</strong> <code>lea rax, [rbx+8]</code> 得到的是 rbx+8 这个<strong>地址本身</strong>；而 <code>mov rax, [rbx+8]</code> 得到的是该地址处存储的<strong>值</strong></li>
+<li><strong>常见用途</strong><ul>
+<li>取变量或字符串的地址，如 <code>lea rdi, [rip+0x2004]</code>（位置无关代码中取数据地址的常见写法）</li>
+<li>快速算术运算，一条指令完成乘加：<code>lea rax, [rbx+rcx*4+0x10]</code> 即 rax &#x3D; rbx + rcx*4 + 0x10</li>
+</ul>
+</li>
+<li><strong>注意事项</strong> LEA 不影响任何标志位；目的操作数只能是寄存器</li>
+</ul>
+<h2 id="CALL"><a href="#CALL" class="headerlink" title="CALL"></a>CALL</h2><p><strong>用法</strong> CALL target。先把返回地址（CALL 的下一条指令的地址）压入栈，再跳转到目标地址执行，相当于”push 返回地址 + jmp target”的组合。</p>
+<ul>
+<li><p><strong>与RET配对</strong> 被调用函数末尾的 <code>ret</code> 指令从栈顶弹出返回地址并跳回去，相当于 <code>pop rip</code>。如果栈不平衡（push&#x2F;pop 不配对），ret 就会跳到错误的地址——栈溢出之所以能劫持控制流，利用的正是这一点</p>
+</li>
+<li><p><strong>调用形式</strong></p>
+  <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">call func          ; 直接调用，目标地址编译期确定</span><br><span class="line">call rax           ; 间接调用，目标地址在寄存器中</span><br><span class="line">call qword [rbx]   ; 间接调用，目标地址在内存中（如 GOT 表、虚表）</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>参数传递</strong> x86-64 Linux 下前 6 个整型&#x2F;指针参数依次走 rdi、rsi、rdx、rcx、r8、r9，其余压栈，返回值放 rax；32 位下参数全部从右往左压栈</p>
+</li>
+</ul>
+<h2 id="JUMP"><a href="#JUMP" class="headerlink" title="JUMP"></a>JUMP</h2><p><strong>用法</strong> JMP target 为无条件跳转；Jcc target 为条件跳转，根据标志寄存器决定是否跳转，通常跟在 CMP、TEST 之后。</p>
+<ul>
+<li><p><strong>无条件跳转</strong> <code>jmp func</code>、<code>jmp rax</code>、<code>jmp qword [rbx]</code>，形式与 CALL 相同，但不压返回地址</p>
+</li>
+<li><p><strong>条件跳转</strong></p>
+<table>
+<thead>
+<tr>
+<th>指令</th>
+<th>跳转条件</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>JE &#x2F; JZ</td>
+<td>ZF&#x3D;1</td>
+<td>相等 &#x2F; 结果为零</td>
+</tr>
+<tr>
+<td>JNE &#x2F; JNZ</td>
+<td>ZF&#x3D;0</td>
+<td>不相等 &#x2F; 结果非零</td>
+</tr>
+<tr>
+<td>JA &#x2F; JNBE</td>
+<td>CF&#x3D;0 且 ZF&#x3D;0</td>
+<td>无符号大于</td>
+</tr>
+<tr>
+<td>JAE &#x2F; JNB</td>
+<td>CF&#x3D;0</td>
+<td>无符号大于等于</td>
+</tr>
+<tr>
+<td>JB &#x2F; JNAE</td>
+<td>CF&#x3D;1</td>
+<td>无符号小于</td>
+</tr>
+<tr>
+<td>JBE &#x2F; JNA</td>
+<td>CF&#x3D;1 或 ZF&#x3D;1</td>
+<td>无符号小于等于</td>
+</tr>
+<tr>
+<td>JG &#x2F; JNLE</td>
+<td>ZF&#x3D;0 且 SF&#x3D;OF</td>
+<td>有符号大于</td>
+</tr>
+<tr>
+<td>JGE &#x2F; JNL</td>
+<td>SF&#x3D;OF</td>
+<td>有符号大于等于</td>
+</tr>
+<tr>
+<td>JL &#x2F; JNGE</td>
+<td>SF≠OF</td>
+<td>有符号小于</td>
+</tr>
+<tr>
+<td>JLE &#x2F; JNG</td>
+<td>ZF&#x3D;1 或 SF≠OF</td>
+<td>有符号小于等于</td>
+</tr>
+<tr>
+<td>JS &#x2F; JNS</td>
+<td>SF&#x3D;1 &#x2F; SF&#x3D;0</td>
+<td>结果为负 &#x2F; 非负</td>
+</tr>
+<tr>
+<td>JO &#x2F; JNO</td>
+<td>OF&#x3D;1 &#x2F; OF&#x3D;0</td>
+<td>溢出 &#x2F; 未溢出</td>
+</tr>
+<tr>
+<td>JC &#x2F; JNC</td>
+<td>CF&#x3D;1 &#x2F; CF&#x3D;0</td>
+<td>有进位 &#x2F; 无进位</td>
+</tr>
+<tr>
+<td>JP &#x2F; JNP</td>
+<td>PF&#x3D;1 &#x2F; PF&#x3D;0</td>
+<td>低8位中1的个数为偶 &#x2F; 为奇</td>
+</tr>
+</tbody></table>
+</li>
+</ul>
+<h2 id="TEST"><a href="#TEST" class="headerlink" title="TEST"></a>TEST</h2><p><strong>用法</strong> TEST destination, source。TEST进行的是<strong>与运算</strong>，只不过不保存计算结果的值，只根据结果设置标志寄存器SF、ZF、PF，并清除CF、OF。</p>
 <ul>
 <li><p><strong>标志寄存器</strong></p>
 <table>
@@ -211,16 +405,31 @@
 <hr>
 <h2 id="CMP"><a href="#CMP" class="headerlink" title="CMP"></a>CMP</h2><p><strong>用法</strong> CMP destination, source。CMP进行的是减运算，即destination-source，但不保存计算结果的值，只根据结果设置标志寄存器</p>
 <ul>
-<li><strong>无符号数的比较</strong></li>
+<li><p><strong>无符号数的比较</strong></p>
+<p>  看 CF 和 ZF：若 destination &lt; source（不够减，产生借位）则 CF&#x3D;1，两者相等则 ZF&#x3D;1。对应跳转指令：大于 JA&#x2F;JNBE、大于等于 JAE&#x2F;JNB、小于 JB&#x2F;JNAE、小于等于 JBE&#x2F;JNA</p>
+</li>
+<li><p><strong>有符号数的比较</strong></p>
+<p>  看 SF、OF、ZF：相等则 ZF&#x3D;1，destination &lt; source 时 SF≠OF。对应跳转指令：大于 JG&#x2F;JNLE、大于等于 JGE&#x2F;JNL、小于 JL&#x2F;JNGE、小于等于 JLE&#x2F;JNG</p>
+</li>
 </ul>
-<h2 id="ENDBR64"><a href="#ENDBR64" class="headerlink" title="ENDBR64"></a>ENDBR64</h2><p><strong>作用</strong> 用于</p>
-<h2 id="BND"><a href="#BND" class="headerlink" title="BND"></a>BND</h2><p><strong>前缀</strong> <code>bnd</code>前缀的核心思想是<strong>边界检查</strong>。当它修饰一条控制流指令（如 <code>jmp</code>, <code>call</code>, <code>ret</code>）时，处理器会检查跳转的目标地址是否在 <code>BND0</code>到 <code>BND3</code>这四个专用的边界寄存器所定义的合法地址范围内。如果目标地址越界，处理器会产生一个异常，这有助于及时发现并阻止由栈溢出、编程错误或恶意攻击导致的控制流劫持行为</p>
-<p>在实际代码中，你可能会在以下场景遇到 <code>bnd</code>前缀：</p>
+<h2 id="ENDBR64"><a href="#ENDBR64" class="headerlink" title="ENDBR64"></a>ENDBR64</h2><p><strong>作用</strong> 用于标记间接跳转（通过寄存器或内存进行的 <code>call</code>、<code>jmp</code>）的合法目标地址，是 Intel CET 中 IBT（间接分支追踪）机制的一部分</p>
 <ul>
-<li><strong>动态链接</strong>：在程序的 PLT（过程链接表）中，经常能看到类似 <code>bnd jmpq [reloc.printf]</code>的指令。这是编译器为了增强库函数调用的安全性而插入的。</li>
-<li><strong>反汇编提示</strong>：由于 <code>bnd</code>前缀的编码 (<code>F2H</code>) 与 <code>REPNE</code>前缀相同，一些旧版或不支持 MPX 的反汇编器可能会错误地将 <code>bnd jmp</code>显示为 <code>repne jmp</code>。如果你在反汇编代码中看到 <code>repne</code>修饰控制流指令，它很可能实际上是 <code>bnd</code>前缀</li>
+<li><strong>工作原理</strong> 程序开启 CET 后，一旦执行间接跳转，处理器就进入”等待 ENDBR”状态，下一条指令必须是 ENDBR64（32位为 ENDBR32），否则触发 #CP 异常。攻击者用 ROP&#x2F;JOP 把控制流劫持到函数中间时，落点不会有这条指令，从而被拦下</li>
+<li><strong>兼容性</strong> 在不支持 CET 的处理器上，ENDBR64 被当作 NOP 执行，没有任何副作用，所以编译器可以放心地在每个函数开头插入它——反汇编时看到函数以 <code>endbr64</code> 开头，就是这个原因</li>
 </ul>
-<h2 id="PUSH、PUSHA、PUSHF、PUSHAD"><a href="#PUSH、PUSHA、PUSHF、PUSHAD" class="headerlink" title="PUSH、PUSHA、PUSHF、PUSHAD"></a>PUSH、PUSHA、PUSHF、PUSHAD</h2>
+<h2 id="BND"><a href="#BND" class="headerlink" title="BND"></a>BND</h2><p><strong>前缀</strong> <code>bnd</code>前缀的核心思想是<strong>边界检查</strong>。当它修饰一条控制流指令（如 <code>jmp</code>, <code>call</code>, <code>ret</code>）时，处理器会检查跳转的目标地址是否在 <code>BND0</code>到 <code>BND3</code>这四个专用的边界寄存器所定义的合法地址范围内。如果目标地址越界，处理器会产生一个异常，这有助于及时发现并阻止由栈溢出、编程错误或恶意攻击导致的控制流劫持行为</p>
+<p>在实际代码中，你可能会在以下场景遇到 <code>bnd</code>前缀：</p>
+<ul>
+<li><strong>动态链接</strong>：在程序的 PLT（过程链接表）中，经常能看到类似 <code>bnd jmpq [reloc.printf]</code>的指令。这是编译器为了增强库函数调用的安全性而插入的。</li>
+<li><strong>反汇编提示</strong>：由于 <code>bnd</code>前缀的编码 (<code>F2H</code>) 与 <code>REPNE</code>前缀相同，一些旧版或不支持 MPX 的反汇编器可能会错误地将 <code>bnd jmp</code>显示为 <code>repne jmp</code>。如果你在反汇编代码中看到 <code>repne</code>修饰控制流指令，它很可能实际上是 <code>bnd</code>前缀</li>
+</ul>
+<h2 id="PUSH、PUSHA、PUSHF、PUSHAD"><a href="#PUSH、PUSHA、PUSHF、PUSHAD" class="headerlink" title="PUSH、PUSHA、PUSHF、PUSHAD"></a>PUSH、PUSHA、PUSHF、PUSHAD</h2><p><strong>用法</strong> PUSH source。先将栈指针减去操作数大小（64位下 rsp 减8，32位下 esp 减4），再把源操作数写入新的栈顶。与 POP 配对使用：POP 取出栈顶的值存入目的操作数，再把栈指针加回去。</p>
+<ul>
+<li><strong>PUSHA、PUSHAD</strong> 一次性把所有通用寄存器压栈：PUSHA 压入16位寄存器（ax、cx、dx、bx、sp、bp、si、di），PUSHAD 压入32位寄存器（eax、ecx、edx、ebx、esp、ebp、esi、edi）。注意压入的 sp&#x2F;esp 是指令执行<strong>之前</strong>的值。这两条指令仅在16&#x2F;32位模式可用，64位模式已被移除，需要逐条 push</li>
+<li><strong>PUSHF、PUSHFD、PUSHFQ</strong> 把标志寄存器压栈，分别对应16位（FLAGS）、32位（EFLAGS）、64位（RFLAGS），配对指令为 POPF、POPFD、POPFQ，常用于保存和恢复标志位状态</li>
+</ul>
+<p>掌握这些常用指令后，配合调试器单步跟踪，就能读懂绝大多数 CTF PWN 题目的反汇编代码。其余复杂指令（字符串操作、SSE 等）遇到时现查即可。</p>
+
     </div>
     
     <div class="kk-article-tags">
@@ -239,25 +448,16 @@
 
   <nav class="kk-post-nav" data-reveal>
     
-      <a class="kk-card kk-pnav kk-cover-6" href="/2026/07/16/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+      <a class="kk-card kk-pnav kk-cover-7" href="/2026/07/15/pwn-stack-overflow/">
         
-        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=27054')"></span>
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=92335')"></span>
         <span class="kk-cover-shade"></span>
         
         <span class="kk-pnav-label">‹ 上一篇</span>
-        <span class="kk-pnav-title">应急响应学习笔记</span>
+        <span class="kk-pnav-title">栈溢出漏洞</span>
       </a>
     
-    
-      <a class="kk-card kk-pnav kk-pnav-next kk-cover-2" href="/2026/07/15/pwn-chrome-v8/">
-        
-        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=50794')"></span>
-        <span class="kk-cover-shade"></span>
-        
-        <span class="kk-pnav-label">下一篇 ›</span>
-        <span class="kk-pnav-title">Chrome V8 PWN从入门到精通</span>
-      </a>
-    
+    <span class="kk-pnav-empty"></span>
   </nav>
 </article>
 </main>
@@ -280,6 +480,22 @@
       最新文章
     </h3>
     <ul class="kk-recent">
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">内存取证</span>
+            <time>07-20</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">信息收集</span>
+            <time>07-20</time>
+          </a>
+        </li>
       
         <li>
           <a class="kk-recent-link" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
@@ -305,22 +521,6 @@
           </a>
         </li>
       
-        <li>
-          <a class="kk-recent-link" href="/2026/07/15/pwn-assembly/">
-            <span class="kk-recent-dot kk-cover-5" aria-hidden="true"></span>
-            <span class="kk-recent-title">汇编语言从入门到精通</span>
-            <time>07-15</time>
-          </a>
-        </li>
-      
-        <li>
-          <a class="kk-recent-link" href="/2026/07/15/pwn-chrome-v8/">
-            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
-            <span class="kk-recent-title">Chrome V8 PWN从入门到精通</span>
-            <time>07-15</time>
-          </a>
-        </li>
-      
     </ul>
   </div>
 
@@ -341,14 +541,14 @@
         <li>
           <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
             <span>应急响应</span>
-            <span class="kk-badge">1</span>
+            <span class="kk-badge">2</span>
           </a>
         </li>
       
         <li>
           <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
             <span>渗透测试</span>
-            <span class="kk-badge">2</span>
+            <span class="kk-badge">3</span>
           </a>
         </li>
       
@@ -388,27 +588,39 @@
       
         <a class="kk-tag-chip kk-chip-4" href="/tags/pwn/">#pwn</a>
       
-        <a class="kk-tag-chip kk-chip-5" href="/tags/setcontext/">#setcontext</a>
+        <a class="kk-tag-chip kk-chip-5" href="/tags/ret2dlresolve/">#ret2dlresolve</a>
       
-        <a class="kk-tag-chip kk-chip-6" href="/tags/shellcode/">#shellcode</a>
+        <a class="kk-tag-chip kk-chip-6" href="/tags/setcontext/">#setcontext</a>
       
-        <a class="kk-tag-chip kk-chip-7" href="/tags/srop/">#srop</a>
+        <a class="kk-tag-chip kk-chip-7" href="/tags/shellcode/">#shellcode</a>
       
-        <a class="kk-tag-chip kk-chip-0" href="/tags/stack-overflow/">#stack-overflow</a>
+        <a class="kk-tag-chip kk-chip-0" href="/tags/srop/">#srop</a>
       
-        <a class="kk-tag-chip kk-chip-1" href="/tags/v8/">#v8</a>
+        <a class="kk-tag-chip kk-chip-1" href="/tags/stack-overflow/">#stack-overflow</a>
       
-        <a class="kk-tag-chip kk-chip-2" href="/tags/windows/">#windows</a>
+        <a class="kk-tag-chip kk-chip-2" href="/tags/v8/">#v8</a>
       
-        <a class="kk-tag-chip kk-chip-3" href="/tags/x64/">#x64</a>
+        <a class="kk-tag-chip kk-chip-3" href="/tags/volatility/">#volatility</a>
       
-        <a class="kk-tag-chip kk-chip-4" href="/tags/x86/">#x86</a>
+        <a class="kk-tag-chip kk-chip-4" href="/tags/windows/">#windows</a>
       
-        <a class="kk-tag-chip kk-chip-5" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+        <a class="kk-tag-chip kk-chip-5" href="/tags/x64/">#x64</a>
       
-        <a class="kk-tag-chip kk-chip-6" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+        <a class="kk-tag-chip kk-chip-6" href="/tags/x86/">#x86</a>
       
-        <a class="kk-tag-chip kk-chip-7" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+        <a class="kk-tag-chip kk-chip-7" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">#信息收集</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">#内存取证</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/%E5%86%85%E7%BD%91/">#内网</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>
       
     </div>
   </div>
@@ -425,8 +637,8 @@
     · Theme <b>KiraKira</b>
   </p>
   <p class="kk-footer-stats">
-    全站 9.5w 字
-     · 已陪伴你 <b>6</b> 天
+    全站 11.2w 字
+     · 已陪伴你 <b>7</b> 天
   </p>
 </footer>
 

